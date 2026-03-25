@@ -58,6 +58,7 @@ export default function Home() {
             description="It's the core of your company's identity. It guides all business decisions, ensuring a consistent and impactful presence in the market."
             list={["Research & Insights", "Brand Model", "Positioning", "Value proposition", "Messaging", "Verbal identity", "Naming"]}
             imageContent={<StrategyImage />}
+            direction="left"
           />
         </StackSection>
 
@@ -68,6 +69,7 @@ export default function Home() {
             description="Visual identity is the unique visual language of your brand, creating memorable impressions and emotional connections with your audience."
             list={["Logotype, Typography & Colour", "Visual Language", "Illustrations & 3D", "Art Direction", "Brandbook & Guidelines", "Motion Design", "Brand Applications"]}
             imageContent={<VisualImage />}
+            direction="right"
           />
         </StackSection>
 
@@ -78,6 +80,7 @@ export default function Home() {
             description="Our website design services blend innovation and creativity to deliver user-centric solutions that elevate your brand and engage your audience."
             list={["UX Design", "Website Design", "Responsive Design", "Website Motion", "Animations"]}
             imageContent={<WebsiteImage />}
+            direction="left"
           />
         </StackSection>
 
@@ -89,6 +92,7 @@ export default function Home() {
             list={["UX Design", "User Testing", "Prototyping", "UI Design", "App Design", "Interaction Design"]}
             textColor="text-[#ffffff]"
             imageContent={<ProductImage />}
+            direction="right"
           />
         </StackSection>
       </StackContainer>

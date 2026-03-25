@@ -25,8 +25,14 @@ export default function Insights() {
 
       {/* Cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-32">
-        {/* Card 1 */}
-        <div className="flex flex-col gap-4 group cursor-pointer">
+        {/* Card 1: From Left */}
+        <motion.div 
+          initial={{ opacity: 0, x: -80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex flex-col gap-4 group cursor-pointer"
+        >
           <div className="w-full aspect-[4/3] bg-[#ff8cc2] text-[#1a1a1a] rounded-xl p-8 flex flex-col items-center justify-center text-center transition-transform duration-500 group-hover:scale-[0.98]">
             <p className="text-xs font-semibold mb-4 opacity-60">SERIOUS.BUSINESS</p>
             <p className="font-playfair text-sm italic mb-2 tracking-wide">The Heart of the Shift:</p>
@@ -38,10 +44,16 @@ export default function Insights() {
           <div className="border-b border-current pb-2 mt-4">
             <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Knowledge</span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Card 2 */}
-        <div className="flex flex-col gap-4 group cursor-pointer">
+        {/* Card 2: From Bottom */}
+        <motion.div 
+          initial={{ opacity: 0, y: 80 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+          className="flex flex-col gap-4 group cursor-pointer"
+        >
           <div className="w-full aspect-[4/3] bg-[#fdf8e7] text-[#1a1a1a] rounded-xl p-8 flex flex-col items-center justify-center text-center transition-transform duration-500 group-hover:scale-[0.98]">
             <p className="text-xs font-semibold mb-4 opacity-60">SERIOUS.BUSINESS</p>
             <p className="font-playfair text-sm italic mb-2 tracking-wide text-[#ff8cc2]">Research Is Our Love Language:</p>
@@ -53,10 +65,16 @@ export default function Insights() {
           <div className="border-b border-current pb-2 mt-4">
             <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Knowledge</span>
           </div>
-        </div>
+        </motion.div>
 
-        {/* Card 3 */}
-        <div className="flex flex-col gap-4 group cursor-pointer">
+        {/* Card 3: From Right */}
+        <motion.div 
+          initial={{ opacity: 0, x: 80 }}
+          whileInView={{ opacity: 1, x: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
+          className="flex flex-col gap-4 group cursor-pointer"
+        >
           <div className="w-full aspect-[4/3] bg-[#f3f3f3] text-[#1a1a1a] rounded-xl p-8 flex flex-col items-center justify-center text-center transition-transform duration-500 group-hover:scale-[0.98]">
             <p className="text-xs font-semibold mb-4 opacity-60">SERIOUS.BUSINESS</p>
             <p className="font-playfair text-sm italic mb-2 tracking-wide">The Founders' Guide to Rebranding</p>
@@ -68,7 +86,7 @@ export default function Insights() {
           <div className="border-b border-current pb-2 mt-4">
             <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Knowledge</span>
           </div>
-        </div>
+        </motion.div>
       </div>
 
       {/* Relationships */}

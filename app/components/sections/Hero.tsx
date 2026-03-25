@@ -43,17 +43,28 @@ export function HeroTopText() {
 
 export default function Hero() {
   const { scrollYProgress } = useScroll();
-  const springConfig = { stiffness: 45, damping: 25, mass: 1.2 };
+  // Made spring smoother with lower stiffness
+  const springConfig = { stiffness: 25, damping: 25, mass: 1.2 };
 
   // 🎯 VIDEO EXPANDING PHYSICS (Corner to Viewport)
-  const width = useTransform(scrollYProgress, [0, 0.35], ["min(180px, 35vw)", "80vw"]);
+  // Expanded width to calc(100vw - 3rem) to reach the opposite side perfectly (left is 1.5rem, yielding 1.5rem gap on both sides)
+  // Video Expansion transforms
+  // capped at 0.8 to ensure it feels "fixed" at its finale
+  const expandedWidth = "calc(100vw - 3rem)";
+  const initialWidth = "min(180px, 35vw)";
+  
+  const width = useTransform(scrollYProgress, [0.05, 0.45], [initialWidth, expandedWidth]);
   const smoothWidth = useSpring(width, springConfig);
 
-  const height = useTransform(scrollYProgress, [0, 0.35], ["min(100px, 20vw)", "60vh"]);
+  const height = useTransform(scrollYProgress, [0.05, 0.45], ["min(100px, 20vw)", "75vh"]);
   const smoothHeight = useSpring(height, springConfig);
 
-  const top = useTransform(scrollYProgress, [0, 0.35], ["calc(100vh - 160px)", "15vh"]);
+  const top = useTransform(scrollYProgress, [0.05, 0.45], ["calc(100vh - 160px)", "12vh"]);
   const smoothTop = useSpring(top, springConfig);
+
+  // Fade out styling so it becomes a clear, playable video without blue tint
+  const filterOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
+  const smoothFilterOpacity = useSpring(filterOpacity, springConfig);
 
   // Fade out center text shortly after scroll begins
   const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
@@ -107,17 +118,36 @@ export default function Hero() {
         </div>
       </motion.div>
 
-      {/* Blue Video Frame (Expanding) */}
+      {/* Expanding Video Component */}
       <motion.div
         initial={{ x: -100, opacity: 0 }}
         animate={{ x: 0, opacity: 1 }}
         transition={{ delay: 3.6, duration: 0.8, ease: "easeOut" }}
         style={{ width: smoothWidth, height: smoothHeight, top: smoothTop }}
-        className="absolute left-6 z-40 rounded-xl overflow-hidden bg-[#0A0AFF] shadow-2xl"
+        className="absolute left-6 z-40 rounded-xl overflow-hidden shadow-2xl bg-[#fff242] p-1.5 flex items-center justify-center shadow-indigo-500/20"
       >
-        <video autoPlay muted loop playsInline className="w-full h-full object-cover mix-blend-overlay opacity-50">
-          <source src="/hero.mp4" type="video/mp4" />
-        </video>
+        <div className="relative w-full h-full rounded-lg overflow-hidden bg-black">
+          <video 
+            autoPlay 
+            muted 
+            loop 
+            playsInline 
+            className="w-full h-full object-cover"
+          >
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-motion-of-white-smoke-colors-33096-large.mp4" type="video/mp4" />
+          </video>
+          
+          {/* Keeping the smooth overlays for the architectural feel when small */}
+          <motion.div 
+            style={{ opacity: smoothFilterOpacity }}
+            className="absolute inset-0 bg-[#0A0AFF] mix-blend-color pointer-events-none" 
+          />
+          <motion.div 
+            style={{ opacity: smoothFilterOpacity }}
+            className="absolute inset-0 bg-black/20 pointer-events-none" 
+          />
+        </div>
+
         <div className="absolute inset-0 border border-white/20 rounded-xl pointer-events-none" />
       </motion.div>
       
