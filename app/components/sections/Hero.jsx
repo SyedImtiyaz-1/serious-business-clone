@@ -1,7 +1,7 @@
 "use client";
 
 import { motion, useScroll, useSpring, useTransform } from "framer-motion";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SmileLogo from "../ui/SmileLogo";
@@ -42,6 +42,7 @@ export function HeroTopText() {
 }
 
 export default function Hero() {
+  const [mounted, setMounted] = useState(false);
   const { scrollYProgress } = useScroll();
   // Made spring smoother with lower stiffness
   const springConfig = { stiffness: 25, damping: 25, mass: 1.2 };
@@ -59,19 +60,21 @@ export default function Hero() {
   const height = useTransform(scrollYProgress, [0.05, 0.45], ["min(100px, 20vw)", "75vh"]);
   const smoothHeight = useSpring(height, springConfig);
 
-  // Adjust start top for mobile vs desktop
-  const initialTop = typeof window !== "undefined" && window.innerWidth < 768 ? "95vh" : "80vh";
-  const top = useTransform(scrollYProgress, [0.05, 0.45], [initialTop, "12vh"]);
-  const smoothTop = useSpring(top, springConfig);
+  const orbRef = useRef(null);
+  
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
+  const initialTopVal = mounted && window.innerWidth < 768 ? "95vh" : "80vh";
+  const top = useTransform(scrollYProgress, [0.05, 0.45], [initialTopVal, "12vh"]);
+  const smoothTop = useSpring(top, springConfig);
   // Fade out styling so it becomes a clear, playable video without blue tint
   const filterOpacity = useTransform(scrollYProgress, [0, 0.35], [1, 0]);
   const smoothFilterOpacity = useSpring(filterOpacity, springConfig);
 
   // Fade out center text shortly after scroll begins
   const textOpacity = useTransform(scrollYProgress, [0, 0.15], [1, 0]);
-
-  const orbRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -88,6 +91,8 @@ export default function Hero() {
     });
     return () => ctx.revert();
   }, []);
+
+  if (!mounted) return <section className="relative w-full h-[120vh] bg-primary overflow-hidden" />;
 
   return (
     <section className="relative w-full h-[120vh] bg-primary overflow-hidden" data-component="reel">
