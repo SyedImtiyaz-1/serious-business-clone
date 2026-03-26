@@ -1,7 +1,8 @@
 "use client";
 
 import { motion, useScroll, AnimatePresence } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
+import gsap from "gsap";
 import MenuOverlay from "./MenuOverlay";
 
 const SmileIcon = () => (
@@ -12,8 +13,22 @@ const SmileIcon = () => (
   </svg>
 );
 
-const NavButton = ({ text, hoverText, icon, hoverIcon, onClick, isMenu = false }) => {
+const NavButton = ({ text, hoverText, icon, hoverIcon, onClick, isLetsWork = false }) => {
   const [isHovered, setIsHovered] = useState(false);
+  const circleRef = useRef(null);
+  const iconWrapperRef = useRef(null);
+
+  // GSAP animation for the smile appearing "from back with circulling"
+  useEffect(() => {
+    if (isLetsWork && iconWrapperRef.current) {
+      if (isHovered) {
+        gsap.fromTo(iconWrapperRef.current, 
+          { scale: 0, rotate: -180, opacity: 0 },
+          { scale: 1, rotate: 0, opacity: 1, duration: 0.5, ease: "back.out(1.7)" }
+        );
+      }
+    }
+  }, [isHovered, isLetsWork]);
 
   const pillVariants = {
     initial: { backgroundColor: "#ffffff", color: "#1a1a1a" },
@@ -21,18 +36,8 @@ const NavButton = ({ text, hoverText, icon, hoverIcon, onClick, isMenu = false }
   };
 
   const circleVariants = {
-    initial: { rotate: 0, backgroundColor: "#ffffff", color: "#1a1a1a" },
-    hover: { rotate: 360, backgroundColor: "#1a1a1a", color: "#ffffff" }
-  };
-
-  const iconVariants = {
-    initial: { opacity: 1, scale: 1 },
-    hover: { opacity: 0, scale: 0.8 }
-  };
-
-  const hoverIconVariants = {
-    initial: { opacity: 0, scale: 0.8 },
-    hover: { opacity: 1, scale: 1 }
+    initial: { backgroundColor: "#ffffff", color: "#1a1a1a" },
+    hover: { backgroundColor: "#1a1a1a", color: "#ffffff" }
   };
 
   return (
@@ -78,21 +83,34 @@ const NavButton = ({ text, hoverText, icon, hoverIcon, onClick, isMenu = false }
           )}
         </AnimatePresence>
       </motion.div>
+      
+      {/* Circle with Icon */}
+      {/* Always show circle for Menu, only on hover or if icon exists for others */}
       <motion.div 
+        ref={circleRef}
         variants={circleVariants}
         transition={{ 
-          rotate: { duration: 0.6, ease: [0.33, 1, 0.68, 1] },
           backgroundColor: { duration: 0.3 },
           color: { duration: 0.3 }
         }}
+        // Ensure circle is hidden if no icon and not hovered for Let's Work
+        animate={{ 
+          opacity: (isLetsWork && !isHovered && !icon) ? 0 : 1,
+          scale: (isLetsWork && !isHovered && !icon) ? 0.8 : 1,
+          rotate: isHovered ? 360 : 0
+        }}
         className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center text-xl flex-shrink-0 relative"
       >
-        <motion.div variants={iconVariants} className="absolute inset-0 flex items-center justify-center">
+        <div className="absolute inset-0 flex items-center justify-center transition-opacity duration-200" style={{ opacity: isHovered ? 0 : 1 }}>
            {icon}
-        </motion.div>
-        <motion.div variants={hoverIconVariants} className="absolute inset-0 flex items-center justify-center">
+        </div>
+        <div 
+          ref={iconWrapperRef}
+          className="absolute inset-0 flex items-center justify-center" 
+          style={{ opacity: isHovered ? 1 : 0 }}
+        >
            {hoverIcon}
-        </motion.div>
+        </div>
       </motion.div>
     </motion.div>
   );
@@ -130,14 +148,15 @@ export default function Navbar() {
       transition={{ duration: 0.3 }}
       className="w-full flex items-center justify-between px-8 py-8 pointer-events-none z-[100]"
     >
-      {/* Left: Let's Work */}
+      {/* Left: Let's Work (No arrow by default) */}
       <NavButton 
         text="Let's work" 
-        icon={<span className="leading-none">→</span>} 
+        icon={null} 
         hoverIcon={<SmileIcon />} 
+        isLetsWork={true}
       />
 
-      {/* Center: Website Logo only (no expansion here) */}
+      {/* Center: Website Logo */}
       <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none">
         <AnimatePresence>
           {showCenterLogo && (
