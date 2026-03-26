@@ -22,7 +22,7 @@ export function HeroTopText() {
           hidden: {},
           show: { transition: { staggerChildren: 0.05, delayChildren: 2.5 } }
         }}
-        className="text-[12vw] md:text-[9vw] lg:text-[8.5vw] font-black tracking-tighter text-[#1a1a1a] leading-[0.7] whitespace-nowrap flex overflow-hidden" 
+        className="text-[9vw] md:text-[9vw] lg:text-[8.5vw] font-black tracking-tighter text-[#1a1a1a] leading-[0.7] whitespace-nowrap flex overflow-hidden"
         style={{ fontFamily: "var(--font-geist-sans)", letterSpacing: "-0.04em" }}
       >
         {text.split("").map((char, i) => (
@@ -96,7 +96,7 @@ export default function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 3.3, duration: 0.8, ease: "easeOut" }}
         style={{ opacity: textOpacity }}
-        className="absolute top-2 left-0 w-full flex flex-col items-center z-20 pointer-events-none"
+        className="absolute top-20 md:top-16 left-0 w-full flex flex-col items-center z-20 pointer-events-none"
       >
         <h2 className="text-[20px] md:text-[24px] lg:text-[28px] leading-[1.1] font-playfair text-[#1a1a1a] text-center tracking-tight">
           Premium Branding Agency <br/>

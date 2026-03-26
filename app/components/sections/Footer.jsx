@@ -12,7 +12,7 @@ export default function Footer() {
             <span className="font-bold">You feel it too?</span><br />
             Let's talk, no strings attached
           </p>
-          <h2 className="text-[12vw] md:text-[64px] font-bold tracking-tight leading-none group-hover:pl-2 transition-all duration-300" style={{ fontFamily: "var(--font-geist-sans)" }}>
+          <h2 className="text-[9vw] md:text-[64px] font-bold tracking-tight leading-none group-hover:pl-2 transition-all duration-300" style={{ fontFamily: "var(--font-geist-sans)" }}>
             Send Request
           </h2>
         </div>
@@ -23,7 +23,7 @@ export default function Footer() {
             Our free offer for B2B tech scaleups!<br />
             We identify high-impact messaging and brand fixes you can implement within 24 hours.
           </p>
-          <h2 className="text-[12vw] md:text-[64px] font-bold tracking-tight leading-none group-hover:pl-2 transition-all duration-300" style={{ fontFamily: "var(--font-geist-sans)" }}>
+          <h2 className="text-[9vw] md:text-[64px] font-bold tracking-tight leading-none group-hover:pl-2 transition-all duration-300" style={{ fontFamily: "var(--font-geist-sans)" }}>
             Brand <br className="hidden md:block"/> Masterplan
           </h2>
         </div>
@@ -50,7 +50,7 @@ export default function Footer() {
           </div>
         </div>
         
-        <div className="flex flex-col gap-8 text-right mt-12 md:mt-0">
+        <div className="flex flex-col gap-8 text-left md:text-right mt-8 md:mt-0">
           <div>
             <h4 className="text-[10px] uppercase font-bold tracking-widest mb-1">Say Hello</h4>
             <a href="mailto:hello@serious.business" className="text-xl hover:opacity-60 transition-opacity">hello@serious.business</a>

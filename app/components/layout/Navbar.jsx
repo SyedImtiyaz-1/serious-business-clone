@@ -51,7 +51,7 @@ const NavButton = ({ text, hoverText, icon, hoverIcon, onClick, isMenu = false }
           duration: 0.3,
           layout: { duration: 0.4, ease: [0.33, 1, 0.68, 1] }
         }}
-        className="px-6 py-3 rounded-full shadow-sm font-bold text-sm flex items-center overflow-hidden"
+        className="px-3 py-2 md:px-6 md:py-3 rounded-full shadow-sm font-bold text-xs md:text-sm flex items-center overflow-hidden"
       >
         <AnimatePresence mode="wait">
           {!isHovered ? (
@@ -85,7 +85,7 @@ const NavButton = ({ text, hoverText, icon, hoverIcon, onClick, isMenu = false }
           backgroundColor: { duration: 0.3 },
           color: { duration: 0.3 }
         }}
-        className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center text-xl flex-shrink-0 relative"
+        className="w-8 h-8 md:w-11 md:h-11 rounded-full shadow-sm flex items-center justify-center text-base md:text-xl flex-shrink-0 relative"
       >
         <motion.div variants={iconVariants} className="absolute inset-0 flex items-center justify-center">
            {icon}
@@ -128,7 +128,7 @@ export default function Navbar() {
       initial={{ opacity: 1 }}
       animate={{ y: hideNavbar ? -100 : 0, opacity: hideNavbar ? 0 : 1 }}
       transition={{ duration: 0.3 }}
-      className="w-full flex items-center justify-between px-8 py-8 pointer-events-none z-[100]"
+      className="w-full flex items-center justify-between px-4 py-4 md:px-8 md:py-8 pointer-events-none z-[100]"
     >
       {/* Left: Let's Work */}
       <NavButton 

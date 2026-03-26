@@ -17,6 +17,7 @@ html, body {
   background: var(--color-primary);
   color: var(--color-black);
   font-family: 'Inter', sans-serif;
+  overflow-x: hidden;
 }
 
 /* Utility classes (optional but powerful) */

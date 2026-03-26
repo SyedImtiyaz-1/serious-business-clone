@@ -5,7 +5,7 @@ import AnimatedCounter from "../ui/AnimatedCounter";
 
 export default function About() {
   return (
-    <div className="w-full h-screen px-6 py-32 flex items-center max-w-[1400px] mx-auto text-black relative">
+    <div className="w-full px-6 py-16 md:py-32 flex items-center max-w-[1400px] mx-auto text-black relative">
       <div className="grid grid-cols-1 md:grid-cols-12 w-full gap-16">
         
         {/* Left Column - Serious Facts */}
@@ -21,7 +21,7 @@ export default function About() {
             viewport={{ once: true }}
             transition={{ duration: 0.6 }}
           >
-            <h3 className="text-[5rem] font-medium leading-none mb-4" style={{ fontFamily: "var(--font-geist-sans)" }}>
+            <h3 className="text-[3rem] md:text-[5rem] font-medium leading-none mb-4" style={{ fontFamily: "var(--font-geist-sans)" }}>
               <AnimatedCounter value={3} />
             </h3>
             <p className="text-sm font-medium tracking-wide">Agency of the Year Nominations</p>
@@ -43,7 +43,7 @@ export default function About() {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8 }}
-            className="text-[5vw] font-medium leading-[1.1] tracking-tight mb-12"
+            className="text-[7vw] md:text-[5vw] font-medium leading-[1.1] tracking-tight mb-8 md:mb-12"
             style={{ fontFamily: "var(--font-geist-sans)" }}
           >
             Crafting premium <br/>

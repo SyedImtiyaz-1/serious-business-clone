@@ -7,13 +7,13 @@ export default function Insights() {
     <div className="w-full px-6 py-32 max-w-[1400px] mx-auto">
       
       {/* Header */}
-      <div className="flex justify-between items-end mb-16 overflow-hidden">
+      <div className="flex flex-col md:flex-row md:justify-between md:items-end gap-4 mb-10 md:mb-16 overflow-hidden">
         <motion.h2 
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-100px" }}
           transition={{ duration: 0.6 }}
-          className="text-[5vw] font-black leading-none tracking-tight" 
+          className="text-[7vw] md:text-[5vw] font-black leading-tight md:leading-none tracking-tight"
           style={{ fontFamily: "var(--font-geist-sans)" }}
         >
           Latest insights for scaleup teams
