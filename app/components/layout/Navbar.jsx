@@ -138,9 +138,8 @@ export default function Navbar() {
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none z-[100]"
     >
-      <div className="md:hidden block text-[1.35rem] font-black tracking-tighter text-[#1a1a1a] pointer-events-auto leading-none" style={{ fontFamily: "var(--font-geist-sans)" }}>
-        SERIOUS.BUSINESS
-      </div>
+      {/* Mobile Logo Hidden - Desktop only Logo via AnimatePresence */}
+      <div className="md:hidden block pointer-events-none w-0" />
 
       {/* Desktop-only Left: Let's Work */}
       <div className="hidden md:block">
