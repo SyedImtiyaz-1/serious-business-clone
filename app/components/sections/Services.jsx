@@ -2,7 +2,6 @@
 
 import { motion } from "framer-motion";
 import AnimatedCounter from "../ui/AnimatedCounter";
-import Reveal from "../ui/Reveal";
 
 export default function ServiceBlock({
   title,
@@ -17,14 +16,15 @@ export default function ServiceBlock({
       
       {/* Left Half (Text + Lists) */}
       <div className="w-full md:w-1/2 flex flex-col justify-start mb-12 md:mb-0">
-        <Reveal>
-          <h2 
-            className="text-[14vw] md:text-[6vw] lg:text-[7vw] font-black leading-[0.9] tracking-tighter mb-8 md:mb-16 lg:mb-24" 
-            style={{ fontFamily: "var(--font-geist-sans)" }}
-          >
-            {title}
-          </h2>
-        </Reveal>
+        <motion.h2 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ margin: "-10%" }}
+          className="text-[14vw] md:text-[6vw] lg:text-[7vw] font-black leading-[0.9] tracking-tighter mb-8 md:mb-16 lg:mb-24" 
+          style={{ fontFamily: "var(--font-geist-sans)" }}
+        >
+          {title}
+        </motion.h2>
 
         <motion.div 
           initial={{ opacity: 0 }}
@@ -33,16 +33,12 @@ export default function ServiceBlock({
           transition={{ delay: 0.2 }}
           className="flex flex-col md:flex-row gap-6 md:gap-8 max-w-[95%]"
         >
-          <Reveal delay={0.4}>
-            <p className="text-[16px] md:text-[18px] lg:text-[20px] font-medium leading-[1.3] w-full md:w-1/2 pr-0 md:pr-4 opacity-90 tracking-tight" style={{ fontFamily: "var(--font-geist-sans)" }}>{description}</p>
-          </Reveal>
-          <Reveal delay={0.6}>
-            <ul className="text-[12px] md:text-[13px] font-semibold leading-relaxed w-full md:w-1/2 space-y-[4px]">
-              {list.map((item, i) => (
-                <li key={i}>{item}</li>
-              ))}
-            </ul>
-          </Reveal>
+          <p className="text-[16px] md:text-[18px] lg:text-[20px] font-medium leading-[1.3] w-full md:w-1/2 pr-0 md:pr-4 opacity-90 tracking-tight" style={{ fontFamily: "var(--font-geist-sans)" }}>{description}</p>
+          <ul className="text-[12px] md:text-[13px] font-semibold leading-relaxed w-full md:w-1/2 space-y-[4px]">
+            {list.map((item, i) => (
+              <li key={i}>{item}</li>
+            ))}
+          </ul>
         </motion.div>
       </div>
 
