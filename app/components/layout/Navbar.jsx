@@ -129,16 +129,23 @@ export default function Navbar() {
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none z-[100]"
     >
-      {/* Left: Let's Work */}
-      <NavButton 
-        text="Let's work" 
-        icon={null} 
-        hoverIcon={<SmileIcon />} 
-        isLetsWork={true}
-      />
+      {/* Mobile-only Left Logo */}
+      <div className="md:hidden block text-[1.1rem] font-black tracking-tighter text-[#1a1a1a] pointer-events-auto" style={{ fontFamily: "var(--font-geist-sans)" }}>
+        SERIOUS.BUSINESS
+      </div>
 
-      {/* Center: Logo */}
-      <div className="absolute left-1/2 -translate-x-1/2 pointer-events-none">
+      {/* Desktop-only Left: Let's Work */}
+      <div className="hidden md:block">
+        <NavButton 
+          text="Let's work" 
+          icon={null} 
+          hoverIcon={<SmileIcon />} 
+          isLetsWork={true}
+        />
+      </div>
+
+      {/* Center: Desktop Logo (Scroll-triggered) */}
+      <div className="absolute left-1/2 -translate-x-1/2 hidden md:block pointer-events-none">
         <AnimatePresence>
           {showCenterLogo && (
             <motion.div
@@ -154,21 +161,33 @@ export default function Navbar() {
         </AnimatePresence>
       </div>
 
-      {/* Right: Menu */}
-      <NavButton 
-        text="Menu" 
-        hoverText={
-          <div className="flex gap-6">
-            <span className="hover:opacity-60 transition-opacity">Work</span>
-            <span className="hover:opacity-60 transition-opacity">About</span>
-            <span className="hover:opacity-60 transition-opacity">Services</span>
-            <span className="hover:opacity-60 transition-opacity">Blog</span>
-          </div>
-        }
-        icon={<span className="leading-none text-xl">←</span>} 
-        hoverIcon={<span className="leading-none text-xl">↘</span>}
-        onClick={() => setMenuOpen(true)}
-      />
+      {/* Right: Grouped Buttons on Mobile, Menu on Desktop */}
+      <div className="flex items-center gap-2 pointer-events-auto">
+        {/* Mobile-only "Let's work" */}
+        <div className="md:hidden block">
+          <NavButton 
+            text="Let's work" 
+            icon={null} 
+            hoverIcon={<SmileIcon />} 
+            isLetsWork={true}
+          />
+        </div>
+        
+        <NavButton 
+          text="Menu" 
+          hoverText={
+            <div className="flex gap-6">
+              <span className="hover:opacity-60 transition-opacity">Work</span>
+              <span className="hover:opacity-60 transition-opacity">About</span>
+              <span className="hover:opacity-60 transition-opacity">Services</span>
+              <span className="hover:opacity-60 transition-opacity">Blog</span>
+            </div>
+          }
+          icon={<span className="leading-none text-xl">←</span>} 
+          hoverIcon={<span className="leading-none text-xl">↘</span>}
+          onClick={() => setMenuOpen(true)}
+        />
+      </div>
 
       <MenuOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
     </motion.div>

@@ -2,6 +2,7 @@
 
 import { motion } from "framer-motion";
 import AnimatedCounter from "../ui/AnimatedCounter";
+import Reveal from "../ui/Reveal";
 
 export default function About() {
   return (
@@ -39,28 +40,23 @@ export default function About() {
 
         {/* Right Column - Big Text */}
         <div className="md:col-span-8 flex flex-col justify-center">
-          <motion.h2
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.8 }}
-            className="text-[1.8rem] sm:text-[2.5rem] md:text-[5vw] font-medium leading-[1.1] tracking-tight mb-12"
-            style={{ fontFamily: "var(--font-geist-sans)" }}
-          >
-            Crafting premium <br/>
-            brands for scaleups <br/>
-            that make people smile.
-          </motion.h2>
+          <Reveal>
+            <h2
+              className="text-[1.8rem] sm:text-[2.5rem] md:text-[5vw] font-medium leading-[1.1] tracking-tight mb-12"
+              style={{ fontFamily: "var(--font-geist-sans)" }}
+            >
+              Crafting premium <br/>
+              brands for scaleups <br/>
+              that make people smile.
+            </h2>
+          </Reveal>
 
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.6, delay: 0.2 }}
-          >
+          <Reveal delay={0.4}>
             <button className="px-6 py-3 rounded-full bg-white text-black text-sm font-semibold flex items-center gap-2 transition-all duration-300 hover:bg-[#1a1a1a] hover:text-white hover:scale-105 shadow-sm border border-transparent hover:border-[#1a1a1a]">
               <span>About us</span>
               <span>←</span>
             </button>
-          </motion.div>
+          </Reveal>
         </div>
 
       </div>

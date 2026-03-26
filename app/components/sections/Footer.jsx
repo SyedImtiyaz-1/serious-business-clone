@@ -1,4 +1,5 @@
 "use client";
+import Reveal from "../ui/Reveal";
 
 export default function Footer() {
   return (

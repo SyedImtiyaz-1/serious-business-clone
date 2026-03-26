@@ -1,6 +1,7 @@
 "use client";
 
 import { motion } from "framer-motion";
+import Reveal from "../ui/Reveal";
 
 export default function Insights() {
   return (
@@ -8,16 +9,14 @@ export default function Insights() {
       
       {/* Header */}
       <div className="flex flex-col md:flex-row justify-between items-start md:items-end mb-16 overflow-hidden gap-6">
-        <motion.h2 
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-100px" }}
-          transition={{ duration: 0.6 }}
-          className="text-[1.8rem] sm:text-[2.5rem] md:text-[5vw] font-black leading-none tracking-tight" 
-          style={{ fontFamily: "var(--font-geist-sans)" }}
-        >
-          Latest insights for scaleup teams
-        </motion.h2>
+        <Reveal>
+          <h2 
+            className="text-[1.8rem] sm:text-[2.5rem] md:text-[5vw] font-black leading-none tracking-tight" 
+            style={{ fontFamily: "var(--font-geist-sans)" }}
+          >
+            Latest insights for scaleup teams
+          </h2>
+        </Reveal>
         <button className="px-6 py-2 border rounded-full text-sm font-semibold hover:bg-[currentColor] hover:text-[#1a1a1a] transition-colors whitespace-nowrap border-current">
           What's trending. <span className="ml-2">←</span>
         </button>
@@ -40,7 +39,9 @@ export default function Insights() {
               Brand Messaging is the<br/>Soul of Rebranding
             </h3>
           </div>
-          <p className="font-semibold text-sm leading-tight group-hover:opacity-70 transition-opacity">The Heart of the Shift: Brand Messaging is the Soul of Rebranding</p>
+          <Reveal delay={0.4}>
+            <p className="font-semibold text-sm leading-tight group-hover:opacity-70 transition-opacity">The Heart of the Shift: Brand Messaging is the Soul of Rebranding</p>
+          </Reveal>
           <div className="border-b border-current pb-2 mt-4">
             <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Knowledge</span>
           </div>
@@ -61,7 +62,9 @@ export default function Insights() {
               The Art of<br/>Gathering Insights
             </h3>
           </div>
-          <p className="font-semibold text-sm leading-tight group-hover:opacity-70 transition-opacity">Research Is Our Love Language: The Art of Gathering Insights</p>
+          <Reveal delay={0.4}>
+            <p className="font-semibold text-sm leading-tight group-hover:opacity-70 transition-opacity">Research Is Our Love Language: The Art of Gathering Insights</p>
+          </Reveal>
           <div className="border-b border-current pb-2 mt-4">
             <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Knowledge</span>
           </div>
@@ -82,7 +85,9 @@ export default function Insights() {
               ...is it time?
             </h3>
           </div>
-          <p className="font-semibold text-sm leading-tight group-hover:opacity-70 transition-opacity">The Founders' Guide to Rebranding</p>
+          <Reveal delay={0.4}>
+            <p className="font-semibold text-sm leading-tight group-hover:opacity-70 transition-opacity">The Founders' Guide to Rebranding</p>
+          </Reveal>
           <div className="border-b border-current pb-2 mt-4">
             <span className="text-[10px] font-bold uppercase tracking-widest opacity-60">Knowledge</span>
           </div>

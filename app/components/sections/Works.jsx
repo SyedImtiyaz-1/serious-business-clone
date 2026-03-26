@@ -4,6 +4,7 @@ import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Reveal from "../ui/Reveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -49,16 +50,14 @@ export default function Works() {
         </button>
       </div>
 
-      <motion.h2 
-        initial={{ opacity: 0, y: 40 }}
-        whileInView={{ opacity: 1, y: 0 }}
-        viewport={{ once: true, margin: "-100px" }}
-        transition={{ duration: 0.6 }}
-        className="text-[clamp(1.8rem,10vw,5rem)] md:text-[7vw] lg:text-[5vw] font-black leading-[0.9] uppercase mb-16 text-inherit" 
-        style={{ fontFamily: "var(--font-geist-sans)" }}
-      >
-        We partner with serious <br className="hidden md:block"/> scaleups in Europe <br className="hidden md:block"/> and the Americas
-      </motion.h2>
+      <Reveal>
+        <h2 
+          className="text-[clamp(1.8rem,10vw,5rem)] md:text-[7vw] lg:text-[5vw] font-black leading-[0.9] uppercase mb-16 text-inherit" 
+          style={{ fontFamily: "var(--font-geist-sans)" }}
+        >
+          We partner with serious <br className="hidden md:block"/> scaleups in Europe <br className="hidden md:block"/> and the Americas
+        </h2>
+      </Reveal>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-10 overflow-hidden px-4">
         {projects.map((p, i) => {
@@ -77,8 +76,12 @@ export default function Works() {
                 <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
               </div>
               
-              <h3 className="text-2xl font-bold mb-2">{p.title} | {p.desc}</h3>
-              <p className="text-sm font-medium opacity-60 uppercase tracking-wide">{p.tags}</p>
+              <Reveal>
+                <h3 className="text-2xl font-bold mb-2">{p.title} | {p.desc}</h3>
+              </Reveal>
+              <Reveal delay={0.4}>
+                <p className="text-sm font-medium opacity-60 uppercase tracking-wide">{p.tags}</p>
+              </Reveal>
             </motion.div>
           );
         })}

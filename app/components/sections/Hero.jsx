@@ -59,7 +59,7 @@ export default function Hero() {
   const height = useTransform(scrollYProgress, [0.05, 0.45], ["min(100px, 20vw)", "75vh"]);
   const smoothHeight = useSpring(height, springConfig);
 
-  const top = useTransform(scrollYProgress, [0.05, 0.45], ["calc(100vh - 160px)", "12vh"]);
+  const top = useTransform(scrollYProgress, [0.05, 0.45], ["70vh", "12vh"]);
   const smoothTop = useSpring(top, springConfig);
 
   // Fade out styling so it becomes a clear, playable video without blue tint
@@ -96,10 +96,10 @@ export default function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 3.3, duration: 0.8, ease: "easeOut" }}
         style={{ opacity: textOpacity }}
-        className="absolute top-32 md:top-2 left-0 w-full flex flex-col items-center z-20 pointer-events-none px-6"
+        className="absolute top-[55vh] md:top-2 left-0 w-full flex flex-col items-center z-20 pointer-events-none px-6"
       >
         <h2 className="text-[20px] md:text-[24px] lg:text-[28px] leading-[1.1] font-playfair text-[#1a1a1a] text-center tracking-tight">
-          Premium Branding Agency <br/>
+          Premium Branding Agency <br className="hidden md:block"/>
           for B2B Tech Scaleups
         </h2>
       </motion.div>
@@ -111,7 +111,7 @@ export default function Hero() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 3.6, duration: 1.2, type: "spring", bounce: 0.4 }}
         style={{ opacity: textOpacity }}
-        className="absolute top-[5vh] md:top-[2vh] left-0 w-full flex justify-center z-10 pointer-events-none opacity-50 mix-blend-multiply"
+        className="absolute top-[20vh] md:top-[2vh] left-0 w-full flex justify-center z-10 pointer-events-none opacity-50 mix-blend-multiply"
       >
         <div className="w-[60vw] max-w-[600px] aspect-square">
           <SmileLogo />
