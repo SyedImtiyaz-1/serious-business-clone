@@ -14,7 +14,7 @@ export function HeroTopText() {
   const text = "SERIOUS.BUSINESS";
   
   return (
-    <motion.div style={{ opacity: textOpacity }} className="w-full flex justify-center bg-primary pt-8 pb-4 overflow-hidden pointer-events-none select-none">
+    <motion.div style={{ opacity: textOpacity }} className="w-full hidden md:flex justify-center bg-primary pt-8 pb-4 overflow-hidden pointer-events-none select-none">
       <motion.h1 
         initial="hidden"
         animate="show"
@@ -59,7 +59,9 @@ export default function Hero() {
   const height = useTransform(scrollYProgress, [0.05, 0.45], ["min(100px, 20vw)", "75vh"]);
   const smoothHeight = useSpring(height, springConfig);
 
-  const top = useTransform(scrollYProgress, [0.05, 0.45], ["70vh", "12vh"]);
+  // Adjust start top for mobile vs desktop
+  const initialTop = typeof window !== "undefined" && window.innerWidth < 768 ? "95vh" : "80vh";
+  const top = useTransform(scrollYProgress, [0.05, 0.45], [initialTop, "12vh"]);
   const smoothTop = useSpring(top, springConfig);
 
   // Fade out styling so it becomes a clear, playable video without blue tint
@@ -96,9 +98,9 @@ export default function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 3.3, duration: 0.8, ease: "easeOut" }}
         style={{ opacity: textOpacity }}
-        className="absolute top-[55vh] md:top-2 left-0 w-full flex flex-col items-center z-20 pointer-events-none px-6"
+        className="absolute top-[85vh] md:top-2 left-0 w-full flex flex-col items-center z-20 pointer-events-none px-6"
       >
-        <h2 className="text-[20px] md:text-[24px] lg:text-[28px] leading-[1.1] font-playfair text-[#1a1a1a] text-center tracking-tight">
+        <h2 className="text-[20px] md:text-[24px] lg:text-[28px] leading-[1.1] font-bold text-[#1a1a1a] text-center tracking-tighter">
           Premium Branding Agency <br className="hidden md:block"/>
           for B2B Tech Scaleups
         </h2>

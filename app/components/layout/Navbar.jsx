@@ -13,6 +13,14 @@ const SmileIcon = () => (
   </svg>
 );
 
+const MenuIcon = () => (
+  <svg viewBox="0 0 100 100" className="w-6 h-6 fill-current">
+    <circle cx="25" cy="50" r="6" />
+    <circle cx="50" cy="50" r="6" />
+    <circle cx="75" cy="50" r="6" />
+  </svg>
+);
+
 const NavButton = ({ text, hoverText, icon, hoverIcon, onClick, isLetsWork = false }) => {
   const [isHovered, setIsHovered] = useState(false);
   const iconWrapperRef = useRef(null);
@@ -57,6 +65,7 @@ const NavButton = ({ text, hoverText, icon, hoverIcon, onClick, isLetsWork = fal
               animate={{ opacity: 1, filter: "blur(0px)" }}
               exit={{ opacity: 0, filter: "blur(4px)" }}
               transition={{ duration: 0.4, ease: "easeOut" }}
+              className="whitespace-nowrap"
             >
               {text}
             </motion.span>
@@ -129,8 +138,7 @@ export default function Navbar() {
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none z-[100]"
     >
-      {/* Mobile-only Left Logo */}
-      <div className="md:hidden block text-[1.1rem] font-black tracking-tighter text-[#1a1a1a] pointer-events-auto" style={{ fontFamily: "var(--font-geist-sans)" }}>
+      <div className="md:hidden block text-[1.35rem] font-black tracking-tighter text-[#1a1a1a] pointer-events-auto leading-none" style={{ fontFamily: "var(--font-geist-sans)" }}>
         SERIOUS.BUSINESS
       </div>
 
@@ -163,30 +171,36 @@ export default function Navbar() {
 
       {/* Right: Grouped Buttons on Mobile, Menu on Desktop */}
       <div className="flex items-center gap-2 pointer-events-auto">
-        {/* Mobile-only "Let's work" */}
-        <div className="md:hidden block">
+        {/* Mobile-only Layout (Pill + Ellipsis) */}
+        <div className="md:hidden flex items-center gap-2">
+          <div className="bg-white px-5 py-2.5 rounded-full shadow-sm font-bold text-[13px] text-[#1a1a1a] whitespace-nowrap leading-none h-[44px] flex items-center">
+            Let's work
+          </div>
+          <div 
+            onClick={() => setMenuOpen(true)}
+            className="w-11 h-11 bg-white rounded-full shadow-sm flex items-center justify-center text-[#1a1a1a] cursor-pointer"
+          >
+            <MenuIcon />
+          </div>
+        </div>
+
+        {/* Desktop-only Menu */}
+        <div className="hidden md:block">
           <NavButton 
-            text="Let's work" 
-            icon={null} 
-            hoverIcon={<SmileIcon />} 
-            isLetsWork={true}
+            text="Menu" 
+            hoverText={
+              <div className="flex gap-6">
+                <span className="hover:opacity-60 transition-opacity">Work</span>
+                <span className="hover:opacity-60 transition-opacity">About</span>
+                <span className="hover:opacity-60 transition-opacity">Services</span>
+                <span className="hover:opacity-60 transition-opacity">Blog</span>
+              </div>
+            }
+            icon={<span className="leading-none text-xl">←</span>} 
+            hoverIcon={<span className="leading-none text-xl">↘</span>}
+            onClick={() => setMenuOpen(true)}
           />
         </div>
-        
-        <NavButton 
-          text="Menu" 
-          hoverText={
-            <div className="flex gap-6">
-              <span className="hover:opacity-60 transition-opacity">Work</span>
-              <span className="hover:opacity-60 transition-opacity">About</span>
-              <span className="hover:opacity-60 transition-opacity">Services</span>
-              <span className="hover:opacity-60 transition-opacity">Blog</span>
-            </div>
-          }
-          icon={<span className="leading-none text-xl">←</span>} 
-          hoverIcon={<span className="leading-none text-xl">↘</span>}
-          onClick={() => setMenuOpen(true)}
-        />
       </div>
 
       <MenuOverlay isOpen={menuOpen} onClose={() => setMenuOpen(false)} />
