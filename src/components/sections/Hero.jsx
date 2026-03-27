@@ -11,34 +11,7 @@ gsap.registerPlugin(ScrollTrigger);
 export function HeroTopText() {
   const { scrollYProgress } = useScroll();
   const textOpacity = useTransform(scrollYProgress, [0, 0.1], [1, 0]);
-  const text = "SERIOUS.BUSINESS";
-  
-  return (
-    <motion.div style={{ opacity: textOpacity }} className="w-full hidden md:flex justify-center bg-primary pt-8 pb-4 overflow-hidden pointer-events-none select-none">
-      <motion.h1 
-        initial="hidden"
-        animate="show"
-        variants={{
-          hidden: {},
-          show: { transition: { staggerChildren: 0.05, delayChildren: 0.8 } }
-        }}
-        className="text-[clamp(2.5rem,10vw,8.5vw)] font-black tracking-tighter text-[#1a1a1a] leading-[0.7] whitespace-nowrap flex overflow-hidden lg:text-[8.5vw] md:text-[9vw]" 
-        style={{ fontFamily: "var(--font-geist-sans)", letterSpacing: "-0.04em" }}
-      >
-        {text.split("").map((char, i) => (
-          <motion.span 
-            key={i}
-            variants={{
-              hidden: { y: 80, opacity: 0 },
-              show: { y: 0, opacity: 1, transition: { duration: 0.8, ease: [0.33, 1, 0.68, 1] } }
-            }}
-          >
-            {char}
-          </motion.span>
-        ))}
-      </motion.h1>
-    </motion.div>
-  );
+  return null;
 }
 
 export default function Hero() {
@@ -103,7 +76,7 @@ export default function Hero() {
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 1, ease: [0.76, 0, 0.24, 1] }}
         style={{ opacity: textOpacity }}
-        className="absolute top-[85vh] md:top-2 left-0 w-full flex flex-col items-center z-20 pointer-events-none px-6"
+        className="absolute top-[85vh] md:top-32 left-0 w-full flex flex-col items-center z-20 pointer-events-none px-6"
       >
         <h2 className="text-[20px] md:text-[24px] lg:text-[28px] leading-[1.1] font-bold text-[#1a1a1a] text-center tracking-tighter">
           Premium Branding Agency <br className="hidden md:block"/>
@@ -118,45 +91,13 @@ export default function Hero() {
         animate={{ scale: 1, opacity: 1 }}
         transition={{ delay: 1.2, duration: 1.2, type: "spring", bounce: 0.4 }}
         style={{ opacity: textOpacity }}
-        className="absolute top-[20vh] md:top-[2vh] left-0 w-full flex justify-center z-10 pointer-events-none opacity-50 mix-blend-multiply"
+        className="absolute top-[20vh] md:top-1/2 md:-translate-y-1/2 left-0 w-full flex justify-center z-10 pointer-events-none opacity-50 mix-blend-multiply"
       >
         <div className="w-[60vw] max-w-[600px] aspect-square">
           <SmileLogo />
         </div>
       </motion.div>
 
-      {/* Expanding Video Component */}
-      <motion.div
-        initial={{ x: -100, opacity: 0 }}
-        animate={{ x: 0, opacity: 1 }}
-        transition={{ delay: 1.2, duration: 0.8, ease: "easeOut" }}
-        style={{ width: smoothWidth, height: smoothHeight, top: smoothTop }}
-        className="absolute left-6 z-40 rounded-xl overflow-hidden shadow-2xl bg-[#fff242] p-1.5 flex items-center justify-center shadow-indigo-500/20"
-      >
-        <div className="relative w-full h-full rounded-lg overflow-hidden bg-black">
-          <video 
-            autoPlay 
-            muted 
-            loop 
-            playsInline 
-            className="w-full h-full object-cover"
-          >
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-abstract-motion-of-white-smoke-colors-33096-large.mp4" type="video/mp4" />
-          </video>
-          
-          {/* Keeping the smooth overlays for the architectural feel when small */}
-          <motion.div 
-            style={{ opacity: smoothFilterOpacity }}
-            className="absolute inset-0 bg-[#0A0AFF] mix-blend-color pointer-events-none" 
-          />
-          <motion.div 
-            style={{ opacity: smoothFilterOpacity }}
-            className="absolute inset-0 bg-black/20 pointer-events-none" 
-          />
-        </div>
-
-        <div className="absolute inset-0 border border-white/20 rounded-xl pointer-events-none" />
-      </motion.div>
       
     </section>
   );

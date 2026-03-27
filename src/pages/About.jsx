@@ -1,5 +1,5 @@
 import { useRef } from 'react';
-import { Link } from 'react-router-dom';
+import TransitionLink from '../components/ui/TransitionLink';
 import { motion, useInView } from 'framer-motion';
 import styles from './About.module.css';
 
@@ -174,9 +174,9 @@ export default function About() {
       <section className={styles.cta}>
         <FadeIn>
           <h2 className={styles.ctaHeading}>Ready to transform your brand?</h2>
-          <Link to="/contact" className={styles.ctaButton}>
+          <TransitionLink to="/contact" className={styles.ctaButton}>
             Get in Touch
-          </Link>
+          </TransitionLink>
         </FadeIn>
       </section>
     </motion.div>

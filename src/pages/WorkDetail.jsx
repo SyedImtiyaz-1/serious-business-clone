@@ -1,4 +1,5 @@
-import { useParams, Link, Navigate } from 'react-router-dom';
+import { useParams, Navigate } from 'react-router-dom';
+import TransitionLink from '../components/ui/TransitionLink';
 import { motion } from 'framer-motion';
 import projects from '../data/projects';
 import styles from './WorkDetail.module.css';
@@ -22,9 +23,9 @@ export default function WorkDetail() {
         style={{ backgroundImage: `url(${project.image})`, backgroundSize: 'cover', backgroundPosition: 'center', position: 'relative' }}
       >
         <div style={{ position: 'absolute', inset: 0, backgroundColor: 'rgba(0,0,0,0.6)', zIndex: 0 }} />
-        <Link to="/work" className={styles.backLink} style={{ position: 'relative', zIndex: 1 }}>
+        <TransitionLink to="/work" className={styles.backLink} style={{ position: 'relative', zIndex: 1 }}>
           ← All Work
-        </Link>
+        </TransitionLink>
         <motion.h1
           className={styles.heroTitle}
           initial={{ opacity: 0, y: 30 }}

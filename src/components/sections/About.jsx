@@ -8,10 +8,10 @@ export default function About() {
     <div className="w-full min-h-screen px-6 py-24 md:py-32 flex items-center max-w-[1400px] mx-auto text-black relative">
       <div className="grid grid-cols-1 md:grid-cols-12 w-full gap-16">
         
-        {/* Left Column - Serious Facts */}
+        {/* Left Column - Key Facts */}
         <div className="md:col-span-4 flex flex-col justify-center">
           <div className="flex items-center justify-between border-b border-black mb-6 pb-2 text-sm font-semibold tracking-wider uppercase">
-            <span>Serious Facts</span>
+            <span>Key Facts</span>
             <span>04 / 05</span>
           </div>
 

@@ -33,7 +33,7 @@ export default function SmileLogo() {
             filter: "url(#pressed)"
           }}
         >
-          SB
+          MH
         </text>
 
         {/* Smile */}

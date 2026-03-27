@@ -1,7 +1,7 @@
 
 import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import TransitionLink from "../ui/TransitionLink";
 import gsap from "gsap";
 
 const SmileIcon = () => (
@@ -152,8 +152,10 @@ export default function Navbar() {
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none z-[100]"
     >
-      <div className="md:hidden block text-[1.35rem] font-black tracking-tighter text-current pointer-events-auto leading-none" style={{ fontFamily: "var(--font-geist-sans)" }}>
-        SERIOUS.BUSINESS
+      <div className="md:hidden block pointer-events-auto leading-none">
+        <TransitionLink to="/">
+          <img src="/logonewlong.png" alt="Marshall Haber Creative Group" className="h-6 w-auto cursor-pointer" />
+        </TransitionLink>
       </div>
 
       {/* Desktop-only Left: Let's Work */}
@@ -166,32 +168,22 @@ export default function Navbar() {
         />
       </div>
 
-      {/* Center: Desktop Logo (Scroll-triggered) */}
-      <div className="absolute left-1/2 -translate-x-1/2 hidden md:block pointer-events-none">
-        <AnimatePresence>
-          {showCenterLogo && (
-            <motion.div
-              initial={{ opacity: 0, scale: 0.9, y: 10 }}
-              animate={{ opacity: 1, scale: 1, y: 0 }}
-              exit={{ opacity: 0, scale: 0.9, y: 10 }}
-              className="text-xl font-black tracking-tighter text-[var(--accent-color)] pointer-events-auto"
-              style={{ fontFamily: "var(--font-geist-sans)" }}
-            >
-              SERIOUS.BUSINESS
-            </motion.div>
-          )}
-        </AnimatePresence>
+      {/* Center: Desktop Logo (Always visible) */}
+      <div className="absolute left-1/2 -translate-x-1/2 hidden md:block pointer-events-auto">
+        <TransitionLink to="/">
+          <img src="/logonewlong.png" alt="Marshall Haber Creative Group" className="h-24 w-auto cursor-pointer" />
+        </TransitionLink>
       </div>
 
       {/* Right: Grouped Buttons on Mobile, Menu on Desktop */}
       <div className="flex items-center gap-2 pointer-events-auto">
         {/* Mobile-only Layout: Direct Links */}
         <div className="md:hidden flex items-center gap-4 overflow-x-auto no-scrollbar">
-          <Link to="/" className="text-[13px] font-bold opacity-70 hover:opacity-100 transition-opacity whitespace-nowrap">Home</Link>
-          <Link to="/work" className="text-[13px] font-bold opacity-70 hover:opacity-100 transition-opacity whitespace-nowrap">Work</Link>
-          <Link to="/about" className="text-[13px] font-bold opacity-70 hover:opacity-100 transition-opacity whitespace-nowrap">About</Link>
-          <Link to="/services" className="text-[13px] font-bold opacity-70 hover:opacity-100 transition-opacity whitespace-nowrap">Services</Link>
-          <Link to="/contact" className="text-[13px] font-bold opacity-70 hover:opacity-100 transition-opacity whitespace-nowrap">Contact</Link>
+          <TransitionLink to="/" className="text-[13px] font-bold opacity-70 hover:opacity-100 transition-opacity whitespace-nowrap">Home</TransitionLink>
+          <TransitionLink to="/work" className="text-[13px] font-bold opacity-70 hover:opacity-100 transition-opacity whitespace-nowrap">Work</TransitionLink>
+          <TransitionLink to="/about" className="text-[13px] font-bold opacity-70 hover:opacity-100 transition-opacity whitespace-nowrap">About</TransitionLink>
+          <TransitionLink to="/services" className="text-[13px] font-bold opacity-70 hover:opacity-100 transition-opacity whitespace-nowrap">Services</TransitionLink>
+          <TransitionLink to="/contact" className="text-[13px] font-bold opacity-70 hover:opacity-100 transition-opacity whitespace-nowrap">Contact</TransitionLink>
         </div>
 
         {/* Desktop-only Menu */}
@@ -201,11 +193,11 @@ export default function Navbar() {
             isActive={false}
             hoverText={
               <div className="flex gap-6">
-                <Link to="/" className="hover:opacity-60 transition-opacity">Home</Link>
-                <Link to="/work" className="hover:opacity-60 transition-opacity">Work</Link>
-                <Link to="/about" className="hover:opacity-60 transition-opacity">About</Link>
-                <Link to="/services" className="hover:opacity-60 transition-opacity">Services</Link>
-                <Link to="/contact" className="hover:opacity-60 transition-opacity">Contact</Link>
+                <TransitionLink to="/" className="hover:opacity-60 transition-opacity">Home</TransitionLink>
+                <TransitionLink to="/work" className="hover:opacity-60 transition-opacity">Work</TransitionLink>
+                <TransitionLink to="/about" className="hover:opacity-60 transition-opacity">About</TransitionLink>
+                <TransitionLink to="/services" className="hover:opacity-60 transition-opacity">Services</TransitionLink>
+                <TransitionLink to="/contact" className="hover:opacity-60 transition-opacity">Contact</TransitionLink>
               </div>
             }
             icon={<MenuIcon isOpen={false} />}

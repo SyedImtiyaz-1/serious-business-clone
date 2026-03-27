@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
+import TransitionLink from '../components/ui/TransitionLink';
 import { motion, AnimatePresence } from 'framer-motion';
 import projects from '../data/projects';
 import vid2 from '../assets/vid2.mp4';
@@ -65,7 +65,7 @@ export default function Work() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5 }}
           >
-            <Link to="/work/motorio" className={styles.card}>
+            <TransitionLink to="/work/motorio" className={styles.card}>
               <div className={styles.cardImage}>
                 <video
                   autoPlay
@@ -78,7 +78,7 @@ export default function Work() {
               </div>
               <h2 className={styles.cardTitle}>Motorio</h2>
               <p className={styles.cardSubtitle}>Automotive Branding</p>
-            </Link>
+            </TransitionLink>
           </motion.div>
 
           <AnimatePresence>
@@ -89,13 +89,13 @@ export default function Work() {
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5, delay: i * 0.08 }}
             >
-              <Link to={`/work/${project.slug}`} className={styles.card}>
+              <TransitionLink to={`/work/${project.slug}`} className={styles.card}>
                 <div className={styles.cardImage}>
                   <img src={project.image} alt={project.title} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
                 </div>
                 <h2 className={styles.cardTitle}>{project.title}</h2>
                 <p className={styles.cardSubtitle}>{project.subtitle}</p>
-              </Link>
+              </TransitionLink>
             </motion.div>
           ))}
           </AnimatePresence>

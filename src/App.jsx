@@ -4,6 +4,7 @@ import Navbar from "./components/layout/Navbar";
 import Footer from "./components/sections/Footer";
 import ClientWrapper from "./components/layout/ClientWrapper";
 import CustomCursor from "./components/ui/CustomCursor";
+import { TransitionProvider } from "./components/ui/PageTransition";
 import Home from "./pages/Home";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -14,6 +15,7 @@ import WorkDetail from "./pages/WorkDetail";
 export default function App() {
   return (
     <Router>
+      <TransitionProvider>
       <CustomCursor />
       <ClientWrapper>
         <main className="font-sans antialiased">
@@ -35,6 +37,7 @@ export default function App() {
           </div>
         </main>
       </ClientWrapper>
+      </TransitionProvider>
     </Router>
   );
 }
