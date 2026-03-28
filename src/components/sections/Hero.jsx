@@ -106,7 +106,7 @@ export default function Hero() {
           tracking-tight
           max-w-[90%] md:max-w-[700px]
         ">
-          Premium Branding Agency
+          Premium Branding Agency{" "}
           <br className="hidden md:block" />
           for B2B Tech Scaleups
         </h2>
