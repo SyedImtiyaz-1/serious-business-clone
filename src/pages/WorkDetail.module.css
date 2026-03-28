@@ -82,13 +82,27 @@
   letter-spacing: 0.5px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .heroTitle {
-    font-size: 36px;
+    font-size: 48px;
   }
 
   .heroSubtitle {
-    font-size: 16px;
+    font-size: 18px;
+  }
+
+  .infoSection {
+    padding: 70px 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .heroTitle {
+    font-size: 32px;
+  }
+
+  .heroSubtitle {
+    font-size: 15px;
   }
 
   .backLink {

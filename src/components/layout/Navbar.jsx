@@ -1,7 +1,6 @@
 
 import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
-import { Link } from "react-router-dom";
 import TransitionLink from "../ui/TransitionLink";
 import gsap from "gsap";
 
@@ -232,11 +231,11 @@ export default function Navbar() {
 
             {/* LINKS */}
             <div className="flex flex-col gap-6 text-3xl font-semibold">
-              <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
-              <Link to="/work" onClick={() => setIsOpen(false)}>Work</Link>
-              <Link to="/about" onClick={() => setIsOpen(false)}>About</Link>
-              <Link to="/services" onClick={() => setIsOpen(false)}>Services</Link>
-              <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
+              <TransitionLink to="/" onClick={() => setIsOpen(false)}>Home</TransitionLink>
+              <TransitionLink to="/work" onClick={() => setIsOpen(false)}>Work</TransitionLink>
+              <TransitionLink to="/about" onClick={() => setIsOpen(false)}>About</TransitionLink>
+              <TransitionLink to="/services" onClick={() => setIsOpen(false)}>Services</TransitionLink>
+              <TransitionLink to="/contact" onClick={() => setIsOpen(false)}>Contact</TransitionLink>
             </div>
 
             {/* FOOTER */}

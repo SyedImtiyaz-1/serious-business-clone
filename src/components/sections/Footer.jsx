@@ -6,27 +6,27 @@ export default function Footer() {
     <footer className="w-full pt-20 pb-6 px-6 relative overflow-hidden z-50">
 
       {/* Grid Links Section */}
-      <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between mb-32 text-base font-medium tracking-tight">
-        <div className="flex flex-col md:flex-row gap-16 flex-1">
-          <div className="flex flex-col sm:flex-row gap-6">
+      <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between mb-16 md:mb-32 text-base font-medium tracking-tight">
+        <div className="flex flex-col md:flex-row gap-8 md:gap-16 flex-1">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
             <h4 className="text-[10px] uppercase font-bold tracking-widest mt-2 opacity-50">Explore</h4>
             <ul className="space-y-1">
-              <li><TransitionLink to="/work" className="text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Work</TransitionLink></li>
-              <li><TransitionLink to="/about" className="text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">About</TransitionLink></li>
-              <li><TransitionLink to="/services" className="text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Services</TransitionLink></li>
-              <li><TransitionLink to="/contact" className="text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Contact</TransitionLink></li>
+              <li><TransitionLink to="/work" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Work</TransitionLink></li>
+              <li><TransitionLink to="/about" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">About</TransitionLink></li>
+              <li><TransitionLink to="/services" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Services</TransitionLink></li>
+              <li><TransitionLink to="/contact" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Contact</TransitionLink></li>
             </ul>
           </div>
-          <div className="flex flex-col sm:flex-row gap-6">
+          <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
             <h4 className="text-[10px] uppercase font-bold tracking-widest mt-2 opacity-50">Stalk us</h4>
             <ul className="space-y-1">
-              <li><a href="#" className="text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">LinkedIn</a></li>
-              <li><a href="#" className="text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Instagram</a></li>
+              <li><a href="#" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">LinkedIn</a></li>
+              <li><a href="#" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Instagram</a></li>
             </ul>
           </div>
         </div>
 
-        <div className="flex flex-col gap-10 text-left md:text-right mt-12 md:mt-0">
+        <div className="flex flex-col gap-8 md:gap-10 text-left md:text-right mt-10 md:mt-0">
           <div>
             <h4 className="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-50">Say Hello</h4>
             <a href="mailto:newbiz@marshallhaber.com" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">newbiz@marshallhaber.com</a>

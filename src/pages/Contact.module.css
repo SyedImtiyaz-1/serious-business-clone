@@ -331,6 +331,30 @@
 }
 
 /* Responsive */
+@media (max-width: 1024px) {
+  .hero {
+    padding: 140px 32px 60px;
+  }
+
+  .videoWrapper {
+    aspect-ratio: 16 / 9;
+  }
+
+  .infoSection {
+    grid-template-columns: 1fr;
+    gap: 20px;
+    padding: 60px 32px;
+  }
+
+  .formWrapper {
+    padding: 80px 32px;
+  }
+
+  .formContainer {
+    gap: 60px;
+  }
+}
+
 @media (max-width: 768px) {
   .hero {
     padding: 120px 20px 60px;

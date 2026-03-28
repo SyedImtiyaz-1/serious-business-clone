@@ -53,6 +53,13 @@ body {
   background-color: var(--color-dark);
 }
 
+/* Responsive typography helpers */
+@media (max-width: 768px) {
+  html {
+    font-size: 15px;
+  }
+}
+
 /* Animations */
 @keyframes marquee {
   0% { transform: translateX(0); }

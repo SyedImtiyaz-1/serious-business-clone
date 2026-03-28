@@ -41,12 +41,27 @@
   font-weight: 300;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 1024px) {
   .hero {
-    padding: 140px 20px 20px;
+    padding: 140px 32px 32px;
   }
   .heroHeading {
-    font-size: 40px;
+    font-size: 60px;
+  }
+  .servicesList {
+    padding: 0 32px 100px;
+  }
+  .serviceTitle {
+    font-size: 24px;
+  }
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: 120px 20px 20px;
+  }
+  .heroHeading {
+    font-size: 36px;
   }
   .servicesList {
     padding: 0 20px 60px;
@@ -54,5 +69,8 @@
   .grid {
     grid-template-columns: 1fr;
     gap: 40px;
+  }
+  .serviceTitle {
+    font-size: 22px;
   }
 }

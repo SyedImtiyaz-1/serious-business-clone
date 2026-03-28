@@ -311,13 +311,51 @@
 /* ===== RESPONSIVE ===== */
 
 @media (max-width: 1024px) {
+  .hero {
+    padding: 160px 32px 100px;
+  }
+
+  .heroHeading {
+    font-size: 44px;
+  }
+
+  .philosophy {
+    gap: 48px;
+    padding: 0 32px 100px;
+  }
+
+  .philHeading {
+    font-size: 40px;
+  }
+
   .stats {
     grid-template-columns: repeat(2, 1fr);
     gap: 48px 40px;
+    padding: 80px 32px;
+  }
+
+  .approach {
+    padding: 100px 32px;
   }
 
   .valuesGrid {
     gap: 48px 40px;
+  }
+
+  .nameSection {
+    padding: 120px 32px;
+  }
+
+  .nameHeading {
+    font-size: 72px;
+  }
+
+  .expertiseSection {
+    padding: 100px 32px;
+  }
+
+  .cta {
+    padding: 100px 32px;
   }
 }
 

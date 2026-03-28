@@ -17,7 +17,7 @@ export default function StackContainer({ panels }) {
           }}
           className="w-full flex flex-col overflow-hidden"
         >
-          <div className="flex-1 w-full overflow-hidden">
+          <div className="flex-1 w-full overflow-y-auto md:overflow-hidden">
             {children}
           </div>
         </section>

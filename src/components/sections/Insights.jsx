@@ -95,11 +95,11 @@ export default function Insights() {
       </div>
 
       {/* Relationships */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 border-t border-white/10 pt-16 mb-20 items-center">
-        <h3 className="lg:col-span-3 text-2xl font-playfair font-semibold tracking-tight">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-10 border-t border-white/10 pt-16 mb-20 items-center">
+        <h3 className="md:col-span-3 text-2xl font-playfair font-semibold tracking-tight">
           In a lasting<br/>relationship with:
         </h3>
-        <div className="lg:col-span-9 overflow-hidden relative w-full flex" style={{ maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)" }}>
+        <div className="md:col-span-9 overflow-hidden relative w-full flex" style={{ maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)" }}>
           <div className="animate-marquee flex items-center font-black text-xl tracking-widest uppercase whitespace-nowrap w-max">
             {/* Original Set */}
             <div className="px-8 flex items-center gap-16">
@@ -128,11 +128,11 @@ export default function Insights() {
       </div>
 
       {/* Awards */}
-      <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 border-t border-white/10 pt-16 mb-20">
-        <h3 className="lg:col-span-3 text-2xl font-playfair font-semibold tracking-tight">
+      <div className="grid grid-cols-1 md:grid-cols-12 gap-10 border-t border-white/10 pt-16 mb-20">
+        <h3 className="md:col-span-3 text-2xl font-playfair font-semibold tracking-tight">
           Getting love from:
         </h3>
-        <div className="lg:col-span-9 grid grid-cols-2 md:grid-cols-3 gap-y-16 gap-x-8">
+        <div className="md:col-span-9 grid grid-cols-2 md:grid-cols-3 gap-y-16 gap-x-8">
           <div>
             <h4 className="text-4xl font-black mb-4">W.</h4>
             <p className="font-bold text-sm mb-2">Awwwards.</p>

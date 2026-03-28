@@ -123,6 +123,18 @@
   .grid {
     grid-template-columns: repeat(2, 1fr);
   }
+
+  .headerContainer {
+    padding: 100px 32px 32px;
+  }
+
+  .pageTitle {
+    font-size: 52px;
+  }
+
+  .workGrid {
+    padding: 0 32px 100px;
+  }
 }
 
 @media (max-width: 768px) {
@@ -136,7 +148,7 @@
     gap: 20px;
   }
   .pageTitle {
-    font-size: 48px;
+    font-size: 40px;
   }
   .workGrid {
     padding: 0 20px 60px;
