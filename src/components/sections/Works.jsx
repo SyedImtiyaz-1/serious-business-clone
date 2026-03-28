@@ -59,10 +59,10 @@ export default function Works() {
           return (
             <TransitionLink to={`/work/${p.slug}`} key={p.slug} className="block">
               <motion.div
-                initial={{ opacity: 0, x: isLeft ? -80 : 80, y: 20 }}
-                whileInView={{ opacity: 1, x: 0, y: 0 }}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: isLeft ? 0 : 0.25 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: isLeft ? 0 : 0.15 }}
                 className="group cursor-pointer"
               >
                 <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative mb-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-2 bg-[#f0f0f0]">

@@ -13,7 +13,7 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   useEffect(() => {
-    // 1. Entrance into Dark
+    // 1. Entrance into Dark — start only when dark-section actually enters the viewport
     gsap.to("body", {
       backgroundColor: "#111111",
       color: "#f9c4d2",
@@ -23,13 +23,29 @@ export default function Home() {
       ease: "power2.inOut",
       scrollTrigger: {
         trigger: ".dark-section",
-        start: "top 85%",
-        end: "top 25%",
+        start: "top 95%",
+        end: "top 15%",
         scrub: 1.5,
       }
     });
 
-    // 2. Return to Pink (Smooth Footer)
+    // 2. Exit Dark — revert to pink as dark-section scrolls out the bottom
+    gsap.to("body", {
+      backgroundColor: "#f9c4d2",
+      color: "#111111",
+      "--accent-color": "#111111",
+      "--accent-bg": "#ffffff",
+      immediateRender: false,
+      ease: "power2.inOut",
+      scrollTrigger: {
+        trigger: ".dark-section",
+        start: "bottom 85%",
+        end: "bottom 10%",
+        scrub: 1.5,
+      }
+    });
+
+    // 3. Return to Pink at footer (safety net)
     gsap.to("body", {
       backgroundColor: "#f9c4d2",
       color: "#111111",

@@ -153,4 +153,20 @@
   .workGrid {
     padding: 0 20px 60px;
   }
+  .headerFilters {
+    flex-wrap: wrap;
+    gap: 10px;
+    width: 100%;
+  }
+  .viewBy {
+    width: 100%;
+    font-size: 12px;
+    opacity: 0.7;
+  }
+  .selectFilter {
+    flex: 1;
+    min-width: 0;
+    font-size: 13px;
+    padding: 8px 28px 8px 10px;
+  }
 }

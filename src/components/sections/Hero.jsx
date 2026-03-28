@@ -73,46 +73,47 @@ export default function Hero() {
 
   if (!mounted)
     return (
-      <section className="relative w-full h-[120vh] md:h-[140vh] bg-primary overflow-hidden" />
+      <section className="relative w-full h-[120vh] bg-primary overflow-hidden" />
     );
 
   return (
-    <section className="relative w-full h-[130vh] md:h-[160vh] bg-primary overflow-hidden px-4 md:px-6">
+    <section className="relative w-full h-[120vh] md:h-[130vh] bg-primary overflow-hidden px-4 md:px-6">
 
-      {/* TEXT */}
+      {/* TEXT — bottom area on all screens */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ delay: 1, duration: 1, ease: [0.76, 0, 0.24, 1] }}
         style={{ opacity: textOpacity }}
         className="
-          absolute 
-          top-[75vh] sm:top-[80vh] md:top-32 
-          left-0 w-full 
-          flex flex-col items-center 
+          absolute
+          top-[72vh] sm:top-[75vh] md:top-[72vh]
+          left-0 w-full
+          flex flex-col items-center
           z-20 pointer-events-none
           px-4 md:px-6
         "
       >
         <h2 className="
-          text-[18px] 
-          sm:text-[20px] 
-          md:text-[24px] 
-          lg:text-[28px] 
-          leading-[1.2] 
-          font-bold 
-          text-[#1a1a1a] 
-          text-center 
+          text-[18px]
+          sm:text-[20px]
+          md:text-[26px]
+          lg:text-[30px]
+          xl:text-[34px]
+          leading-[1.3]
+          font-bold
+          text-[#1a1a1a]
+          text-center
           tracking-tight
-          max-w-[90%] md:max-w-[700px]
+          max-w-[90%] md:max-w-[600px]
         ">
-          Premium Branding Agency
+          Premium Branding Agency{" "}
           <br className="hidden md:block" />
           for B2B Tech Scaleups
         </h2>
       </motion.div>
 
-      {/* LOGO */}
+      {/* LOGO — upper-center on all screens */}
       <motion.div
         ref={orbRef}
         initial={{ scale: 0.85, opacity: 0 }}
@@ -120,23 +121,23 @@ export default function Hero() {
         transition={{ delay: 1.2, duration: 1.2, type: "spring", bounce: 0.3 }}
         style={{ opacity: textOpacity }}
         className="
-          absolute 
-          top-[25vh] 
-          sm:top-[30vh] 
-          md:top-1/2 md:-translate-y-1/2 
-          left-0 w-full 
-          flex justify-center 
-          z-10 
-          pointer-events-none 
-          opacity-50 
+          absolute
+          top-[12vh] sm:top-[14vh] md:top-[14vh]
+          left-0 w-full
+          flex justify-center
+          z-10
+          pointer-events-none
+          opacity-50
           mix-blend-multiply
         "
       >
         <div className="
-          w-[70vw] 
-          sm:w-[60vw] 
-          md:w-[50vw] 
-          max-w-[600px] 
+          w-[72vw]
+          sm:w-[62vw]
+          md:w-[52vw]
+          lg:w-[46vw]
+          xl:w-[40vw]
+          max-w-[580px]
           aspect-square
         ">
           <SmileLogo />
