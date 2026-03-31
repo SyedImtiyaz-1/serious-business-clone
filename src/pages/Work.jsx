@@ -3,7 +3,7 @@ import TransitionLink from '../components/ui/TransitionLink';
 import { motion, AnimatePresence } from 'framer-motion';
 import projects from '../data/projects';
 import vid2 from '../assets/vid2.mp4';
-import styles from './Work.improved.module.css';
+import styles from './Work.module.css';
 
 export default function Work() {
   const [workType, setWorkType] = useState('Type of Work');
