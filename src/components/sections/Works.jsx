@@ -1,4 +1,3 @@
-
 import { motion } from "framer-motion";
 import { useEffect, useRef } from "react";
 import gsap from "gsap";
@@ -49,29 +48,28 @@ export default function Works() {
           className="text-[clamp(1.8rem,10vw,5rem)] md:text-[7vw] lg:text-[5vw] font-black leading-[0.9] uppercase mb-16 text-inherit"
           style={{ fontFamily: "var(--font-geist-sans)" }}
         >
-          We partner with ambitious <br className="hidden md:block"/> scaleups in New York <br className="hidden md:block"/> and the Americas
+          We partner with ambitious <br className="hidden md:block" /> scaleups in New York <br className="hidden md:block" /> and the Americas
         </h2>
       </Reveal>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-10 overflow-hidden px-4">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-x-8 gap-y-14">
         {featured.map((p, i) => {
           const isLeft = i % 2 === 0;
           return (
             <TransitionLink to={`/work/${p.slug}`} key={p.slug} className="block">
               <motion.div
-                initial={{ opacity: 0, y: 40 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={{ opacity: 0, x: isLeft ? -120 : 120 }}
+                whileInView={{ opacity: 1, x: 0 }}
                 viewport={{ once: true, amount: 0.25 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: isLeft ? 0 : 0.15 }}
                 className="group cursor-pointer"
               >
-                <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative mb-6 transition-all duration-300 hover:shadow-lg hover:-translate-y-2 bg-[#f0f0f0]">
+                <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative mb-6 bg-[#f0f0f0]">
                   <img
                     src={p.image}
                     alt={p.title}
-                    className="absolute -top-[10%] -bottom-[10%] left-0 right-0 w-full h-[120%] object-cover parallax-img transition-transform duration-500 group-hover:scale-[1.03]"
+                    className="absolute -top-[10%] -bottom-[10%] left-0 right-0 w-full h-[120%] object-cover parallax-img"
                   />
-                  <div className="absolute inset-0 bg-black/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
                 </div>
 
                 <Reveal>

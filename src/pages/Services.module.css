@@ -10,49 +10,83 @@
   letter-spacing: -1px;
 }
 
+/* Section */
 .servicesList {
   padding: 0 40px 120px;
-  max-width: 1200px;
+  max-width: 1000px;
   margin: 0 auto;
+  display: flex;
+  justify-content: center;
 }
 
+/* Center layout */
 .grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 80px 40px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 80px 80px;
+  text-align: center;
 }
 
+/* Card */
 .serviceItem {
   border-top: 1px solid var(--color-border);
-  padding-top: 32px;
+  padding-top: 24px;
+  max-width: 320px;
 }
 
+/* Title */
 .serviceTitle {
-  font-size: 28px;
+  font-size: 26px;
   font-weight: 300;
   color: var(--color-text);
+  margin-bottom: 10px;
+}
+
+/* Intro */
+.serviceIntro {
+  font-size: 14px;
+  line-height: 1.6;
+  color: var(--color-text-secondary);
   margin-bottom: 16px;
 }
 
-.serviceDesc {
-  font-size: 16px;
+/* 2–2 layout */
+.servicePoints {
+  font-size: 14px;
   line-height: 1.8;
+  color: var(--color-text-secondary);
+  font-weight: 300;
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+.pointRow {
+  display: flex;
+  justify-content: center;
+  gap: 30px;
+  font-size: 14px;
   color: var(--color-text-secondary);
   font-weight: 300;
 }
 
+.pointRow span {
+  min-width: 140px;
+  text-align: center;
+}
+
+/* Responsive */
 @media (max-width: 1024px) {
   .hero {
     padding: 140px 32px 32px;
   }
+
   .heroHeading {
     font-size: 60px;
   }
+
   .servicesList {
     padding: 0 32px 100px;
-  }
-  .serviceTitle {
-    font-size: 24px;
   }
 }
 
@@ -60,17 +94,21 @@
   .hero {
     padding: 120px 20px 20px;
   }
+
   .heroHeading {
     font-size: 36px;
   }
+
   .servicesList {
     padding: 0 20px 60px;
   }
+
   .grid {
-    grid-template-columns: 1fr;
     gap: 40px;
   }
-  .serviceTitle {
-    font-size: 22px;
+
+  .pointRow {
+    flex-direction: column;
+    gap: 4px;
   }
 }

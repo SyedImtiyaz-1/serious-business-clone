@@ -1,6 +1,7 @@
-
 import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
+import { createPortal } from "react-dom";
+import { Link } from "react-router-dom";
 import TransitionLink from "../ui/TransitionLink";
 import gsap from "gsap";
 
@@ -29,8 +30,6 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
   const [isHovered, setIsHovered] = useState(false);
   const iconWrapperRef = useRef(null);
 
-
-  // Smooth GSAP animation for the smile
   useEffect(() => {
     if (isLetsWork && iconWrapperRef.current) {
       if (isHovered) {
@@ -42,7 +41,6 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
     }
   }, [isHovered, isLetsWork]);
 
-  // Static colors as requested - NO CHANGE ON HOVER
   const staticStyle = { backgroundColor: "var(--accent-bg)", color: "var(--accent-text, #111111)" };
 
   return (
@@ -57,41 +55,21 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
       <motion.div
         layout
         style={staticStyle}
-        transition={{
-          layout: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } // Premium smooth ease
-        }}
+        transition={{ layout: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
         className="px-6 py-3 rounded-full shadow-sm font-bold text-sm flex items-center overflow-hidden h-[44px]"
       >
         <div className="relative h-5 overflow-hidden flex flex-col items-center">
           <AnimatePresence mode="wait">
             {!isHovered && !isActive ? (
-              <motion.span
-                key="text"
-                initial={{ y: 20 }}
-                animate={{ y: 0 }}
-                exit={{ y: -20 }}
-                className="whitespace-nowrap"
-              >
+              <motion.span key="text" initial={{ y: 20 }} animate={{ y: 0 }} exit={{ y: -20 }} className="whitespace-nowrap">
                 {text}
               </motion.span>
             ) : isActive ? (
-              <motion.span
-                key="activeText"
-                initial={{ y: 20 }}
-                animate={{ y: 0 }}
-                exit={{ y: -20 }}
-                className="whitespace-nowrap"
-              >
+              <motion.span key="activeText" initial={{ y: 20 }} animate={{ y: 0 }} exit={{ y: -20 }} className="whitespace-nowrap">
                 {activeText || "Close"}
               </motion.span>
             ) : (
-              <motion.div
-                key="hoverText"
-                initial={{ y: 20 }}
-                animate={{ y: 0 }}
-                exit={{ y: -20 }}
-                className="flex gap-6 whitespace-nowrap"
-              >
+              <motion.div key="hoverText" initial={{ y: 20 }} animate={{ y: 0 }} exit={{ y: -20 }} className="flex gap-6 whitespace-nowrap">
                 {hoverText || text}
               </motion.div>
             )}
@@ -99,20 +77,19 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
         </div>
       </motion.div>
 
-      {/* Circle with Icon - Color REMAIN STATIC */}
       <motion.div
         style={staticStyle}
         animate={{
           opacity: (isLetsWork && !isHovered && !icon) ? 0 : 1,
           scale: (isLetsWork && !isHovered && !icon) ? 0.8 : 1,
         }}
-        transition={{
-          opacity: { duration: 0.3 },
-          scale: { duration: 0.3 }
-        }}
+        transition={{ opacity: { duration: 0.3 }, scale: { duration: 0.3 } }}
         className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center flex-shrink-0 relative overflow-hidden"
       >
-        <div className="absolute inset-0 flex items-center justify-center transition-all duration-500" style={{ opacity: isHovered || isActive ? 0 : 1, transform: isHovered || isActive ? "scale(0) rotate(-180deg)" : "scale(1) rotate(0deg)" }}>
+        <div
+          className="absolute inset-0 flex items-center justify-center transition-all duration-500"
+          style={{ opacity: isHovered || isActive ? 0 : 1, transform: isHovered || isActive ? "scale(0) rotate(-180deg)" : "scale(1) rotate(0deg)" }}
+        >
           {icon}
         </div>
         <div
@@ -127,6 +104,189 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
   );
 };
 
+const menuItems = [
+  { label: "Home", to: "/", sub: ["Featured", "Video"] },
+  { label: "Work", to: "/work", sub: ["Featured", "All Projects", "Filter Industries"] },
+  { label: "About", to: "/about", sub: ["20 Years"] },
+  { label: "Clients", to: "/clients", sub: ["Logo of Clients with filter feature"] },
+  { label: "Services", to: "/services", sub: ["Brand Strategy", "Visual Identity", "Website", "Product"] },
+];
+
+const subRoutes = {
+  "Featured": "/work/featured",
+  "Video": "/work/video",
+  "All Projects": "/work",
+  "Filter Industries": "/work/industries",
+  "20 Years": "/about/story",
+  "Logo of Clients with filter feature": "/clients",
+  "Brand Strategy": "/services/brand-strategy",
+  "Visual Identity": "/services/visual-identity",
+  "Website": "/services/website",
+  "Product": "/services/product",
+};
+
+const DropdownPortal = ({ children }) => createPortal(children, document.body);
+
+const DesktopMenu = () => {
+  const [isMenuHovered, setIsMenuHovered] = useState(false);
+  const [activeItem, setActiveItem] = useState(null);
+  const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
+  const staticStyle = { backgroundColor: "var(--accent-bg)", color: "var(--accent-text, #111111)" };
+  const timeoutRef = useRef(null);
+  const itemRefs = useRef({});
+
+  const handleMenuEnter = () => {
+    clearTimeout(timeoutRef.current);
+    setIsMenuHovered(true);
+  };
+
+  const handleMenuLeave = () => {
+    timeoutRef.current = setTimeout(() => {
+      setIsMenuHovered(false);
+      setActiveItem(null);
+    }, 150);
+  };
+
+  const handleItemEnter = (label) => {
+    setActiveItem(label);
+    const el = itemRefs.current[label];
+    if (el) {
+      const rect = el.getBoundingClientRect();
+      setDropdownPos({
+        top: rect.bottom + 8,
+        left: rect.left + rect.width / 2,
+      });
+    }
+  };
+
+  const handleItemLeave = () => {
+    setActiveItem(null);
+  };
+
+  const activeMenuData = menuItems.find((m) => m.label === activeItem);
+
+  return (
+    <div
+      className="flex items-center gap-1.5"
+      onMouseEnter={handleMenuEnter}
+      onMouseLeave={handleMenuLeave}
+    >
+      {/* Pill */}
+      <motion.div
+        layout
+        style={staticStyle}
+        transition={{ layout: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
+        className="px-6 py-3 rounded-full shadow-sm font-bold text-sm flex items-center overflow-hidden h-[44px] cursor-none"
+      >
+        <div className="relative h-5 overflow-hidden flex flex-col items-center">
+          <AnimatePresence mode="wait">
+            {!isMenuHovered ? (
+              <motion.span
+                key="closed"
+                initial={{ y: 20 }}
+                animate={{ y: 0 }}
+                exit={{ y: -20 }}
+                className="whitespace-nowrap"
+              >
+                Menu
+              </motion.span>
+            ) : (
+              <motion.div
+                key="open"
+                initial={{ y: 20 }}
+                animate={{ y: 0 }}
+                exit={{ y: -20 }}
+                className="flex gap-6 items-center whitespace-nowrap"
+              >
+                {menuItems.map((item) => (
+                  <div
+                    key={item.label}
+                    ref={(el) => (itemRefs.current[item.label] = el)}
+                    onMouseEnter={() => handleItemEnter(item.label)}
+                    onMouseLeave={handleItemLeave}
+                    className="relative flex items-center gap-0.5 hover:opacity-60 transition-opacity cursor-none"
+                  >
+                    <TransitionLink to={item.to}>
+                      <span>{item.label}</span>
+                    </TransitionLink>
+                    <motion.svg
+                      animate={{ rotate: activeItem === item.label ? 180 : 0 }}
+                      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                      width="12"
+                      height="12"
+                      viewBox="0 0 12 12"
+                    >
+                      <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                    </motion.svg>
+                  </div>
+                ))}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      </motion.div>
+
+      {/* Icon circle */}
+      <motion.div
+        style={staticStyle}
+        className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center flex-shrink-0 cursor-none"
+      >
+        <MenuIcon isOpen={isMenuHovered} />
+      </motion.div>
+
+      {/* Dropdown via portal — escapes ALL overflow-hidden parents */}
+      <DropdownPortal>
+        <AnimatePresence>
+          {activeItem && activeMenuData && activeMenuData.sub.length > 0 && (
+            <motion.div
+              key={activeItem}
+              initial={{ opacity: 0, y: -4, scale: 0.97 }}
+              animate={{ opacity: 1, y: 0, scale: 1 }}
+              exit={{ opacity: 0, y: -4, scale: 0.97 }}
+              transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
+              onMouseEnter={() => {
+                clearTimeout(timeoutRef.current);
+                setActiveItem(activeItem);
+              }}
+              onMouseLeave={handleItemLeave}
+              style={{
+                backgroundColor: "var(--accent-bg)",
+                color: "var(--accent-text, #111111)",
+                position: "fixed",
+                top: dropdownPos.top,
+                left: dropdownPos.left,
+                transform: "translateX(-50%)",
+                zIndex: 99999,
+              }}
+              className="rounded-2xl shadow-xl p-2 flex flex-col gap-1 min-w-max"
+            >
+              {activeMenuData.sub.map((s, i) => (
+                <motion.div
+                  key={s}
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  transition={{ delay: i * 0.04, duration: 0.2 }}
+                >
+                  <TransitionLink to={subRoutes[s] || activeMenuData.to}>
+                    <div
+                      style={{
+                        border: "1px solid color-mix(in srgb, var(--accent-text, #111111) 20%, transparent)"
+                      }}
+                      className="text-xs px-4 py-2 rounded-full text-center hover:opacity-60 transition-opacity cursor-none whitespace-nowrap"
+                    >
+                      {s}
+                    </div>
+                  </TransitionLink>
+                </motion.div>
+              ))}
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </DropdownPortal>
+    </div>
+  );
+};
+
 export default function Navbar() {
   const { scrollY } = useScroll();
   const [showCenterLogo, setShowCenterLogo] = useState(false);
@@ -136,13 +296,9 @@ export default function Navbar() {
   useEffect(() => {
     return scrollY.on("change", (latest) => {
       setShowCenterLogo(latest > 300);
-
       const scrollHeight = document.documentElement.scrollHeight;
       const clientHeight = window.innerHeight;
       const maxScroll = scrollHeight - clientHeight;
-
-      // Only hide navbar if the page is long enough (> 1000px scrollable) 
-      // and we are near the very bottom
       setHideNavbar(maxScroll > 1000 && latest > maxScroll - 400);
     });
   }, [scrollY]);
@@ -152,16 +308,17 @@ export default function Navbar() {
       initial={{ opacity: 1 }}
       animate={{ y: hideNavbar ? -100 : 0, opacity: hideNavbar ? 0 : 1 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none z-[100]"
+      className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none z-[100] overflow-hidden"
     >
+      {/* Mobile Logo */}
       <div className="md:hidden block pointer-events-auto leading-none">
         <TransitionLink to="/">
-          <img src="/logonewlong.png" alt="Marshall Haber Creative Group" className="h-6 w-auto cursor-pointer" />
+          <img src="/footerLogoBlack.png" alt="Marshall Haber Creative Group" className="h-6 w-auto cursor-pointer" />
         </TransitionLink>
       </div>
 
-      {/* Desktop-only Left: Let's Work */}
-      <div className="hidden md:block">
+      {/* Desktop Left: Let's Work */}
+      <div className="hidden md:block shrink-0">
         <NavButton
           text="Let's work"
           icon={null}
@@ -170,41 +327,33 @@ export default function Navbar() {
         />
       </div>
 
-      {/* Center: Desktop Logo (Always visible) */}
+      {/* Center: Desktop Logo */}
       <div className="absolute left-1/2 -translate-x-1/2 hidden md:block pointer-events-auto">
         <TransitionLink to="/">
-          <img src="/logonewlong.png" alt="Marshall Haber Creative Group" className="h-24 w-auto cursor-pointer" />
+          <img
+            src={showCenterLogo ? "/logo.png" : "/footerLogoBlack.png"}
+            alt="Marshall Haber Creative Group"
+            className="h-24 w-auto cursor-pointer transition-opacity duration-300"
+          />
         </TransitionLink>
       </div>
 
-      {/* Right: Grouped Buttons on Mobile, Menu on Desktop */}
-      <div className="flex items-center gap-2 pointer-events-auto">
-        {/* ✅ MOBILE TOGGLE BUTTON */}
+      {/* Right */}
+      <div className="flex items-center gap-2 pointer-events-auto shrink-0">
+        {/* Mobile toggle */}
         <div className="md:hidden">
           <button onClick={() => setIsOpen(true)}>
             <MenuIcon isOpen={isOpen} />
           </button>
         </div>
-        {/* Desktop-only Menu */}
-        <div className="hidden md:block">
-          <NavButton
-            text="Menu"
-            isActive={false}
-            hoverText={
-              <div className="flex gap-6">
-                <TransitionLink to="/" className="hover:opacity-60 transition-opacity">Home</TransitionLink>
-                <TransitionLink to="/work" className="hover:opacity-60 transition-opacity">Work</TransitionLink>
-                <TransitionLink to="/about" className="hover:opacity-60 transition-opacity">About</TransitionLink>
-                <TransitionLink to="/services" className="hover:opacity-60 transition-opacity">Services</TransitionLink>
-                <TransitionLink to="/contact" className="hover:opacity-60 transition-opacity">Contact</TransitionLink>
-              </div>
-            }
-            icon={<MenuIcon isOpen={false} />}
-            hoverIcon={<MenuIcon isOpen={false} />}
-            onClick={() => { }}
-          />
+
+        {/* Desktop Menu */}
+        <div className="hidden md:flex items-center">
+          <DesktopMenu />
         </div>
       </div>
+
+      {/* Mobile fullscreen menu */}
       <AnimatePresence>
         {isOpen && (
           <motion.div
@@ -212,49 +361,35 @@ export default function Navbar() {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 bg-[#f5f5f5] z-[200] pointer-events-auto flex flex-col justify-between px-6 py-8 md:hidden"          >
-
-            {/* TOP */}
+            className="fixed inset-0 bg-[#f5f5f5] z-[200] pointer-events-auto flex flex-col justify-between px-6 py-8 md:hidden"
+          >
             <div className="flex justify-between items-center">
               <img src="/footerLogoBlack.png" className="h-6" />
-
               <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                  setIsOpen(false);
-                }}
+                onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
                 className="w-10 h-10 rounded-full bg-pink-200 flex items-center justify-center cursor-pointer"
               >
                 ✕
               </button>
             </div>
 
-            {/* LINKS */}
             <div className="flex flex-col gap-6 text-3xl font-semibold">
-              <TransitionLink to="/" onClick={() => setIsOpen(false)}>Home</TransitionLink>
-              <TransitionLink to="/work" onClick={() => setIsOpen(false)}>Work</TransitionLink>
-              <TransitionLink to="/about" onClick={() => setIsOpen(false)}>About</TransitionLink>
-              <TransitionLink to="/services" onClick={() => setIsOpen(false)}>Services</TransitionLink>
-              <TransitionLink to="/contact" onClick={() => setIsOpen(false)}>Contact</TransitionLink>
+              <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
+              <Link to="/work" onClick={() => setIsOpen(false)}>Work</Link>
+              <Link to="/about" onClick={() => setIsOpen(false)}>About</Link>
+              <Link to="/services" onClick={() => setIsOpen(false)}>Services</Link>
+              <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
             </div>
 
-            {/* FOOTER */}
             <div className="text-sm">
               <p className="uppercase text-xs opacity-50">Say hello</p>
               <p className="underline mb-4">newbiz@marshallhaber.com</p>
-
               <p className="uppercase text-xs opacity-50">Exceptional talent?</p>
               <p className="underline">apply@marshallhaber.com</p>
             </div>
-
           </motion.div>
         )}
       </AnimatePresence>
-
     </motion.div>
-
-
-
-
   );
 }

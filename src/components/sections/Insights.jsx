@@ -1,5 +1,5 @@
-
-import { motion } from "framer-motion";
+import { motion, useScroll, useTransform } from "framer-motion";
+import { useRef } from "react";
 import Reveal from "../ui/Reveal";
 
 const cards = [
@@ -27,27 +27,77 @@ const cards = [
   },
 ];
 
+const cardInitial = [
+  { opacity: 0, x: -120 },
+  { opacity: 0, y: 80 },
+  { opacity: 0, x: 120 },
+];
+
 export default function Insights() {
+  const sectionRef = useRef(null);
+
+  const { scrollYProgress } = useScroll({
+    target: sectionRef,
+    offset: ["start 80%", "start 20%"],
+  });
+
+  // Background: website color → #1a1a1a
+  const backgroundColor = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["#fafafa", "#1a1a1a"]
+  );
+
+  // Text: #1a1a1a → #fbc1d4
+  const textColor = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["#1a1a1a", "#fbc1d4"]
+  );
+
+  // Subtext / muted: #555 → #fbc1d4 at lower opacity
+  const mutedColor = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["#555555", "#fbc1d4"]
+  );
+
+  // Border: dark/light → white/10
+  const borderColor = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["rgba(26,26,26,0.15)", "rgba(255,255,255,0.1)"]
+  );
+
+  // Button border + text
+  const buttonBorder = useTransform(
+    scrollYProgress,
+    [0, 1],
+    ["#1a1a1a", "#fbc1d4"]
+  );
+
   return (
-    <div className="w-full bg-[#1a1a1a] text-white">
+    <motion.div
+      ref={sectionRef}
+      style={{ backgroundColor }}
+      className="w-full"
+    >
       <div className="px-6 py-14 md:py-28 max-w-[1400px] mx-auto">
 
         {/* Heading */}
         <div className="mb-10 md:mb-14 overflow-hidden">
           <Reveal>
-            <h2
-              className="font-black leading-[1.05] tracking-tight text-[#fbc1d4]"
-              style={{
-                fontFamily: "var(--font-geist-sans)",
-                fontSize: "clamp(2rem, 8vw, 5rem)",
-              }}
+            <motion.h2
+              style={{ color: textColor, fontFamily: "var(--font-geist-sans)" }}
+              className="font-black leading-[1.05] tracking-tight"
+              css={{ fontSize: "clamp(2rem, 8vw, 5rem)" }}
             >
               Latest insights for<br />scaleup teams
-            </h2>
+            </motion.h2>
           </Reveal>
         </div>
 
-        {/* Cards — 2 visible + peek on mobile, 3-col on desktop */}
+        {/* Cards */}
         <div className="-mx-6 md:mx-0 mb-10 md:mb-24">
           <div
             className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible px-6 md:px-0 snap-x snap-mandatory scrollbar-hide"
@@ -56,16 +106,16 @@ export default function Insights() {
             {cards.map((card, i) => (
               <motion.div
                 key={i}
-                initial={{ opacity: 0, y: 50 }}
-                whileInView={{ opacity: 1, y: 0 }}
+                initial={cardInitial[i]}
+                whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
+                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
                 style={{ width: "clamp(240px, 58vw, 420px)", flexShrink: 0, flexGrow: 0 }}
-                className="md:w-auto md:flex-1 snap-start flex flex-col gap-0 group cursor-pointer"
+                className="md:w-auto md:flex-1 snap-start flex flex-col gap-0 cursor-pointer"
               >
                 {/* Card image box */}
                 <div
-                  className="w-full text-[#1a1a1a] rounded-2xl flex flex-col items-center justify-center text-center transition-transform duration-500 group-hover:scale-[0.98]"
+                  className="w-full text-[#1a1a1a] rounded-2xl flex flex-col items-center justify-center text-center"
                   style={{
                     backgroundColor: card.bg,
                     aspectRatio: "4/3",
@@ -100,47 +150,83 @@ export default function Insights() {
                   )}
                 </div>
 
-                {/* Description — large bold, wraps within card column width */}
-                <p
-                  className="font-bold leading-snug text-[#fbc1d4] mt-5 mb-5"
-                  style={{
-                    fontSize: "clamp(1.1rem, 3vw, 1.4rem)",
-                    wordBreak: "break-word",
-                    overflowWrap: "break-word",
-                  }}
+                {/* Description */}
+                <motion.p
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 + 0.2 }}
+                  style={{ color: textColor, fontSize: "clamp(1.1rem, 3vw, 1.4rem)", wordBreak: "break-word", overflowWrap: "break-word" }}
+                  className="font-bold leading-snug mt-5 mb-5"
                 >
                   {card.desc}
-                </p>
+                </motion.p>
 
                 {/* Category label + divider */}
-                <div className="border-b border-white/20 pb-3 mt-auto">
-                  <span className="text-[11px] font-bold uppercase tracking-widest opacity-50">
+                <motion.div
+                  initial={{ opacity: 0, y: 20 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.2 }}
+                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 + 0.3 }}
+                  style={{ borderBottomColor: borderColor }}
+                  className="border-b pb-3 mt-auto"
+                >
+                  <motion.span
+                    style={{ color: mutedColor }}
+                    className="text-[11px] font-bold uppercase tracking-widest opacity-50"
+                  >
                     Knowledge
-                  </span>
-                </div>
+                  </motion.span>
+                </motion.div>
               </motion.div>
             ))}
           </div>
         </div>
 
         {/* "What's trending" button */}
-        <div className="flex justify-start mb-14 md:mb-20">
-          <button className="flex items-center gap-3 px-6 py-3 border border-[#fbc1d4] text-[#fbc1d4] rounded-full text-sm font-semibold hover:bg-[#fbc1d4] hover:text-[#1a1a1a] transition-colors">
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, amount: 0.3 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="flex justify-start mb-14 md:mb-20"
+        >
+          <motion.button
+            style={{ borderColor: buttonBorder, color: buttonBorder }}
+            className="flex items-center gap-3 px-6 py-3 border rounded-full text-sm font-semibold transition-colors"
+          >
             <span>What's trending.</span>
             <span>←</span>
-          </button>
-        </div>
+          </motion.button>
+        </motion.div>
 
         {/* Relationships */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-white/10 pt-10 md:pt-16 mb-12 md:mb-20 items-center">
-          <h3 className="md:col-span-3 text-2xl font-playfair font-semibold tracking-tight">
+        <motion.div
+          style={{ borderTopColor: borderColor }}
+          className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t pt-10 md:pt-16 mb-12 md:mb-20 items-center"
+        >
+          <motion.h3
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            style={{ color: textColor }}
+            className="md:col-span-3 text-2xl font-playfair font-semibold tracking-tight"
+          >
             In a lasting<br />relationship with:
-          </h3>
-          <div
+          </motion.h3>
+          <motion.div
+            initial={{ opacity: 0, x: 60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
             className="md:col-span-9 overflow-hidden relative w-full flex"
             style={{ maskImage: "linear-gradient(to right, transparent, black 10%, black 90%, transparent)" }}
           >
-            <div className="animate-marquee flex items-center font-black text-xl tracking-widest uppercase whitespace-nowrap w-max">
+            <motion.div
+              style={{ color: textColor }}
+              className="animate-marquee flex items-center font-black text-xl tracking-widest uppercase whitespace-nowrap w-max"
+            >
               {[0, 1].map((set) => (
                 <div key={set} className="px-8 flex items-center gap-16">
                   <div>Frontify</div><div>vay</div>
@@ -150,15 +236,25 @@ export default function Insights() {
                   <div className="text-xs">UNTERNEHMERTUM</div>
                 </div>
               ))}
-            </div>
-          </div>
-        </div>
+            </motion.div>
+          </motion.div>
+        </motion.div>
 
         {/* Awards */}
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t border-white/10 pt-10 md:pt-16 mb-10 md:mb-20">
-          <h3 className="md:col-span-3 text-2xl font-playfair font-semibold tracking-tight">
+        <motion.div
+          style={{ borderTopColor: borderColor }}
+          className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t pt-10 md:pt-16 mb-10 md:mb-20"
+        >
+          <motion.h3
+            initial={{ opacity: 0, x: -60 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true, amount: 0.3 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            style={{ color: textColor }}
+            className="md:col-span-3 text-2xl font-playfair font-semibold tracking-tight"
+          >
             Getting love from:
-          </h3>
+          </motion.h3>
           <div className="md:col-span-9 grid grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-8">
             {[
               { abbr: "W.", name: "Awwwards.", detail: "2 x Agency of the year Nominee\n7 x Site of the day\n2 x Developer Award" },
@@ -167,17 +263,27 @@ export default function Insights() {
               { abbr: "GDA", name: "German Design Award", detail: "Special Mention Award" },
               { abbr: "Bē", name: "Behance", detail: "1x Graphic Design" },
               { abbr: "R.", name: "Red Dot Design Award", detail: "Communication Design Award" },
-            ].map((a) => (
-              <div key={a.name}>
-                <h4 className={`text-4xl font-black mb-3 ${a.tracking || ""}`}>{a.abbr}</h4>
-                <p className="font-bold text-sm mb-1">{a.name}</p>
-                <p className="text-[10px] font-semibold opacity-60 leading-tight whitespace-pre-line">{a.detail}</p>
-              </div>
+            ].map((a, i) => (
+              <motion.div
+                key={a.name}
+                initial={{ opacity: 0, y: 40 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true, amount: 0.2 }}
+                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
+              >
+                <motion.h4 style={{ color: textColor }} className={`text-4xl font-black mb-3 ${a.tracking || ""}`}>
+                  {a.abbr}
+                </motion.h4>
+                <motion.p style={{ color: textColor }} className="font-bold text-sm mb-1">{a.name}</motion.p>
+                <motion.p style={{ color: mutedColor }} className="text-[10px] font-semibold leading-tight whitespace-pre-line opacity-60">
+                  {a.detail}
+                </motion.p>
+              </motion.div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
       </div>
-    </div>
+    </motion.div>
   );
 }

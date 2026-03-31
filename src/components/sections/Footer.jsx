@@ -40,13 +40,18 @@ export default function Footer() {
 
       {/* Bottom Massive Logo */}
       <div className="w-full flex justify-center items-center mb-12 md:mb-6 mt-16 md:mt-0">
-        <img src="/logonewlong.png" alt="Marshall Haber Creative Group" className="h-[12vw] md:h-[6vw] lg:h-[5.5vw] xl:h-[7vw] w-auto" />
+        <img src="/footerLogoBlack.png" alt="Marshall Haber Creative Group" className="h-[12vw] md:h-[6vw] lg:h-[5.5vw] xl:h-[7vw] w-auto" />
       </div>
 
       {/* Bottom Legal Links */}
       <div className="w-full flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest px-4 border-t border-current pt-4">
         <p>© Marshall Haber Creative Group</p>
-        <p className="mt-2 md:mt-0 font-playfair lowercase tracking-normal text-sm font-normal">99 Wall Street +1467, New York, NY 10005</p>
+        <p className="mt-2 md:mt-0 font-playfair lowercase tracking-normal text-sm font-normal">99 Wall Street
+          New York, NY 10005
+          212.494.9052
+          studio@marshallhaber.com
+
+        </p>
         <div className="flex gap-4 mt-2 md:mt-0">
           <a href="#" className="hover:opacity-60 transition-opacity">Imprint</a>
           <span>|</span>

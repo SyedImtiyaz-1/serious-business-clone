@@ -72,7 +72,7 @@ export default function Home() {
       z: 20,
       children: <ServiceBlock
         title="Brand Strategy"
-        description="It's the core of your company's identity. It guides all business decisions, ensuring a consistent and impactful presence in the market."
+        description="It’s the core of your company’s identity. It guides all business decisions, ensuring a consistent and impactful presence in the market."
         list={["Research & Insights", "Brand Model", "Positioning", "Value proposition", "Messaging", "Verbal identity", "Naming"]}
         imageContent={<StrategyImage />}
         direction="left"
