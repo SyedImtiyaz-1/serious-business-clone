@@ -38,60 +38,60 @@
 /* Info & Grid Section */
 .contentSection {
   display: grid;
-  grid-template-columns: 1fr 2fr;
-  gap: 4rem;
-}
-
-/* Left Column */
-.introBlock {
-  display: flex;
-  flex-direction: column;
-  gap: 0.5rem;
-  max-width: 320px;
-}
-
-.introLabel {
-  font-size: 0.65rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  color: #111;
-  margin-bottom: 0.5rem;
-}
-
-.introText {
-  font-size: 0.95rem;
-  line-height: 1.6;
-  color: rgba(0, 0, 0, 0.7);
-  margin: 0;
-}
-
-/* Right Column */
-.servicesGrid {
-  display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: 4rem 3rem;
+  gap: 0 6rem;
+  align-items: flex-start;
 }
 
-.serviceItem {
+.column {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 3rem;
 }
 
-.serviceTitle {
-  font-size: 1.25rem;
-  font-weight: 500;
+.block {
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 3rem 2.5rem;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.block:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+}
+
+.blockTitle {
+  font-size: 1.1rem;
+  font-weight: 700;
   color: #111;
-  margin: 0;
+  margin: 0 0 1rem;
   letter-spacing: -0.01em;
 }
 
-.serviceIntro {
-  font-size: 0.9rem;
-  line-height: 1.6;
-  color: rgba(0, 0, 0, 0.6);
+.blockText {
+  font-size: 0.95rem;
+  line-height: 1.5;
+  color: #111;
+  margin: 0 0 1.5rem;
+  font-family: "Times New Roman", Times, serif;
+}
+
+.blockList {
+  list-style-type: disc;
+  padding-left: 2rem;
   margin: 0;
-  font-weight: 400;
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.blockList li {
+  font-size: 0.95rem;
+  color: #111;
+  font-family: "Times New Roman", Times, serif;
+  line-height: 1.4;
 }
 
 /* Financial Expertise Banner */

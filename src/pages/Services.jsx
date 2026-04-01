@@ -1,24 +1,86 @@
 import { motion } from 'framer-motion';
 import styles from './Services.module.css';
 
-const services = [
+const leftColumnData = [
   {
-    title: 'Premium Branding',
-    intro: 'Our bestseller for scaleups: a premium branding approach that connects strategy and creativity to turn complex value into a clear and credible story for enterprise buyers.'
+    type: 'intro',
+    title: 'Services',
+    text: 'We partner with brands to solve complex challenges—combining strategy, design, and execution in focused, high-impact sprints.'
   },
   {
-    title: 'Sprint',
-    intro: 'Sprints are 1-month projects designed to create a brand or website quickly and efficiently for early-stage startups.'
+    type: 'service',
+    title: 'Strategy',
+    text: 'We define the clarity and direction that everything else builds on.',
+    items: ['Research & Insights', 'Brand Architecture', 'Positioning', 'Messaging', 'Naming']
   },
   {
-    title: 'Subscription',
-    intro: 'Design subscriptions are our way of collaborating long-term with clients, acting as their extended team to speed up growth and ensure consistency.'
+    type: 'service',
+    title: 'Product',
+    text: 'Thoughtfully designed products that are intuitive, refined, and built for real use.',
+    items: ['UX Design', 'Prototyping', 'UI Systems', 'App Design']
   },
   {
-    title: 'Venture',
-    intro: 'Venture relationships involve high-commitment projects where we invest our expertise and resources in exchange for shares.'
+    type: 'service',
+    title: 'Sprints',
+    text: 'We work in rapid, focused cycles—prototyping, testing, and refining to move ideas forward quickly.',
+    items: ['Rapid Prototyping', 'Design Sprints', 'MVP Development', 'Iteration & Optimization', 'Concept Testing']
   }
 ];
+
+const rightColumnData = [
+  {
+    type: 'service',
+    title: 'Identity',
+    text: 'Distinctive visual systems designed to be immediate, enduring, and unmistakable.',
+    items: ['Logo & Wordmark', 'Typography & Color', 'Art Direction', 'Brand Systems', 'Guidelines']
+  },
+  {
+    type: 'service',
+    title: 'Digital',
+    text: 'High-performance digital experiences—designed with precision and built to scale.',
+    items: ['UX & UI Design', 'Website Design', 'Web Development', 'Interaction & Motion']
+  },
+  {
+    type: 'service',
+    title: 'Experiential',
+    text: 'Immersive brand experiences that create real-world impact.',
+    items: ['Brand Activations', 'Events & Installations', 'Spatial Design', 'Interactive Experiences']
+  },
+  {
+    type: 'service',
+    title: 'Film & Content',
+    text: 'Cinematic storytelling that elevates brands and drives engagement.',
+    items: ['Brand Films', 'Campaign Content', 'Motion & Animation', 'Post-Production']
+  },
+  {
+    type: 'service',
+    title: 'Objects',
+    text: 'Physical expressions of your brand—designed with the same level of care and intention.',
+    items: ['Corporate Gifting', 'Merchandise & Swag', 'Packaging', 'Custom Products']
+  }
+];
+
+function RenderBlock({ item, index, delayOffset }) {
+  return (
+    <motion.div
+      className={styles.block}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.6, delay: 0.1 + index * 0.1 + delayOffset }}
+    >
+      <h3 className={styles.blockTitle}>{item.title}</h3>
+      <p className={styles.blockText}>{item.text}</p>
+      {item.items && (
+        <ul className={styles.blockList}>
+          {item.items.map((bullet, i) => (
+            <li key={i}>{bullet}</li>
+          ))}
+        </ul>
+      )}
+    </motion.div>
+  );
+}
 
 export default function Services() {
   return (
@@ -45,35 +107,19 @@ export default function Services() {
         {/* Content Divider */}
         <div className={styles.divider} />
 
-        {/* Info & Grid Section */}
+        {/* 2-Column List Section */}
         <section className={styles.contentSection}>
           {/* Left Column */}
-          <motion.div
-            className={styles.introBlock}
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.7, delay: 0.2 }}
-          >
-            <span className={styles.introLabel}>What?</span>
-            <p className={styles.introText}>
-              Our work focuses on B2B tech scaleups at Series A & B stage. On top of that we work with one early stage startup at a time. Honoring both our passion and how we started.
-            </p>
-          </motion.div>
+          <div className={styles.column}>
+            {leftColumnData.map((item, i) => (
+              <RenderBlock key={item.title} item={item} index={i} delayOffset={0} />
+            ))}
+          </div>
 
-          {/* Right Column (2x2 Grid) */}
-          <div className={styles.servicesGrid}>
-            {services.map((service, i) => (
-              <motion.div
-                key={service.title}
-                className={styles.serviceItem}
-                initial={{ opacity: 0, y: 30 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ duration: 0.6, delay: 0.3 + (i * 0.1) }}
-              >
-                <h2 className={styles.serviceTitle}>{service.title}</h2>
-                <p className={styles.serviceIntro}>{service.intro}</p>
-              </motion.div>
+          {/* Right Column */}
+          <div className={styles.column}>
+            {rightColumnData.map((item, i) => (
+              <RenderBlock key={item.title} item={item} index={i} delayOffset={0.2} />
             ))}
           </div>
         </section>
