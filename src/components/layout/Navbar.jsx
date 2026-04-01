@@ -269,7 +269,7 @@ const DesktopMenu = () => {
                 position: "fixed",
                 top: dropdownPos.top,
                 left: dropdownPos.left,
-                transform: "translateX(-50%)",
+                transform: activeItem === "Services" ? "translateX(-80%)" : "translateX(-50%)",
                 zIndex: 99999,
               }}
               className="rounded-2xl shadow-xl p-3 flex flex-col gap-1.5 min-w-max"
@@ -322,7 +322,7 @@ export default function Navbar() {
       initial={{ opacity: 1 }}
       animate={{ y: hideNavbar ? -100 : 0, opacity: hideNavbar ? 0 : 1 }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none z-[100] overflow-hidden"
+      className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none z-[100]"
     >
       {/* Mobile Logo */}
       <div className="md:hidden block pointer-events-auto leading-none">

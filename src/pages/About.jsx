@@ -92,12 +92,7 @@ export default function About() {
         {/* Foreground Content */}
         <div className={styles.textContent}>
           <p className={styles.mainParagraph}>
-            <strong>SERIOUS.BUSINESS</strong> <span>started in 2015 as a</span><br />
-            <strong>passion project</strong> <span>at Hyper Island,</span><br />
-            <span>Stockholm by a diverse group of creatives</span><br />
-            <span>with the goal of re-defining what a serious</span><br />
-            <span>business is really about:</span> <strong>kindness and<br />
-              creativity.</strong>
+            <strong>SERIOUS.BUSINESS</strong> started in 2015 as a <strong>passion project</strong> at Hyper Island, Stockholm by a diverse group of creatives with the goal of re-defining what a serious business is really about: <strong>kindness and creativity.</strong>
           </p>
         </div>
       </section>

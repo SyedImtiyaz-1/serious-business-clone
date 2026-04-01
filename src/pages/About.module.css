@@ -67,7 +67,7 @@
 
 .trailImage {
   position: absolute;
-  width: 260px;
+  width: clamp(140px, 40vw, 260px);
   height: auto;
   object-fit: contain;
   pointer-events: none;

@@ -9,7 +9,6 @@ gsap.registerPlugin(ScrollTrigger);
 export function HeroTopText() {
   return null;
 }
-
 export default function Hero() {
   const [mounted, setMounted] = useState(false);
   const containerRef = useRef(null);
@@ -26,45 +25,53 @@ export default function Hero() {
     if (!mounted) return;
 
     const ctx = gsap.context(() => {
-      // Pin the section and animate the video
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
           start: "top top",
-          end: "+=120%", // duration of the scroll pin
-          scrub: 1, // smooth scrubbing
+          end: "+=150%",
+          scrub: 1,
           pin: true,
+          pinSpacing: true,
+          invalidateOnRefresh: true,
+          anticipatePin: 1,
         }
       });
 
-      // Scale up video to cover screen
       tl.to(videoWrapperRef.current, {
-        width: "100vw",
-        height: "100vh",
+        width: "100%",
+        height: "100%",
         bottom: 0,
         left: 0,
         borderRadius: 0,
         ease: "power2.inOut",
       }, 0);
 
-      // Fade out the logo and text as video scales
       tl.to([textRef.current, logoRef.current], {
         opacity: 0,
-        y: -50,
+        y: -30,
         ease: "power1.inOut",
       }, 0);
 
     }, containerRef);
 
-    return () => ctx.revert();
+    const handleResize = () => {
+      ScrollTrigger.refresh();
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+      ctx.revert();
+    };
   }, [mounted]);
 
   if (!mounted) {
-    return <section className="relative w-full h-screen bg-primary overflow-hidden" />;
+    return <section className="relative w-full h-[100dvh] bg-primary overflow-hidden" />;
   }
 
   return (
-    <section ref={containerRef} className="relative w-full h-screen bg-primary overflow-hidden">
+    <section ref={containerRef} className="relative w-full h-[100dvh] bg-primary overflow-hidden">
       <div ref={stickyRef} className="relative w-full h-full flex flex-col items-center">
 
         {/* LOGO — Upper Center */}
@@ -72,7 +79,7 @@ export default function Hero() {
           ref={logoRef}
           className="
             absolute
-            top-[10vh]
+            top-[15vh]
             w-full
             flex justify-center
             z-10
@@ -81,7 +88,7 @@ export default function Hero() {
             mix-blend-multiply
           "
         >
-          <div className="w-[60vw] max-w-[500px] aspect-square">
+          <div className="w-[70vw] md:w-[60vw] max-w-[500px] aspect-square">
             <SmileLogo />
           </div>
         </div>
@@ -91,23 +98,23 @@ export default function Hero() {
           ref={textRef}
           className="
             absolute
-            top-[40vh] md:top-[35vh]
+            top-[45vh] md:top-[35vh]
             w-full
             flex justify-center
             z-20 pointer-events-none
-            px-4
+            px-6
           "
         >
           <h2 className="
-            text-[24px] md:text-[40px] lg:text-[50px]
+            text-[24px] sm:text-[32px] md:text-[40px] lg:text-[50px]
             leading-[1.1]
             font-bold
             text-[#1a1a1a]
             text-center
             tracking-tight
-            max-w-[800px]
+            max-w-[900px]
           ">
-            Premium Branding Agency <br />
+            Premium Branding Agency <br className="hidden sm:block" />
             for B2B Tech Scaleups
           </h2>
         </div>
@@ -117,11 +124,11 @@ export default function Hero() {
           ref={videoWrapperRef}
           className="absolute z-30 overflow-hidden"
           style={{
-            bottom: "2rem",
-            left: "2rem",
-            width: "clamp(200px, 25vw, 400px)",
-            height: "clamp(120px, 15vw, 240px)",
-            borderRadius: "16px",
+            bottom: "1.5rem",
+            left: "1.5rem",
+            width: "clamp(160px, 25vw, 400px)",
+            height: "clamp(100px, 15vw, 240px)",
+            borderRadius: "12px",
             boxShadow: "0 20px 40px rgba(0,0,0,0.15)",
           }}
         >

@@ -13,56 +13,69 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   useEffect(() => {
-    // 1. Entrance into Dark — start only when dark-section actually enters the viewport
-    gsap.to("body", {
-      backgroundColor: "#111111",
-      color: "#f9c4d2",
-      "--accent-color": "#f9c4d2",
-      "--accent-bg": "#f9c4d2",
-      immediateRender: false,
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: ".dark-section",
-        start: "top 95%",
-        end: "top 15%",
-        scrub: 1.5,
-      }
-    });
+    // Set initial body color for home page
+    document.body.style.backgroundColor = "#f9c4d2";
+    document.body.style.color = "#111111";
 
-    // 2. Exit Dark — revert to pink as dark-section scrolls out the bottom
-    gsap.to("body", {
-      backgroundColor: "#f9c4d2",
-      color: "#111111",
-      "--accent-color": "#111111",
-      "--accent-bg": "#ffffff",
-      immediateRender: false,
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: ".dark-section",
-        start: "bottom 85%",
-        end: "bottom 10%",
-        scrub: 1.5,
-      }
-    });
+    const ctx = gsap.context(() => {
+      gsap.to("body", {
+        backgroundColor: "#111111",
+        color: "#f9c4d2",
+        "--accent-color": "#f9c4d2",
+        "--accent-bg": "#f9c4d2",
+        immediateRender: false,
+        ease: "power2.inOut",
+        scrollTrigger: {
+          trigger: ".dark-section",
+          start: "top 95%",
+          end: "top 15%",
+          scrub: 1.5,
+          invalidateOnRefresh: true,
+        }
+      });
 
-    // 3. Return to Pink at footer (safety net)
-    gsap.to("body", {
-      backgroundColor: "#f9c4d2",
-      color: "#111111",
-      "--accent-color": "#111111",
-      "--accent-bg": "#ffffff",
-      immediateRender: false,
-      ease: "power2.inOut",
-      scrollTrigger: {
-        trigger: "footer",
-        start: "top 95%",
-        end: "top 35%",
-        scrub: 1.5,
-      }
+      gsap.to("body", {
+        backgroundColor: "#f9c4d2",
+        color: "#111111",
+        "--accent-color": "#111111",
+        "--accent-bg": "#ffffff",
+        immediateRender: false,
+        ease: "power2.inOut",
+        scrollTrigger: {
+          trigger: ".dark-section",
+          start: "bottom 85%",
+          end: "bottom 10%",
+          scrub: 1.5,
+          invalidateOnRefresh: true,
+        }
+      });
+
+      gsap.to("body", {
+        backgroundColor: "#f9c4d2",
+        color: "#111111",
+        "--accent-color": "#111111",
+        "--accent-bg": "#ffffff",
+        immediateRender: false,
+        ease: "power2.inOut",
+        scrollTrigger: {
+          trigger: "footer",
+          start: "top 95%",
+          end: "top 35%",
+          scrub: 1.5,
+          invalidateOnRefresh: true,
+        }
+      });
     });
 
     return () => {
-      ScrollTrigger.getAll().forEach(t => t.kill());
+      // Revert only OUR context's triggers (not global ones)
+      ctx.revert();
+
+      // Reset body inline styles to CSS defaults
+      document.body.style.backgroundColor = "";
+      document.body.style.color = "";
+      document.body.style.removeProperty("--accent-color");
+      document.body.style.removeProperty("--accent-bg");
     };
   }, []);
 
