@@ -105,11 +105,11 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
 };
 
 const menuItems = [
-  { label: "Home", to: "/", sub: ["Featured", "Video"] },
-  { label: "Work", to: "/work", sub: ["All Projects", "Filter Industries"] },
+  { label: "Home", to: "/", sub: [] },
+  { label: "Work", to: "/work", sub: [] },
   { label: "About", to: "/about", sub: [] },
   { label: "Clients", to: "/clients", sub: [] },
-  { label: "Services", to: "/services", sub: ["Brand Strategy", "Visual Identity", "Website", "Product"] },
+  { label: "Services", to: "/services", sub: [] },
 ];
 
 const subRoutes = {

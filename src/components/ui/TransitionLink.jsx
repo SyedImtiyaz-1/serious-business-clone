@@ -1,5 +1,5 @@
 import { usePageTransition } from "./PageTransition";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 export default function TransitionLink({ to, children, className, onClick, ...props }) {
   const { startTransition, isTransitioning } = usePageTransition();
@@ -14,8 +14,8 @@ export default function TransitionLink({ to, children, className, onClick, ...pr
   };
 
   return (
-    <a href={to} onClick={handleClick} className={className} {...props}>
+    <Link to={to} onClick={handleClick} className={className} {...props}>
       {children}
-    </a>
+    </Link>
   );
 }

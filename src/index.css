@@ -28,6 +28,7 @@ html {
 body {
   width: 100%;
   overflow-x: hidden;
+  position: relative;
   background-color: var(--bg);
   color: #111111;
   font-family: 'Inter', sans-serif;

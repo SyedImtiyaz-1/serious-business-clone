@@ -1,9 +1,10 @@
 import React from "react";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import { HashRouter as Router, Routes, Route } from "react-router-dom";
 import Navbar from "./components/layout/Navbar";
 import Footer from "./components/sections/Footer";
 import ClientWrapper from "./components/layout/ClientWrapper";
 import CustomCursor from "./components/ui/CustomCursor";
+import ErrorBoundary from "./components/ui/ErrorBoundary";
 import { TransitionProvider } from "./components/ui/PageTransition";
 import Home from "./pages/Home";
 import About from "./pages/About";
@@ -26,18 +27,20 @@ export default function App() {
                 <Navbar />
               </div>
 
-              <Routes>
-                <Route path="/" element={<Home />} />
-                <Route path="/work" element={<Work />} />
-                <Route path="/work/:slug" element={<WorkDetail />} />
-                <Route path="/about" element={<About />} />
-                <Route path="/services" element={<Services />} />
-                <Route path="/contact" element={<Contact />} />
-                <Route path="/clients" element={<Clients />} />
+              <ErrorBoundary>
+                <Routes>
+                  <Route path="/" element={<Home />} />
+                  <Route path="/work" element={<Work />} />
+                  <Route path="/work/:slug" element={<WorkDetail />} />
+                  <Route path="/about" element={<About />} />
+                  <Route path="/services" element={<Services />} />
+                  <Route path="/contact" element={<Contact />} />
+                  <Route path="/clients" element={<Clients />} />
 
-                {/* Catch-all for undefined pages */}
-                <Route path="*" element={<ComingSoon />} />
-              </Routes>
+                  {/* Catch-all for undefined pages */}
+                  <Route path="*" element={<ComingSoon />} />
+                </Routes>
+              </ErrorBoundary>
 
               <Footer />
             </div>
