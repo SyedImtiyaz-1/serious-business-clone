@@ -1,9 +1,15 @@
 /* Page Wrapper */
+/* Page Wrapper */
 .pageWrapper {
   width: 100%;
   min-height: 100vh;
   background-color: var(--bg, #fcfbf8);
   padding-top: 4rem;
+  position: relative;
+}
+/* Grid Container */
+.grid {
+  position: relative;
 }
 
 /* Tabs Header Section */

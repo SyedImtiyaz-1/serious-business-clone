@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from "react";
+import { useLayoutEffect, useRef } from "react";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import SmileLogo from "../ui/SmileLogo";
@@ -9,21 +9,16 @@ gsap.registerPlugin(ScrollTrigger);
 export function HeroTopText() {
   return null;
 }
+
 export default function Hero() {
-  const [mounted, setMounted] = useState(false);
   const containerRef = useRef(null);
-  const stickyRef = useRef(null);
   const videoWrapperRef = useRef(null);
   const textRef = useRef(null);
   const logoRef = useRef(null);
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
-  useEffect(() => {
-    if (!mounted) return;
-
+  // useLayoutEffect ensures cleanup (ctx.revert) runs BEFORE React removes
+  // the DOM nodes, so GSAP can properly un-pin and remove the pin spacer.
+  useLayoutEffect(() => {
     const ctx = gsap.context(() => {
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -52,27 +47,20 @@ export default function Hero() {
         y: -30,
         ease: "power1.inOut",
       }, 0);
-
     }, containerRef);
 
-    const handleResize = () => {
-      ScrollTrigger.refresh();
-    };
+    const handleResize = () => ScrollTrigger.refresh();
     window.addEventListener("resize", handleResize);
 
     return () => {
       window.removeEventListener("resize", handleResize);
-      ctx.revert();
+      ctx.revert(); // runs before DOM removal — pin spacer is properly cleaned up
     };
-  }, [mounted]);
-
-  if (!mounted) {
-    return <section className="relative w-full h-[100dvh] bg-primary overflow-hidden" />;
-  }
+  }, []);
 
   return (
     <section ref={containerRef} className="relative w-full h-[100dvh] bg-primary overflow-hidden">
-      <div ref={stickyRef} className="relative w-full h-full flex flex-col items-center">
+      <div className="relative w-full h-full flex flex-col items-center">
 
         {/* LOGO — Upper Center */}
         <div

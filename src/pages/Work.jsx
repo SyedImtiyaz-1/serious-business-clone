@@ -1,6 +1,6 @@
 import { useState, useMemo } from 'react';
 import TransitionLink from '../components/ui/TransitionLink';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import projects from '../data/projects';
 import styles from './Work.module.css';
 
@@ -25,7 +25,6 @@ export default function Work() {
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
-      exit={{ opacity: 0 }}
       transition={{ duration: 0.6 }}
       className={styles.pageWrapper}
     >
@@ -58,60 +57,53 @@ export default function Work() {
       </section>
 
       {/* Industries Sub-filter */}
-      <AnimatePresence>
-        {activeTab === 'Industries' && (
-          <motion.div
-            initial={{ opacity: 0, height: 0, y: -10 }}
-            animate={{ opacity: 1, height: 'auto', y: 0 }}
-            exit={{ opacity: 0, height: 0, y: -10 }}
-            style={{ overflow: 'hidden' }}
-          >
-            <div className={styles.subFilters}>
-              {industries.map(ind => (
-                <button
-                  key={ind}
-                  className={`${styles.subFilterBtn} ${activeIndustry === ind ? styles.subFilterBtnActive : ''}`}
-                  onClick={() => setActiveIndustry(ind)}
-                >
-                  {ind}
-                </button>
-              ))}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {activeTab === 'Industries' && (
+        <motion.div
+          initial={{ opacity: 0, height: 0, y: -10 }}
+          animate={{ opacity: 1, height: 'auto', y: 0 }}
+          style={{ overflow: 'hidden' }}
+        >
+          <div className={styles.subFilters}>
+            {industries.map(ind => (
+              <button
+                key={ind}
+                className={`${styles.subFilterBtn} ${activeIndustry === ind ? styles.subFilterBtnActive : ''}`}
+                onClick={() => setActiveIndustry(ind)}
+              >
+                {ind}
+              </button>
+            ))}
+          </div>
+        </motion.div>
+      )}
 
       {/* Grid Section */}
       <section className={styles.workGrid}>
-        <motion.div layout className={styles.grid}>
-          <AnimatePresence mode="popLayout">
-            {filteredProjects.map((project, i) => (
-              <motion.div
-                key={project.slug}
-                layout
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, scale: 0.95 }}
-                transition={{ duration: 0.4, delay: (i % 6) * 0.05 }}
-              >
-                <TransitionLink to={`/work/${project.slug}`} className={styles.card}>
-                  <div className={styles.cardImage}>
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className={styles.cardMedia}
-                    />
-                  </div>
-                  <div className={styles.cardContent}>
-                    <h2 className={styles.cardTitle}>{project.client} | {project.title}</h2>
-                    <p className={styles.cardSubtitle}>
-                      {project.category} &middot; Visual Identity &middot; Website
-                    </p>
-                  </div>
-                </TransitionLink>
-              </motion.div>
-            ))}
-          </AnimatePresence>
+        <motion.div className={styles.grid}>
+          {filteredProjects.map((project, i) => (
+            <motion.div
+              key={project.slug}
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.4, delay: (i % 6) * 0.05 }}
+            >
+              <TransitionLink to={`/work/${project.slug}`} className={styles.card}>
+                <div className={styles.cardImage}>
+                  <img
+                    src={project.image}
+                    alt={project.title}
+                    className={styles.cardMedia}
+                  />
+                </div>
+                <div className={styles.cardContent}>
+                  <h2 className={styles.cardTitle}>{project.client} | {project.title}</h2>
+                  <p className={styles.cardSubtitle}>
+                    {project.category} &middot; Visual Identity &middot; Website
+                  </p>
+                </div>
+              </TransitionLink>
+            </motion.div>
+          ))}
         </motion.div>
       </section>
     </motion.div>

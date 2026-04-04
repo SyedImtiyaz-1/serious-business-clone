@@ -1,5 +1,5 @@
 import { useState, useRef, useCallback } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 import TransitionLink from '../components/ui/TransitionLink';
 import ContactModal from '../components/ui/ContactModal';
 import styles from './About.module.css';
@@ -70,7 +70,6 @@ export default function About() {
         onMouseMove={handleMouseMove}
       >
         {/* Scattered Image Trail */}
-        <AnimatePresence>
           {trail.map((img) => (
             <motion.img
               key={img.id}
@@ -87,7 +86,6 @@ export default function About() {
               transition={{ duration: 0.4, ease: "backOut" }}
             />
           ))}
-        </AnimatePresence>
 
         {/* Foreground Content */}
         <div className={styles.textContent}>

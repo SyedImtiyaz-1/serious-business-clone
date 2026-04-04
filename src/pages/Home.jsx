@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import { useLayoutEffect } from "react";
 import Hero, { HeroTopText } from "../components/sections/Hero";
 import AboutSection from "../components/sections/About";
 import ServiceBlock, { StrategyImage, VisualImage, WebsiteImage, ProductImage } from "../components/sections/Services";
@@ -12,7 +12,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
-  useEffect(() => {
+  useLayoutEffect(() => {
     // Set initial body color for home page
     document.body.style.backgroundColor = "#f9c4d2";
     document.body.style.color = "#111111";
