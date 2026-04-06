@@ -9,7 +9,10 @@
   --color-yellow: #fff242;
   --color-light-gray: #f3f3f3;
   --color-dark: #0E0E0E;
-  
+  --color-pink: #f7c4d5;
+
+  --bg: #f6f3eb;
+
   /* Theme Accents */
   --accent-color: #111111;
   --accent-bg: #ffffff;
@@ -17,19 +20,27 @@
 
 /* Base styles */
 html {
-  max-width: 100vw;
+  width: 100%;
+  overflow-x: hidden;
   scroll-behavior: smooth;
 }
 
 body {
-  max-width: 100vw;
+  width: 100%;
   overflow-x: hidden;
-  background-color: #f9c4d2;
+  position: relative;
+  background-color: var(--bg);
   color: #111111;
   font-family: 'Inter', sans-serif;
   margin: 0;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+/* Prevent GSAP pin-spacer from causing horizontal overflow */
+.pin-spacer {
+  max-width: 100vw !important;
+  overflow: hidden !important;
 }
 
 /* Utility classes (optional but powerful) */
@@ -62,8 +73,13 @@ body {
 
 /* Animations */
 @keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-50%); }
+  0% {
+    transform: translateX(0);
+  }
+
+  100% {
+    transform: translateX(-50%);
+  }
 }
 
 .animate-marquee {
@@ -75,6 +91,7 @@ body {
   -ms-overflow-style: none;
   scrollbar-width: none;
 }
+
 .scrollbar-hide::-webkit-scrollbar {
   display: none;
 }

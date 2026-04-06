@@ -1,184 +1,133 @@
-import { useRef } from 'react';
+import { useState, useRef, useCallback } from 'react';
+import { motion } from 'framer-motion';
 import TransitionLink from '../components/ui/TransitionLink';
-import { motion, useInView } from 'framer-motion';
+import ContactModal from '../components/ui/ContactModal';
 import styles from './About.module.css';
 
-const stats = [
-  { number: '20+', label: 'Years of Experience' },
-  { number: '200+', label: 'Projects Delivered' },
-  { number: '3', label: 'Global Offices' },
-  { number: '50+', label: 'Industry Awards' },
+const randomImages = [
+  "https://picsum.photos/id/1015/500/400",
+  "https://picsum.photos/id/1018/400/500",
+  "https://picsum.photos/id/1025/600/400",
+  "https://picsum.photos/id/1035/500/500",
+  "https://picsum.photos/id/1043/450/450",
+  "https://picsum.photos/id/1045/400/300",
+  "https://picsum.photos/id/1048/500/350",
+  "https://picsum.photos/id/1050/350/500",
 ];
-
-const values = [
-  {
-    title: 'Clarity Over Complexity',
-    desc: 'We strip away noise to find the idea that matters — then build everything around it.',
-  },
-  {
-    title: 'Craft at Every Scale',
-    desc: 'From a single wordmark to a complete brand system, every detail is deliberate.',
-  },
-  {
-    title: 'Partnership, Not Service',
-    desc: 'We embed ourselves in your business so the work reflects real understanding, not assumptions.',
-  },
-  {
-    title: 'Endurance Over Trend',
-    desc: 'We design brands that outlast cycles — built on substance, not style alone.',
-  },
-];
-
-const expertise = [
-  'Brand Strategy',
-  'Visual Identity',
-  'Naming & Messaging',
-  'Digital Experience',
-  'Campaign & Content',
-  'Environmental Design',
-];
-
-function FadeIn({ children, delay = 0, className }) {
-  const ref = useRef(null);
-  const isInView = useInView(ref, { once: true, margin: '-80px' });
-
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial={{ opacity: 0, y: 35 }}
-      animate={isInView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
-    >
-      {children}
-    </motion.div>
-  );
-}
 
 export default function About() {
+  const [trail, setTrail] = useState([]);
+  const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const lastPos = useRef({ x: 0, y: 0 });
+  const count = useRef(0);
+  const sectionRef = useRef(null);
+
+  const handleMouseMove = useCallback((e) => {
+    if (!sectionRef.current) return;
+    const rect = sectionRef.current.getBoundingClientRect();
+
+    // Position relative to the section
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+
+    const dx = x - lastPos.current.x;
+    const dy = y - lastPos.current.y;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+
+    // Spawn a new image every 80 pixels moved
+    if (dist > 80) {
+      lastPos.current = { x, y };
+
+      const newImage = {
+        id: Date.now() + Math.random(),
+        src: randomImages[count.current % randomImages.length],
+        x,
+        y,
+        rotate: (Math.random() - 0.5) * 30 // -15 to +15 deg
+      };
+
+      setTrail(prev => [...prev, newImage]);
+      count.current += 1;
+
+      // Unmount the image after 2 seconds
+      setTimeout(() => {
+        setTrail(prev => prev.filter(img => img.id !== newImage.id));
+      }, 2000);
+    }
+  }, []);
+
   return (
     <motion.div
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
+      className={styles.pageWrapper}
     >
-      {/* Hero */}
-      <section className={styles.hero}>
-        <motion.p
-          className={styles.heroLabel}
-          initial={{ opacity: 0, y: 15 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2, duration: 0.6 }}
-        >
-          About the Studio
-        </motion.p>
-        <motion.h1
-          className={styles.heroHeading}
-          initial={{ opacity: 0, y: 40 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, ease: [0.22, 1, 0.36, 1] }}
-        >
-          We build brands that<br />
-          speak with quiet authority.
-        </motion.h1>
-      </section>
-
-      {/* Philosophy — two columns */}
-      <section className={styles.philosophy}>
-        <FadeIn className={styles.philLeft}>
-          <h2 className={styles.philHeading}>Est. 2005</h2>
-          <p className={styles.philSubtext}>New York &middot; Toronto &middot; Florida</p>
-        </FadeIn>
-        <FadeIn className={styles.philRight} delay={0.15}>
-          <p className={styles.philBody}>
-            Marshall Haber Creative Group is a full-service brand and advertising agency headquartered in New York City. For two decades, we've partnered with ambitious organizations — from global financial institutions to cultural nonprofits — delivering brand systems that are precise, purposeful, and built to endure.
-          </p>
-          <p className={styles.philBody}>
-            We believe the strongest brands are rooted in clarity. Our work begins with deep listening and ends with creative that earns attention without demanding it.
-          </p>
-        </FadeIn>
-      </section>
-
-      {/* Full-width video */}
-      <FadeIn>
-        <section className={styles.imageSection}>
-          <video
-            src="/about.mp4"
-            className={styles.fullImage}
-            autoPlay
-            loop
-            muted
-            playsInline
-          />
-        </section>
-      </FadeIn>
-
-      {/* Stats */}
-      <section className={styles.stats}>
-        {stats.map((stat, i) => (
-          <FadeIn key={stat.label} className={styles.statItem} delay={i * 0.08}>
-            <span className={styles.statNumber}>{stat.number}</span>
-            <span className={styles.statLabel}>{stat.label}</span>
-          </FadeIn>
-        ))}
-      </section>
-
-      {/* Approach */}
-      <section className={styles.approach}>
-        <FadeIn className={styles.approachHeader}>
-          <p className={styles.sectionLabel}>Our Approach</p>
-          <h2 className={styles.approachHeading}>
-            Guided by clarity,<br />driven by experience.
-          </h2>
-        </FadeIn>
-        <div className={styles.valuesGrid}>
-          {values.map((value, i) => (
-            <FadeIn key={value.title} className={styles.valueItem} delay={i * 0.08}>
-              <span className={styles.valueIndex}>0{i + 1}</span>
-              <h3 className={styles.valueTitle}>{value.title}</h3>
-              <p className={styles.valueDesc}>{value.desc}</p>
-            </FadeIn>
+      <section
+        ref={sectionRef}
+        className={styles.heroSection}
+        onMouseMove={handleMouseMove}
+      >
+        {/* Scattered Image Trail */}
+          {trail.map((img) => (
+            <motion.img
+              key={img.id}
+              src={img.src}
+              alt=""
+              className={styles.trailImage}
+              style={{
+                top: img.y,
+                left: img.x,
+              }}
+              initial={{ opacity: 0, scale: 0.5, rotate: img.rotate }}
+              animate={{ opacity: 1, scale: 1, rotate: img.rotate }}
+              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.8, ease: "easeOut" } }}
+              transition={{ duration: 0.4, ease: "backOut" }}
+            />
           ))}
+
+        {/* Foreground Content */}
+        <div className={styles.textContent}>
+          <p className={styles.mainParagraph}>
+            <strong>SERIOUS.BUSINESS</strong> started in 2015 as a <strong>passion project</strong> at Hyper Island, Stockholm by a diverse group of creatives with the goal of re-defining what a serious business is really about: <strong>kindness and creativity.</strong>
+          </p>
         </div>
       </section>
 
-      {/* Dark name section */}
-      <section className={styles.nameSection}>
-        <FadeIn>
-          <p className={styles.nameLabel}>Founder & Creative Director</p>
-          <h2 className={styles.nameHeading}>Marshall Haber</h2>
-          <p className={styles.nameText}>
-            What began as a passion for brand transformation has grown into a deeply collaborative practice, helping clients navigate complexity with precision, purpose, and a quiet confidence.
-          </p>
-        </FadeIn>
+      {/* CTA Section */}
+      <section className={styles.ctaSection}>
+        <button
+          onClick={() => setIsContactModalOpen(true)}
+          className={styles.ctaBlockDark}
+          style={{ border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit' }}
+        >
+          <div className={styles.ctaTextTop}>
+            <strong>You feel it too?</strong>
+            <span>Let's talk, no strings attached</span>
+          </div>
+          <h2 className={styles.ctaHeading}>Send Request</h2>
+        </button>
+
+        <TransitionLink to="/services" className={styles.ctaBlockPink}>
+          <div className={styles.ctaTextTop}>
+            <strong>Our free offer for B2B tech scaleups!</strong>
+            <span>We identify high-impact messaging and brand fixes you can implement within 24 hours.</span>
+          </div>
+          <div className={styles.ctaHeadingContainer}>
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ marginBottom: '8px' }}>
+              <polyline points="9 8 9 14 19 14"></polyline>
+              <polyline points="15 10 19 14 15 18"></polyline>
+            </svg>
+            <div className={styles.ctaHeadingPinkGroup}>
+              <h2 className={styles.ctaHeading}>Brand</h2>
+              <h2 className={styles.ctaHeadingUnderlined}>Masterplan</h2>
+            </div>
+          </div>
+        </TransitionLink>
       </section>
 
-      {/* Expertise */}
-      <section className={styles.expertiseSection}>
-        <FadeIn className={styles.expertiseHeader}>
-          <p className={styles.sectionLabel}>Capabilities</p>
-          <h2 className={styles.expertiseHeading}>What we do</h2>
-        </FadeIn>
-        <div className={styles.expertiseList}>
-          {expertise.map((item, i) => (
-            <FadeIn key={item} className={styles.expertiseItem} delay={i * 0.06}>
-              <span className={styles.expertiseName}>{item}</span>
-              <span className={styles.expertiseArrow}>&rarr;</span>
-            </FadeIn>
-          ))}
-        </div>
-      </section>
-
-      {/* CTA */}
-      <section className={styles.cta}>
-        <FadeIn>
-          <h2 className={styles.ctaHeading}>Ready to transform your brand?</h2>
-          <TransitionLink to="/contact" className={styles.ctaButton}>
-            Get in Touch
-          </TransitionLink>
-        </FadeIn>
-      </section>
+      <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
     </motion.div>
   );
 }

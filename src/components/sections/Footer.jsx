@@ -44,20 +44,21 @@ export default function Footer() {
       </div>
 
       {/* Bottom Legal Links */}
-      <div className="w-full flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest px-4 border-t border-current pt-4">
-        <p>© Marshall Haber Creative Group</p>
-        <p className="mt-2 md:mt-0 font-playfair lowercase tracking-normal text-sm font-normal">99 Wall Street
-          New York, NY 10005
-          212.494.9052
-          studio@marshallhaber.com
+      <div className="w-full flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest px-4 border-t border-current pt-8 mt-12 gap-8 md:gap-0">
+        <div className="flex flex-col items-center md:items-start gap-2">
+          <p>© 2015—2026 Marshall Haber Creative Group</p>
+          <div className="flex gap-4">
+            <a href="#" className="hover:opacity-60 transition-opacity">Imprint</a>
+            <span>|</span>
+            <a href="#" className="hover:opacity-60 transition-opacity">Privacy</a>
+            <span>|</span>
+            <a href="#" className="hover:opacity-60 transition-opacity">Press</a>
+          </div>
+        </div>
 
-        </p>
-        <div className="flex gap-4 mt-2 md:mt-0">
-          <a href="#" className="hover:opacity-60 transition-opacity">Imprint</a>
-          <span>|</span>
-          <a href="#" className="hover:opacity-60 transition-opacity">Privacy</a>
-          <span>|</span>
-          <a href="#" className="hover:opacity-60 transition-opacity">Press</a>
+        <div className="text-center md:text-right font-medium tracking-normal text-sm lowercase opacity-80">
+          <p>99 Wall Street, New York, NY 10005</p>
+          <p>212.494.9052 · studio@marshallhaber.com</p>
         </div>
       </div>
     </footer>

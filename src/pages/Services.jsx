@@ -1,56 +1,86 @@
 import { motion } from 'framer-motion';
 import styles from './Services.module.css';
 
-const services = [
+const leftColumnData = [
   {
-    title: 'Brand Strategy',
-    intro: `It’s the core of your company’s identity. It guides all business decisions, ensuring a consistent and impactful presence in the market.`,
-    points: [
-      'Research & Insights',
-      'Brand Model',
-      'Positioning',
-      'Value proposition',
-      'Messaging',
-      'Verbal Identity',
-      'Naming'
-    ]
+    type: 'intro',
+    title: 'Services',
+    text: 'We partner with brands to solve complex challenges—combining strategy, design, and execution in focused, high-impact sprints.'
   },
   {
-    title: 'Visual Identity',
-    intro: `Visual identity is the unique visual language of your brand, creating memorable impressions and emotional connections with your audience.`,
-    points: [
-      'Logotype, Typography & Colour',
-      'Visual Language',
-      'Illustrations & 3D',
-      'Art Direction',
-      'Brandbook & Guidelines',
-      'Motion Design'
-    ]
+    type: 'service',
+    title: 'Strategy',
+    text: 'We define the clarity and direction that everything else builds on.',
+    items: ['Research & Insights', 'Brand Architecture', 'Positioning', 'Messaging', 'Naming']
   },
   {
-    title: 'Website',
-    intro: `Our website design services blend innovation and creativity to deliver user-centric solutions that elevate your brand and engage your audience.`,
-    points: [
-      'UX Design',
-      'Website Design',
-      'Responsive Design',
-      'Website Motion',
-      'Animations'
-    ]
-  },
-  {
+    type: 'service',
     title: 'Product',
-    intro: `Our product design services focus on creating intuitive and aesthetically pleasing products that resonate with your audience and stand out in the market.`,
-    points: [
-      'UX Design',
-      'User Testing',
-      'Prototyping',
-      'UI Design',
-      'App Design',
-      'Interaction Design'
-    ]
+    text: 'Thoughtfully designed products that are intuitive, refined, and built for real use.',
+    items: ['UX Design', 'Prototyping', 'UI Systems', 'App Design']
+  },
+  {
+    type: 'service',
+    title: 'Sprints',
+    text: 'We work in rapid, focused cycles—prototyping, testing, and refining to move ideas forward quickly.',
+    items: ['Rapid Prototyping', 'Design Sprints', 'MVP Development', 'Iteration & Optimization', 'Concept Testing']
   }
 ];
+
+const rightColumnData = [
+  {
+    type: 'service',
+    title: 'Identity',
+    text: 'Distinctive visual systems designed to be immediate, enduring, and unmistakable.',
+    items: ['Logo & Wordmark', 'Typography & Color', 'Art Direction', 'Brand Systems', 'Guidelines']
+  },
+  {
+    type: 'service',
+    title: 'Digital',
+    text: 'High-performance digital experiences—designed with precision and built to scale.',
+    items: ['UX & UI Design', 'Website Design', 'Web Development', 'Interaction & Motion']
+  },
+  {
+    type: 'service',
+    title: 'Experiential',
+    text: 'Immersive brand experiences that create real-world impact.',
+    items: ['Brand Activations', 'Events & Installations', 'Spatial Design', 'Interactive Experiences']
+  },
+  {
+    type: 'service',
+    title: 'Film & Content',
+    text: 'Cinematic storytelling that elevates brands and drives engagement.',
+    items: ['Brand Films', 'Campaign Content', 'Motion & Animation', 'Post-Production']
+  },
+  {
+    type: 'service',
+    title: 'Objects',
+    text: 'Physical expressions of your brand—designed with the same level of care and intention.',
+    items: ['Corporate Gifting', 'Merchandise & Swag', 'Packaging', 'Custom Products']
+  }
+];
+
+function RenderBlock({ item, index, delayOffset }) {
+  return (
+    <motion.div
+      className={styles.block}
+      initial={{ opacity: 0, y: 20 }}
+      whileInView={{ opacity: 1, y: 0 }}
+      viewport={{ once: true, margin: '-50px' }}
+      transition={{ duration: 0.6, delay: 0.1 + index * 0.1 + delayOffset }}
+    >
+      <h3 className={styles.blockTitle}>{item.title}</h3>
+      <p className={styles.blockText}>{item.text}</p>
+      {item.items && (
+        <ul className={styles.blockList}>
+          {item.items.map((bullet, i) => (
+            <li key={i}>{bullet}</li>
+          ))}
+        </ul>
+      )}
+    </motion.div>
+  );
+}
 
 export default function Services() {
   return (
@@ -59,40 +89,59 @@ export default function Services() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
+      className={styles.pageWrapper}
     >
-      {/* Hero */}
-      <section className={styles.hero}>
-        <motion.h1
-          className={styles.heroHeading}
+      <div className={styles.container}>
+        {/* Top Hero Heading */}
+        <section className={styles.heroSection}>
+          <motion.h1
+            className={styles.heroHeading}
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7 }}
+          >
+            We equip, empower, and inspire tomorrow's leaders through premium branding
+          </motion.h1>
+        </section>
+
+        {/* Content Divider */}
+        <div className={styles.divider} />
+
+        {/* 2-Column List Section */}
+        <section className={styles.contentSection}>
+          {/* Left Column */}
+          <div className={styles.column}>
+            {leftColumnData.map((item, i) => (
+              <RenderBlock key={item.title} item={item} index={i} delayOffset={0} />
+            ))}
+          </div>
+
+          {/* Right Column */}
+          <div className={styles.column}>
+            {rightColumnData.map((item, i) => (
+              <RenderBlock key={item.title} item={item} index={i} delayOffset={0.2} />
+            ))}
+          </div>
+        </section>
+      </div>
+
+      {/* Financial Expertise Banner */}
+      <section className={styles.bannerSection}>
+        <motion.div
+          className={styles.bannerCard}
           initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.8 }}
         >
-          Services
-        </motion.h1>
-      </section>
-
-      {/* Services */}
-      <section className={styles.servicesList}>
-        <div className={styles.grid}>
-          {services.map((service, i) => (
-            <motion.div
-              key={service.title}
-              className={styles.serviceItem}
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: i * 0.1 }}
-            >
-              <h2 className={styles.serviceTitle}>{service.title}</h2>
-
-              <p className={styles.serviceIntro}>{service.intro}</p>
-
-              <p className={styles.servicePoints}>
-                {service.points.join(' , ')}
-              </p>
-            </motion.div>
-          ))}
-        </div>
+          <svg className={styles.bannerIcon} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <polyline points="22 12 18 12 15 21 9 3 6 12 2 12"></polyline>
+          </svg>
+          <h2 className={styles.bannerHeading}>Financial expertise unlocked by technology</h2>
+          <p className={styles.bannerText}>
+            Our technology improves decision making by analyzing complex data profiles and hidden patterns. A sophisticated data device here to empower you with aspects previously unimagined.
+          </p>
+        </motion.div>
       </section>
     </motion.div>
   );

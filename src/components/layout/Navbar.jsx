@@ -1,7 +1,6 @@
 import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
-import { Link } from "react-router-dom";
 import TransitionLink from "../ui/TransitionLink";
 import gsap from "gsap";
 
@@ -105,11 +104,11 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
 };
 
 const menuItems = [
-  { label: "Home", to: "/", sub: ["Featured", "Video"] },
-  { label: "Work", to: "/work", sub: ["Featured", "All Projects", "Filter Industries"] },
-  { label: "About", to: "/about", sub: ["20 Years"] },
-  { label: "Clients", to: "/clients", sub: ["Logo of Clients with filter feature"] },
-  { label: "Services", to: "/services", sub: ["Brand Strategy", "Visual Identity", "Website", "Product"] },
+  { label: "Home", to: "/", sub: [] },
+  { label: "Work", to: "/work", sub: [] },
+  { label: "About", to: "/about", sub: [] },
+  { label: "Clients", to: "/clients", sub: [] },
+  { label: "Services", to: "/services", sub: [] },
 ];
 
 const subRoutes = {
@@ -118,7 +117,6 @@ const subRoutes = {
   "All Projects": "/work",
   "Filter Industries": "/work/industries",
   "20 Years": "/about/story",
-  "Logo of Clients with filter feature": "/clients",
   "Brand Strategy": "/services/brand-strategy",
   "Visual Identity": "/services/visual-identity",
   "Website": "/services/website",
@@ -131,23 +129,26 @@ const DesktopMenu = () => {
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
   const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
-  const staticStyle = { backgroundColor: "var(--accent-bg)", color: "var(--accent-text, #111111)" };
-  const timeoutRef = useRef(null);
+  const staticStyle = { backgroundColor: "var(--accent-bg, #ffffff)", color: "var(--accent-text, #111111)" };
+
+  const menuTimeoutRef = useRef(null);
+  const itemTimeoutRef = useRef(null);
   const itemRefs = useRef({});
 
   const handleMenuEnter = () => {
-    clearTimeout(timeoutRef.current);
+    clearTimeout(menuTimeoutRef.current);
     setIsMenuHovered(true);
   };
 
   const handleMenuLeave = () => {
-    timeoutRef.current = setTimeout(() => {
+    menuTimeoutRef.current = setTimeout(() => {
       setIsMenuHovered(false);
       setActiveItem(null);
-    }, 150);
+    }, 200);
   };
 
   const handleItemEnter = (label) => {
+    clearTimeout(itemTimeoutRef.current);
     setActiveItem(label);
     const el = itemRefs.current[label];
     if (el) {
@@ -160,7 +161,20 @@ const DesktopMenu = () => {
   };
 
   const handleItemLeave = () => {
-    setActiveItem(null);
+    itemTimeoutRef.current = setTimeout(() => {
+      setActiveItem(null);
+    }, 200);
+  };
+
+  const handleDropdownEnter = () => {
+    clearTimeout(menuTimeoutRef.current);
+    clearTimeout(itemTimeoutRef.current);
+    setIsMenuHovered(true);
+    setActiveItem(activeItem);
+  };
+
+  const handleDropdownLeave = () => {
+    handleMenuLeave();
   };
 
   const activeMenuData = menuItems.find((m) => m.label === activeItem);
@@ -176,7 +190,7 @@ const DesktopMenu = () => {
         layout
         style={staticStyle}
         transition={{ layout: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
-        className="px-6 py-3 rounded-full shadow-sm font-bold text-sm flex items-center overflow-hidden h-[44px] cursor-none"
+        className="px-6 py-3 rounded-full shadow-sm font-bold text-sm flex items-center overflow-hidden h-[44px] cursor-pointer"
       >
         <div className="relative h-5 overflow-hidden flex flex-col items-center">
           <AnimatePresence mode="wait">
@@ -204,20 +218,22 @@ const DesktopMenu = () => {
                     ref={(el) => (itemRefs.current[item.label] = el)}
                     onMouseEnter={() => handleItemEnter(item.label)}
                     onMouseLeave={handleItemLeave}
-                    className="relative flex items-center gap-0.5 hover:opacity-60 transition-opacity cursor-none"
+                    className="relative flex items-center gap-0.5 hover:opacity-60 transition-opacity cursor-pointer"
                   >
                     <TransitionLink to={item.to}>
                       <span>{item.label}</span>
                     </TransitionLink>
-                    <motion.svg
-                      animate={{ rotate: activeItem === item.label ? 180 : 0 }}
-                      transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
-                      width="12"
-                      height="12"
-                      viewBox="0 0 12 12"
-                    >
-                      <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
-                    </motion.svg>
+                    {item.sub.length > 0 && (
+                      <motion.svg
+                        animate={{ rotate: activeItem === item.label ? 180 : 0 }}
+                        transition={{ duration: 0.25, ease: [0.22, 1, 0.36, 1] }}
+                        width="12"
+                        height="12"
+                        viewBox="0 0 12 12"
+                      >
+                        <path d="M2 4l4 4 4-4" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" fill="none" />
+                      </motion.svg>
+                    )}
                   </div>
                 ))}
               </motion.div>
@@ -229,12 +245,12 @@ const DesktopMenu = () => {
       {/* Icon circle */}
       <motion.div
         style={staticStyle}
-        className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center flex-shrink-0 cursor-none"
+        className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center flex-shrink-0 cursor-pointer"
       >
         <MenuIcon isOpen={isMenuHovered} />
       </motion.div>
 
-      {/* Dropdown via portal — escapes ALL overflow-hidden parents */}
+      {/* Dropdown via portal */}
       <DropdownPortal>
         <AnimatePresence>
           {activeItem && activeMenuData && activeMenuData.sub.length > 0 && (
@@ -244,21 +260,18 @@ const DesktopMenu = () => {
               animate={{ opacity: 1, y: 0, scale: 1 }}
               exit={{ opacity: 0, y: -4, scale: 0.97 }}
               transition={{ duration: 0.2, ease: [0.22, 1, 0.36, 1] }}
-              onMouseEnter={() => {
-                clearTimeout(timeoutRef.current);
-                setActiveItem(activeItem);
-              }}
-              onMouseLeave={handleItemLeave}
+              onMouseEnter={handleDropdownEnter}
+              onMouseLeave={handleDropdownLeave}
               style={{
-                backgroundColor: "var(--accent-bg)",
+                backgroundColor: "var(--accent-bg, #ffffff)",
                 color: "var(--accent-text, #111111)",
                 position: "fixed",
                 top: dropdownPos.top,
                 left: dropdownPos.left,
-                transform: "translateX(-50%)",
+                transform: activeItem === "Services" ? "translateX(-80%)" : "translateX(-50%)",
                 zIndex: 99999,
               }}
-              className="rounded-2xl shadow-xl p-2 flex flex-col gap-1 min-w-max"
+              className="rounded-2xl shadow-xl p-3 flex flex-col gap-1.5 min-w-max"
             >
               {activeMenuData.sub.map((s, i) => (
                 <motion.div
@@ -272,7 +285,7 @@ const DesktopMenu = () => {
                       style={{
                         border: "1px solid color-mix(in srgb, var(--accent-text, #111111) 20%, transparent)"
                       }}
-                      className="text-xs px-4 py-2 rounded-full text-center hover:opacity-60 transition-opacity cursor-none whitespace-nowrap"
+                      className="text-sm px-4 py-2 rounded-full text-center hover:bg-black/5 hover:opacity-100 transition-colors cursor-pointer whitespace-nowrap"
                     >
                       {s}
                     </div>
@@ -290,25 +303,19 @@ const DesktopMenu = () => {
 export default function Navbar() {
   const { scrollY } = useScroll();
   const [showCenterLogo, setShowCenterLogo] = useState(false);
-  const [hideNavbar, setHideNavbar] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     return scrollY.on("change", (latest) => {
       setShowCenterLogo(latest > 300);
-      const scrollHeight = document.documentElement.scrollHeight;
-      const clientHeight = window.innerHeight;
-      const maxScroll = scrollHeight - clientHeight;
-      setHideNavbar(maxScroll > 1000 && latest > maxScroll - 400);
     });
   }, [scrollY]);
 
   return (
     <motion.div
       initial={{ opacity: 1 }}
-      animate={{ y: hideNavbar ? -100 : 0, opacity: hideNavbar ? 0 : 1 }}
-      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
-      className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none z-[100] overflow-hidden"
+      className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none"
+      style={{ position: "relative", zIndex: 9999 }}
     >
       {/* Mobile Logo */}
       <div className="md:hidden block pointer-events-auto leading-none">
@@ -328,13 +335,28 @@ export default function Navbar() {
       </div>
 
       {/* Center: Desktop Logo */}
-      <div className="absolute left-1/2 -translate-x-1/2 hidden md:block pointer-events-auto">
+      <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center justify-center pointer-events-auto h-24">
         <TransitionLink to="/">
-          <img
-            src={showCenterLogo ? "/logo.png" : "/footerLogoBlack.png"}
-            alt="Marshall Haber Creative Group"
-            className="h-24 w-auto cursor-pointer transition-opacity duration-300"
-          />
+          <div className="relative flex items-center justify-center">
+            {/* Invisible placeholder for maintaining container dimensions */}
+            <img
+              src="/footerLogoBlack.png"
+              alt=""
+              className="h-24 w-auto opacity-0 pointer-events-none"
+            />
+            <img
+              src="/footerLogoBlack.png"
+              alt="Marshall Haber Creative Group"
+              className="absolute h-24 w-auto cursor-pointer transition-opacity duration-700 ease-in-out"
+              style={{ opacity: showCenterLogo ? 0 : 1 }}
+            />
+            <img
+              src="/logo.png"
+              alt="Marshall Haber Creative Group"
+              className="absolute h-24 w-auto cursor-pointer transition-opacity duration-700 ease-in-out"
+              style={{ opacity: showCenterLogo ? 1 : 0 }}
+            />
+          </div>
         </TransitionLink>
       </div>
 
@@ -374,11 +396,11 @@ export default function Navbar() {
             </div>
 
             <div className="flex flex-col gap-6 text-3xl font-semibold">
-              <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
-              <Link to="/work" onClick={() => setIsOpen(false)}>Work</Link>
-              <Link to="/about" onClick={() => setIsOpen(false)}>About</Link>
-              <Link to="/services" onClick={() => setIsOpen(false)}>Services</Link>
-              <Link to="/contact" onClick={() => setIsOpen(false)}>Contact</Link>
+              <TransitionLink to="/" onClick={() => setIsOpen(false)}>Home</TransitionLink>
+              <TransitionLink to="/work" onClick={() => setIsOpen(false)}>Work</TransitionLink>
+              <TransitionLink to="/about" onClick={() => setIsOpen(false)}>About</TransitionLink>
+              <TransitionLink to="/services" onClick={() => setIsOpen(false)}>Services</TransitionLink>
+              <TransitionLink to="/contact" onClick={() => setIsOpen(false)}>Contact</TransitionLink>
             </div>
 
             <div className="text-sm">

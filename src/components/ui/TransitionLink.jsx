@@ -1,21 +1,20 @@
-import { usePageTransition } from "./PageTransition";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
+import { useNavigation } from "../../context/NavigationContext";
 
 export default function TransitionLink({ to, children, className, onClick, ...props }) {
-  const { startTransition, isTransitioning } = usePageTransition();
   const location = useLocation();
+  const { navigateTo } = useNavigation();
 
   const handleClick = (e) => {
     e.preventDefault();
-    // Don't transition if already on this page or mid-transition
-    if (location.pathname === to || isTransitioning) return;
     if (onClick) onClick(e);
-    startTransition(to);
+    if (location.pathname === to) return;
+    navigateTo(to);
   };
 
   return (
-    <a href={to} onClick={handleClick} className={className} {...props}>
+    <Link to={to} onClick={handleClick} className={className} {...props}>
       {children}
-    </a>
+    </Link>
   );
 }

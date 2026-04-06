@@ -80,7 +80,7 @@ export default function Insights() {
     <motion.div
       ref={sectionRef}
       style={{ backgroundColor }}
-      className="w-full"
+      className="w-full relative"
     >
       <div className="px-6 py-14 md:py-28 max-w-[1400px] mx-auto">
 

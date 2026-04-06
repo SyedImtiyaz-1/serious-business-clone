@@ -1,36 +1,81 @@
-
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
+import { useNavigation } from "../../context/NavigationContext";
 
-export default function Loader() {
-  const [isLoading, setIsLoading] = useState(true);
+const COLORS = ["#1a1a1a", "#fac541", "#cba6f7", "#f9c4d2"];
+const SLIDE = 0.55;
+const STAGGER = 0.08;
+const ALL_IN_MS = (SLIDE + (COLORS.length - 1) * STAGGER) * 1000; // ~790ms
+
+function LoaderPanel({ color, index, isLoading }) {
+  const controls = useAnimation();
 
   useEffect(() => {
-    // Hide loader after a short delay
-    const timer = setTimeout(() => {
-      setIsLoading(false);
-    }, 2200);
-    return () => clearTimeout(timer);
-  }, []);
-
-  if (!isLoading) return null; // Unmount after it finishes to free up DOM
+    if (isLoading) {
+      controls.set({ y: "100%" });
+      controls.start({
+        y: "0%",
+        transition: { duration: SLIDE, delay: index * STAGGER, ease: [0.76, 0, 0.24, 1] },
+      });
+    } else {
+      controls.start({
+        y: "-100%",
+        transition: {
+          duration: SLIDE,
+          delay: (COLORS.length - 1 - index) * STAGGER,
+          ease: [0.76, 0, 0.24, 1],
+        },
+      });
+    }
+  }, [isLoading]);
 
   return (
     <motion.div
-      initial={{ y: 0 }}
-      animate={{ y: "-100%" }}
-      transition={{ duration: 0.8, ease: [0.76, 0, 0.24, 1], delay: 2.2 }}
-      onAnimationComplete={() => setIsLoading(false)}
-      className="fixed inset-0 z-[99999] bg-primary flex items-center justify-center pointer-events-none"
-    >
+      animate={controls}
+      initial={{ y: "100%" }}
+      style={{ position: "absolute", inset: 0, backgroundColor: color, zIndex: index }}
+    />
+  );
+}
+
+export default function Loader() {
+  const { isLoading, isNavigating } = useNavigation();
+  const [showLogo, setShowLogo] = useState(false);
+
+  useEffect(() => {
+    if (isLoading && !isNavigating) {
+      // Initial load only — show logo immediately
+      setShowLogo(true);
+    } else {
+      setShowLogo(false);
+    }
+  }, [isLoading, isNavigating]);
+
+  return (
+    <div className="fixed inset-0 overflow-hidden pointer-events-none" style={{ zIndex: 99998 }}>
+
+      {/* Colored panels — only shown during link navigation, not on initial load */}
+      {isNavigating && COLORS.map((color, i) => (
+        <LoaderPanel key={color} color={color} index={i} isLoading={isLoading} />
+      ))}
+
+      {/* On initial load: plain pink background matching homepage */}
+      {!isNavigating && isLoading && (
+        <div style={{ position: "absolute", inset: 0, backgroundColor: "#f9c4d2", zIndex: 0 }} />
+      )}
+
+      {/* Logo — always shown during load */}
       <motion.div
-        initial={{ opacity: 0, scale: 0.9 }}
-        animate={{ opacity: 1, scale: 1 }}
-        transition={{ duration: 0.8, ease: [0.33, 1, 0.68, 1], delay: 0.2 }}
-        className="overflow-hidden"
+        style={{ position: "absolute", inset: 0, display: "flex", alignItems: "center", justifyContent: "center", zIndex: COLORS.length }}
+        animate={{ opacity: showLogo ? 1 : 0 }}
+        transition={{ duration: 0.2 }}
       >
-        <img src="/logonewlong.png" alt="Marshall Haber Creative Group" className="h-[8vw] md:h-[6vw] w-auto" />
+        <img
+          src="/footerLogoBlack.png"
+          alt="Marshall Haber Creative Group"
+          style={{ height: "clamp(40px, 8vw, 100px)", width: "auto" }}
+        />
       </motion.div>
-    </motion.div>
+    </div>
   );
 }

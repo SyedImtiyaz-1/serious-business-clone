@@ -7,10 +7,10 @@ export default function ServiceBlock({
   list,
   textColor = "text-[#1a1a1a]",
   imageContent,
-  direction = "left",
+
 }) {
   return (
-    <div className={`w-full h-auto flex flex-col md:flex-row px-6 md:px-12 py-16 md:py-20 lg:py-24 ${textColor}`}>
+    <div className={`w-full h-auto flex flex-col md:flex-row px-6 md:px-12 py-6 md:py-8 ${textColor}`}>
 
       {/* Left Half (Text + Lists) */}
       <div className="w-full md:w-1/2 flex flex-col justify-start mb-12 md:mb-0">
@@ -19,7 +19,7 @@ export default function ServiceBlock({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[14vw] md:text-[6vw] lg:text-[7vw] font-black leading-[0.9] tracking-tighter mb-8 md:mb-16 lg:mb-24 text-inherit"
+          className="text-[14vw] md:text-[6vw] lg:text-[7vw] font-black leading-[0.9] tracking-tighter mb-4 md:mb-6 text-inherit"
           style={{ fontFamily: "var(--font-geist-sans)" }}
         >
           {title}
