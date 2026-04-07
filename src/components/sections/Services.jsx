@@ -43,12 +43,12 @@ export default function ServiceBlock({
           className="flex flex-col md:flex-row gap-5 md:gap-8"
         >
           <p
-            className="text-[14px] md:text-[15px] font-medium leading-[1.45] w-full md:w-1/2 opacity-85 tracking-tight"
+            className="text-[17px] md:text-[19px] font-medium leading-[1.5] w-full md:w-1/2 opacity-85 tracking-tight"
             style={{ fontFamily: "var(--font-geist-sans)" }}
           >
             {description}
           </p>
-          <ul className="text-[12px] md:text-[13px] font-semibold leading-relaxed w-full md:w-1/2 space-y-[5px]">
+          <ul className="text-[15px] md:text-[16px] font-semibold leading-relaxed w-full md:w-1/2 space-y-[7px]">
             {list.map((item, i) => (
               <li key={i}>{item}</li>
             ))}

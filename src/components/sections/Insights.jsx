@@ -147,7 +147,7 @@ export default function Insights() {
         <div className="-mx-6 md:mx-0 mb-10 md:mb-24">
           <div
             className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible px-6 md:px-0 snap-x snap-mandatory scrollbar-hide"
-            style={{ gap: "clamp(1rem, 2.5vw, 2.5rem)" }}
+            style={{ gap: "clamp(1.5rem, 3.5vw, 4rem)" }}
           >
             {cards.map((card, i) => (
               <motion.div
