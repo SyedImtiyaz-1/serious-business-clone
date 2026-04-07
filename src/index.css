@@ -2,20 +2,23 @@
 
 /* 🎨 Design System */
 :root {
-  --color-primary: #f9c4d2;
-  --color-black: #111111;
-  --color-white: #ffffff;
-  --color-purple: #5d25ff;
-  --color-yellow: #fff242;
+  --color-cream: #F4EDD9;
+  --color-white: #FFFFFF;
+  --color-night: #0B0215;
+  --color-navy: #020817;
+  --color-blue: #2B59C3;
+  
+  --color-primary: var(--color-blue);
+  --color-black: var(--color-night);
   --color-light-gray: #f3f3f3;
-  --color-dark: #0E0E0E;
+  --color-dark: var(--color-navy);
   --color-pink: #f7c4d5;
 
-  --bg: #f6f3eb;
+  --bg: var(--color-navy);
 
   /* Theme Accents */
-  --accent-color: #111111;
-  --accent-bg: #ffffff;
+  --accent-color: var(--color-navy);
+  --accent-bg: var(--color-cream);
 }
 
 /* Base styles */
@@ -30,7 +33,7 @@ body {
   overflow-x: hidden;
   position: relative;
   background-color: var(--bg);
-  color: #111111;
+  color: var(--color-cream);
   font-family: 'Inter', sans-serif;
   margin: 0;
   -webkit-font-smoothing: antialiased;

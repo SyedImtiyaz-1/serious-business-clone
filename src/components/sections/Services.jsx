@@ -106,7 +106,7 @@ export const WebsiteImage = () => (
 );
 
 export const ProductImage = () => (
-  <div className="w-full h-full bg-[#F4EDD9] flex items-center justify-center p-4">
+  <div className="w-full h-full bg-[#0b1121] flex items-center justify-center p-4">
     <div className="grid grid-cols-3 gap-3 w-full h-full opacity-90 p-4">
       <div className="bg-white rounded-xl border-2 border-dashed border-gray-200 shadow-sm h-full flex flex-col p-2 gap-2">
         <div className="w-full h-4 bg-gray-100 rounded-full" />

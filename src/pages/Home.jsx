@@ -4,6 +4,7 @@ import AboutSection from "../components/sections/About";
 import ServiceBlock, { StrategyImage, VisualImage, WebsiteImage, ProductImage } from "../components/sections/Services";
 import StackContainer from "../components/layout/StackContainer";
 import Works from "../components/sections/Works";
+import ClientSection from "../components/sections/ClientSection";
 import Insights from "../components/sections/Insights";
 import CTA from "../components/sections/CTA";
 import gsap from "gsap";
@@ -14,15 +15,15 @@ gsap.registerPlugin(ScrollTrigger);
 export default function Home() {
   useLayoutEffect(() => {
     // Set initial body color for home page
-    document.body.style.backgroundColor = "#F4EDD9";
-    document.body.style.color = "#111111";
+    document.body.style.backgroundColor = "#020817";
+    document.body.style.color = "#F4EDD9";
 
     const ctx = gsap.context(() => {
       gsap.to("body", {
-        backgroundColor: "#111111",
-        color: "#F4EDD9",
-        "--accent-color": "#F4EDD9",
-        "--accent-bg": "#F4EDD9",
+        backgroundColor: "#F4EDD9",
+        color: "#020817",
+        "--accent-color": "#020817",
+        "--accent-bg": "#020817",
         immediateRender: false,
         ease: "power2.inOut",
         scrollTrigger: {
@@ -35,9 +36,9 @@ export default function Home() {
       });
 
       gsap.to("body", {
-        backgroundColor: "#F4EDD9",
-        color: "#111111",
-        "--accent-color": "#111111",
+        backgroundColor: "#020817",
+        color: "#F4EDD9",
+        "--accent-color": "#020817",
         "--accent-bg": "#ffffff",
         immediateRender: false,
         ease: "power2.inOut",
@@ -51,9 +52,9 @@ export default function Home() {
       });
 
       gsap.to("body", {
-        backgroundColor: "#F4EDD9",
-        color: "#111111",
-        "--accent-color": "#111111",
+        backgroundColor: "#020817",
+        color: "#F4EDD9",
+        "--accent-color": "#F4EDD9",
         "--accent-bg": "#ffffff",
         immediateRender: false,
         ease: "power2.inOut",
@@ -81,7 +82,7 @@ export default function Home() {
 
   const servicePanels = [
     {
-      bg: "#cba6f7",
+      bg: "#2B59C3", // Blue Accent
       z: 20,
       children: <ServiceBlock
         title="Brand Strategy"
@@ -89,10 +90,11 @@ export default function Home() {
         list={["Research & Insights", "Brand Model", "Positioning", "Value proposition", "Messaging", "Verbal identity", "Naming"]}
         imageContent={<StrategyImage />}
         direction="left"
+        textColor="text-[#F4EDD9]"
       />
     },
     {
-      bg: "#ffffff",
+      bg: "#0B0215", // Night
       z: 30,
       children: <ServiceBlock
         title="Visual Identity"
@@ -100,10 +102,11 @@ export default function Home() {
         list={["Logotype, Typography & Colour", "Visual Language", "Illustrations & 3D", "Art Direction", "Brandbook & Guidelines", "Motion Design", "Brand Applications"]}
         imageContent={<VisualImage />}
         direction="right"
+        textColor="text-[#F4EDD9]"
       />
     },
     {
-      bg: "#fac541",
+      bg: "#F4EDD9", // Cream
       z: 40,
       children: <ServiceBlock
         title="Website"
@@ -111,16 +114,17 @@ export default function Home() {
         list={["UX Design", "Website Design", "Responsive Design", "Website Motion", "Animations"]}
         imageContent={<WebsiteImage />}
         direction="left"
+        textColor="text-[#020817]"
       />
     },
     {
-      bg: "#1a1a1a",
+      bg: "#020817", // Navy (Primary BG)
       z: 50,
       children: <ServiceBlock
         title="Product"
         description="Our product design services focus on creating intuitive and aesthetically pleasing products that resonate with your audience and stand out in the market."
         list={["UX Design", "User Testing", "Prototyping", "UI Design", "App Design", "Interaction Design"]}
-        textColor="text-[#ffffff]"
+        textColor="text-[#F4EDD9]"
         imageContent={<ProductImage />}
         direction="right"
       />
@@ -140,6 +144,7 @@ export default function Home() {
       <StackContainer panels={servicePanels} />
 
       <Works />
+      <ClientSection />
 
       <div className="dark-section">
         <div className="relative z-[60] py-20">

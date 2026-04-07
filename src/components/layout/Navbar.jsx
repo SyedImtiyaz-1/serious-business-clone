@@ -40,7 +40,7 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
     }
   }, [isHovered, isLetsWork]);
 
-  const staticStyle = { backgroundColor: "var(--accent-bg)", color: "var(--accent-text, #111111)" };
+  const staticStyle = { backgroundColor: "var(--accent-bg)", color: "var(--accent-text, #020817)" };
 
   return (
     <motion.div
@@ -129,7 +129,7 @@ const DesktopMenu = () => {
   const [isMenuHovered, setIsMenuHovered] = useState(false);
   const [activeItem, setActiveItem] = useState(null);
   const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
-  const staticStyle = { backgroundColor: "var(--accent-bg, #ffffff)", color: "var(--accent-text, #111111)" };
+  const staticStyle = { backgroundColor: "var(--accent-bg, #F4EDD9)", color: "var(--accent-text, #020817)" };
 
   const menuTimeoutRef = useRef(null);
   const itemTimeoutRef = useRef(null);
@@ -263,8 +263,8 @@ const DesktopMenu = () => {
               onMouseEnter={handleDropdownEnter}
               onMouseLeave={handleDropdownLeave}
               style={{
-                backgroundColor: "var(--accent-bg, #ffffff)",
-                color: "var(--accent-text, #111111)",
+                backgroundColor: "var(--accent-bg, #F4EDD9)",
+                color: "var(--accent-text, #020817)",
                 position: "fixed",
                 top: dropdownPos.top,
                 left: dropdownPos.left,
@@ -283,7 +283,7 @@ const DesktopMenu = () => {
                   <TransitionLink to={subRoutes[s] || activeMenuData.to}>
                     <div
                       style={{
-                        border: "1px solid color-mix(in srgb, var(--accent-text, #111111) 20%, transparent)"
+                        border: "1px solid color-mix(in srgb, var(--accent-text, #020817) 20%, transparent)"
                       }}
                       className="text-sm px-4 py-2 rounded-full text-center hover:bg-black/5 hover:opacity-100 transition-colors cursor-pointer whitespace-nowrap"
                     >
@@ -303,24 +303,45 @@ const DesktopMenu = () => {
 export default function Navbar() {
   const { scrollY } = useScroll();
   const [showCenterLogo, setShowCenterLogo] = useState(false);
+  const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
-    return scrollY.on("change", (latest) => {
+    const unsub = scrollY.on("change", (latest) => {
       setShowCenterLogo(latest > 300);
     });
+
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        setIsFooterVisible(entry.isIntersecting);
+      },
+      { threshold: 0 }
+    );
+
+    const footer = document.getElementById("main-footer");
+    if (footer) observer.observe(footer);
+
+    return () => {
+      unsub();
+      if (footer) observer.unobserve(footer);
+    };
   }, [scrollY]);
 
   return (
     <motion.div
-      initial={{ opacity: 1 }}
+      initial={{ opacity: 1, y: 0 }}
+      animate={{ 
+        opacity: isFooterVisible ? 0 : 1,
+        y: isFooterVisible ? -20 : 0,
+        pointerEvents: isFooterVisible ? "none" : "auto"
+      }}
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none"
       style={{ position: "relative", zIndex: 9999 }}
     >
-      {/* Mobile Logo */}
-      <div className="md:hidden block pointer-events-auto leading-none">
+      <div className="md:hidden block pointer-events-auto leading-none mt-4">
         <TransitionLink to="/">
-          <img src="/footerLogoBlack.png" alt="Marshall Haber Creative Group" className="h-6 w-auto cursor-pointer" />
+          <img src="/logonewlong.png" alt="Marshall Haber Creative Group" className="h-6 w-auto cursor-pointer" />
         </TransitionLink>
       </div>
 
@@ -335,7 +356,7 @@ export default function Navbar() {
       </div>
 
       {/* Center: Desktop Logo */}
-      <div className="absolute left-1/2 -translate-x-1/2 hidden md:flex items-center justify-center pointer-events-auto h-24">
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 hidden md:flex items-center justify-center pointer-events-auto h-24">
         <TransitionLink to="/">
           <div className="relative flex items-center justify-center">
             {/* Invisible placeholder for maintaining container dimensions */}
@@ -345,16 +366,19 @@ export default function Navbar() {
               className="h-24 w-auto opacity-0 pointer-events-none"
             />
             <img
-              src="/footerLogoBlack.png"
+              src="/logonewlong.png"
               alt="Marshall Haber Creative Group"
               className="absolute h-24 w-auto cursor-pointer transition-opacity duration-700 ease-in-out"
               style={{ opacity: showCenterLogo ? 0 : 1 }}
             />
             <img
               src="/logo.png"
-              alt="Marshall Haber Creative Group"
-              className="absolute h-24 w-auto cursor-pointer transition-opacity duration-700 ease-in-out"
-              style={{ opacity: showCenterLogo ? 1 : 0 }}
+              alt="MHCG"
+              className="absolute h-14 w-auto cursor-pointer transition-opacity duration-700 ease-in-out"
+              style={{ 
+                opacity: showCenterLogo ? 1 : 0,
+                filter: "invert(1)" 
+              }}
             />
           </div>
         </TransitionLink>
@@ -382,14 +406,13 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            transition={{ duration: 0.4, ease: [0.76, 0, 0.24, 1] }}
-            className="fixed inset-0 bg-[#f5f5f5] z-[200] pointer-events-auto flex flex-col justify-between px-6 py-8 md:hidden"
+            className="fixed inset-0 bg-[#020817] z-[200] pointer-events-auto flex flex-col justify-between px-6 py-8 md:hidden text-[#F4EDD9]"
           >
             <div className="flex justify-between items-center">
-              <img src="/footerLogoBlack.png" className="h-6" />
+              <img src="/logonewlong.png" className="h-6" />
               <button
                 onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
-                className="w-10 h-10 rounded-full bg-pink-200 flex items-center justify-center cursor-pointer"
+                className="w-10 h-10 rounded-full bg-[#F4EDD9] text-[#020817] flex items-center justify-center cursor-pointer border border-white/20"
               >
                 ✕
               </button>

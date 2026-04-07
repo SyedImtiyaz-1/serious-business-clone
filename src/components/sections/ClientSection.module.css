@@ -1,0 +1,90 @@
+.section {
+  width: 100%;
+  padding: 8rem 0;
+  background-color: transparent;
+  color: inherit;
+  overflow: hidden;
+}
+
+.container {
+  width: 100%;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.header {
+  margin-bottom: 4rem;
+  text-align: left;
+}
+
+.subtitle {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  opacity: 0.5;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  max-width: 600px;
+}
+
+.marquee {
+  width: 100%;
+  position: relative;
+  overflow: hidden;
+  mask-image: linear-gradient(to right, transparent, black 10%, black 90%, transparent);
+}
+
+.marqueeTrack {
+  display: flex;
+  width: max-content;
+  animation: scroll 40s linear infinite;
+  gap: 4rem;
+  align-items: center;
+}
+
+.clientLogo {
+  flex-shrink: 0;
+  height: clamp(40px, 6vw, 60px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logoImg {
+  height: 100%;
+  width: auto;
+  max-width: 180px;
+  object-fit: contain;
+  filter: grayscale(1) opacity(0.7);
+  transition: all 0.4s ease;
+}
+
+.logoImg:hover {
+  filter: grayscale(0) opacity(1);
+  transform: scale(1.1);
+}
+
+@keyframes scroll {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: 4rem 0;
+  }
+  .marqueeTrack {
+    gap: 2rem;
+  }
+  .clientLogo {
+    height: 35px;
+  }
+}

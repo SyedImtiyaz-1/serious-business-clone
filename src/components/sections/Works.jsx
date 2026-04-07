@@ -37,7 +37,7 @@ export default function Works() {
 
       {/* "Our approach" button */}
       <div className="flex justify-center mb-40 -mt-16">
-        <button className="px-6 py-3 rounded-full bg-white text-[#1a1a1a] text-sm font-bold flex items-center gap-2 hover:scale-105 transition-transform shadow-[0_4px_14px_0_rgba(0,0,0,0.1)]">
+        <button className="px-6 py-3 rounded-full bg-[#F4EDD9] text-[#020817] text-sm font-bold flex items-center gap-2 hover:scale-105 transition-transform shadow-[0_4px_14px_0_rgba(0,0,0,0.2)]">
           <span>Our approach</span>
           <span>←</span>
         </button>
@@ -64,7 +64,7 @@ export default function Works() {
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: isLeft ? 0 : 0.15 }}
                 className="group cursor-pointer"
               >
-                <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative mb-6 bg-[#f0f0f0]">
+                <div className="w-full aspect-[4/3] rounded-2xl overflow-hidden relative mb-6 bg-white/5">
                   <img
                     src={p.image}
                     alt={p.title}
@@ -85,7 +85,7 @@ export default function Works() {
       </div>
 
       <div className="mt-20 flex justify-center">
-        <TransitionLink to="/work" className="px-8 py-4 rounded-full border border-current font-semibold hover:bg-[#1a1a1a] hover:text-[#F4EDD9] transition-colors inline-block">
+        <TransitionLink to="/work" className="px-8 py-4 rounded-full border border-current font-semibold hover:bg-[#F4EDD9] hover:text-[#020817] transition-colors inline-block text-[#F4EDD9]">
           See more projects
         </TransitionLink>
       </div>

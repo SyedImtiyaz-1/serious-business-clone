@@ -68,14 +68,14 @@ export default function Hero() {
   }, []);
 
   return (
-    <section ref={containerRef} className="relative w-full h-[100dvh] bg-[#F4EDD9]">
+    <section ref={containerRef} className="relative w-full h-[100dvh] bg-[#020817]">
 
       {/* LOGO — Upper Center */}
       <div
         ref={logoRef}
-        className="absolute top-[15vh] w-full flex justify-center z-10 pointer-events-none opacity-30 mix-blend-multiply"
+        className="absolute top-[15vh] w-full flex flex-col items-center gap-8 z-10 pointer-events-none"
       >
-        <div className="w-[70vw] md:w-[60vw] max-w-[500px] aspect-square">
+        <div className="w-[70vw] md:w-[60vw] max-w-[500px] aspect-square opacity-20">
           <SmileLogo />
         </div>
       </div>
@@ -85,7 +85,7 @@ export default function Hero() {
         ref={textRef}
         className="absolute top-[45vh] md:top-[35vh] w-full flex justify-center z-20 pointer-events-none px-6"
       >
-        <h2 className="text-[24px] sm:text-[32px] md:text-[40px] lg:text-[50px] leading-[1.1] font-bold text-[#1a1a1a] text-center tracking-tight max-w-[900px]">
+        <h2 className="text-[24px] sm:text-[32px] md:text-[40px] lg:text-[50px] leading-[1.1] font-bold text-[#F4EDD9] text-center tracking-tight max-w-[900px]">
           Premium Branding Agency <br className="hidden sm:block" />
           for B2B Tech Scaleups
         </h2>
@@ -102,7 +102,7 @@ export default function Hero() {
           height: "clamp(100px, 15vw, 220px)",
           borderRadius: "12px",
           boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
-          backgroundColor: "#111",
+          backgroundColor: "#0B0215",
           overflow: "hidden",
           zIndex: 40,
         }}

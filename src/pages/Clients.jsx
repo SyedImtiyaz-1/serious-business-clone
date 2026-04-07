@@ -3,154 +3,24 @@ import { motion, useInView } from 'framer-motion';
 import TransitionLink from '../components/ui/TransitionLink';
 import styles from './Clients.module.css';
 
-/* ─── Inline SVG logos ─── */
-const logos = {
-    amnesty: () => (
-        <svg viewBox="0 0 120 40" width="110" height="36">
-            <g fill="currentColor">
-                <path d="M10 4 L6 36 H8 L10 20 L14 36 H16 L12 4 Z" />
-                <path d="M20 4 V36 H22 V22 L28 36 H30 V4 H28 V20 L22 4 Z" />
-                <text x="36" y="14" fontSize="7" fontWeight="800" letterSpacing="0.5">AMNESTY</text>
-                <text x="36" y="24" fontSize="7" fontWeight="800" letterSpacing="0.5">INTERNATIONAL</text>
-            </g>
-        </svg>
-    ),
-    braunbuffel: () => (
-        <svg viewBox="0 0 140 30" width="130" height="28">
-            <text x="70" y="17" textAnchor="middle" fontSize="11" fontWeight="400" fontStyle="italic" fontFamily="Georgia, serif" fill="currentColor" letterSpacing="1.5">Braun Büffel</text>
-        </svg>
-    ),
-    vay: () => (
-        <svg viewBox="0 0 80 36" width="80" height="36">
-            <text x="40" y="26" textAnchor="middle" fontSize="28" fontWeight="900" fill="currentColor" letterSpacing="2">VAY</text>
-        </svg>
-    ),
-    frontify: () => (
-        <svg viewBox="0 0 100 30" width="100" height="30">
-            <text x="50" y="21" textAnchor="middle" fontSize="16" fontWeight="600" fill="currentColor" letterSpacing="0.5">Frontify</text>
-        </svg>
-    ),
-    play: () => (
-        <svg viewBox="0 0 60 40" width="56" height="38">
-            <circle cx="30" cy="20" r="18" fill="currentColor" />
-            <text x="30" y="27" textAnchor="middle" fontSize="12" fontWeight="800" fill="white" letterSpacing="1">PLAY</text>
-        </svg>
-    ),
-    volkswagen: () => (
-        <svg viewBox="0 0 44 44" width="42" height="42">
-            <circle cx="22" cy="22" r="20" fill="none" stroke="currentColor" strokeWidth="2" />
-            <text x="22" y="28" textAnchor="middle" fontSize="20" fontWeight="700" fill="currentColor">VW</text>
-        </svg>
-    ),
-    arculus: () => (
-        <svg viewBox="0 0 100 26" width="100" height="26">
-            <text x="50" y="19" textAnchor="middle" fontSize="18" fontWeight="300" fill="currentColor" letterSpacing="3">arculus</text>
-        </svg>
-    ),
-    wempe: () => (
-        <svg viewBox="0 0 40 40" width="38" height="38">
-            <circle cx="20" cy="20" r="18" fill="currentColor" />
-            <text x="20" y="26" textAnchor="middle" fontSize="14" fontWeight="800" fill="white">W</text>
-        </svg>
-    ),
-    unitednations: () => (
-        <svg viewBox="0 0 120 36" width="110" height="34">
-            <g fill="currentColor">
-                <circle cx="16" cy="18" r="14" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                <text x="16" y="23" textAnchor="middle" fontSize="12" fontWeight="700">UN</text>
-                <text x="38" y="16" fontSize="8" fontWeight="700" letterSpacing="0.5">UNITED</text>
-                <text x="38" y="28" fontSize="8" fontWeight="700" letterSpacing="0.5">NATIONS</text>
-            </g>
-        </svg>
-    ),
-    zalando: () => (
-        <svg viewBox="0 0 100 30" width="100" height="30">
-            <text x="50" y="22" textAnchor="middle" fontSize="15" fontWeight="700" fill="currentColor" letterSpacing="1">zalando</text>
-            <line x1="10" y1="28" x2="90" y2="28" stroke="currentColor" strokeWidth="0.5" opacity="0.4" />
-        </svg>
-    ),
-    deutschebank: () => (
-        <svg viewBox="0 0 120 40" width="110" height="38">
-            <g fill="currentColor">
-                <rect x="4" y="8" width="24" height="24" fill="none" stroke="currentColor" strokeWidth="2" />
-                <path d="M10 26 L22 14" stroke="currentColor" strokeWidth="3" />
-                <text x="36" y="18" fontSize="8" fontWeight="700" letterSpacing="0.5">Deutsche</text>
-                <text x="36" y="30" fontSize="8" fontWeight="700" letterSpacing="0.5">Bank</text>
-            </g>
-        </svg>
-    ),
-    montblanc: () => (
-        <svg viewBox="0 0 120 36" width="110" height="34">
-            <g fill="currentColor">
-                <circle cx="14" cy="18" r="8" fill="none" stroke="currentColor" strokeWidth="1.5" />
-                <polygon points="14,12 10,20 18,20" fill="currentColor" />
-                <text x="30" y="23" fontSize="13" fontWeight="600" letterSpacing="1">Montblanc</text>
-            </g>
-        </svg>
-    ),
-    hugoboss: () => (
-        <svg viewBox="0 0 120 30" width="116" height="28">
-            <text x="60" y="22" textAnchor="middle" fontSize="18" fontWeight="900" fill="currentColor" letterSpacing="4">BOSS</text>
-        </svg>
-    ),
-    porsche: () => (
-        <svg viewBox="0 0 110 30" width="106" height="28">
-            <text x="55" y="22" textAnchor="middle" fontSize="16" fontWeight="700" fill="currentColor" letterSpacing="4">PORSCHE</text>
-        </svg>
-    ),
-    audi: () => (
-        <svg viewBox="0 0 100 30" width="96" height="28">
-            <g fill="none" stroke="currentColor" strokeWidth="1.5">
-                <circle cx="22" cy="15" r="10" />
-                <circle cx="38" cy="15" r="10" />
-                <circle cx="54" cy="15" r="10" />
-                <circle cx="70" cy="15" r="10" />
-            </g>
-        </svg>
-    ),
-    sap: () => (
-        <svg viewBox="0 0 70 36" width="68" height="34">
-            <rect x="4" y="6" width="62" height="24" rx="2" fill="currentColor" />
-            <text x="35" y="23" textAnchor="middle" fontSize="16" fontWeight="800" fill="white" letterSpacing="2">SAP</text>
-        </svg>
-    ),
-    siemens: () => (
-        <svg viewBox="0 0 120 28" width="116" height="26">
-            <text x="60" y="21" textAnchor="middle" fontSize="17" fontWeight="600" fill="currentColor" letterSpacing="2">SIEMENS</text>
-        </svg>
-    ),
-    adidas: () => (
-        <svg viewBox="0 0 100 40" width="90" height="36">
-            <g fill="currentColor">
-                <rect x="24" y="6" width="8" height="22" rx="1" transform="rotate(-15 28 17)" />
-                <rect x="36" y="2" width="8" height="26" rx="1" transform="rotate(-15 40 15)" />
-                <rect x="48" y="-2" width="8" height="30" rx="1" transform="rotate(-15 52 13)" />
-                <text x="50" y="38" textAnchor="middle" fontSize="10" fontWeight="700" letterSpacing="2">adidas</text>
-            </g>
-        </svg>
-    ),
-};
-
-/* ─── Client data ─── */
+/* ─── Client data mapping ─── */
 const clients = [
-    { name: 'Amnesty International', key: 'amnesty', category: 'Nonprofit' },
-    { name: 'Braun Büffel', key: 'braunbuffel', category: 'Luxury' },
-    { name: 'VAY', key: 'vay', category: 'Technology' },
-    { name: 'Frontify', key: 'frontify', category: 'Technology' },
-    { name: 'PLAY', key: 'play', category: 'Media' },
-    { name: 'Volkswagen', key: 'volkswagen', category: 'Automotive' },
-    { name: 'Arculus', key: 'arculus', category: 'Technology' },
-    { name: 'Wempe', key: 'wempe', category: 'Luxury' },
-    { name: 'United Nations', key: 'unitednations', category: 'Nonprofit' },
-    { name: 'Zalando', key: 'zalando', category: 'Retail' },
-    { name: 'Deutsche Bank', key: 'deutschebank', category: 'Finance' },
-    { name: 'Montblanc', key: 'montblanc', category: 'Luxury' },
-    { name: 'Hugo Boss', key: 'hugoboss', category: 'Fashion' },
-    { name: 'Porsche', key: 'porsche', category: 'Automotive' },
-    { name: 'Audi', key: 'audi', category: 'Automotive' },
-    { name: 'SAP', key: 'sap', category: 'Technology' },
-    { name: 'Siemens', key: 'siemens', category: 'Technology' },
-    { name: 'Adidas', key: 'adidas', category: 'Fashion' },
+    { name: 'JPMorgan Chase', logo: 'jpmorgan.png', category: 'Finance' },
+    { name: 'Berkshire Hathaway', logo: 'berkshire-hathaway-logonew.png', category: 'Finance' },
+    { name: 'Jeffries', logo: '09_Jeffries_Logo.png', category: 'Finance' },
+    { name: 'Special Olympics', logo: '1200px-Special_Olympics_logo.svg_-1.png', category: 'Nonprofit' },
+    { name: 'Eurotech', logo: '16_Eurotech_Logo.png', category: 'Technology' },
+    { name: 'Signature Bank', logo: '23_Signature_Bank.png', category: 'Finance' },
+    { name: 'Burson Marsteller', logo: 'Burson-Marsteller-logo_250px.png', category: 'Communications' },
+    { name: 'Celadon', logo: 'Celadon_Logo.png', category: 'Technology' },
+    { name: 'Humankind Investments', logo: 'HumankindInvestments_Logo.png', category: 'Finance' },
+    { name: 'MIZ', logo: 'MIZ_Logo_SVG_Gadrientdark.png', category: 'Technology' },
+    { name: 'Y&R', logo: 'YR.png', category: 'Advertising' },
+    { name: 'Centerbridge', logo: 'centerbridge.png', category: 'Finance' },
+    { name: 'Kaplan', logo: 'kaplan.png', category: 'Education' },
+    { name: 'Rivington', logo: 'rivington.png', category: 'Finance' },
+    { name: 'Trish McEvoy', logo: 'trishmcevoy-1.png', category: 'Beauty' },
+    { name: 'Usher', logo: 'usher-new-logo_white.png', category: 'Entertainment' },
 ];
 
 const categories = ['All', ...Array.from(new Set(clients.map(c => c.category)))];
@@ -244,12 +114,15 @@ export default function Clients() {
                 </p>
                 <motion.div className={styles.logoGrid} layout>
                     {filtered.map((client, i) => {
-                        const LogoSvg = logos[client.key];
                         return (
-                            <FadeIn key={client.key} delay={i * 0.04}>
+                            <FadeIn key={client.name} delay={i * 0.04}>
                                 <div className={styles.logoCell}>
                                     <div className={styles.logoContent}>
-                                        {LogoSvg ? <LogoSvg /> : <span className={styles.logoName}>{client.name}</span>}
+                                        <img 
+                                            src={`/CliendLogo/${client.logo}`} 
+                                            alt={client.name} 
+                                            className={styles.clientLogoImg}
+                                        />
                                     </div>
                                 </div>
                             </FadeIn>

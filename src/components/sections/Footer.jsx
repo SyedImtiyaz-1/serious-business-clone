@@ -3,7 +3,7 @@ import Reveal from "../ui/Reveal";
 
 export default function Footer() {
   return (
-    <footer className="w-full pt-20 pb-6 px-6 relative overflow-hidden z-50 bg-[#F4EDD9]">
+    <footer id="main-footer" className="w-full pt-20 pb-6 px-6 relative overflow-hidden z-50 bg-[#020817] text-[#F4EDD9]">
 
       {/* Grid Links Section */}
       <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between mb-16 md:mb-32 text-base font-medium tracking-tight">
@@ -11,8 +11,6 @@ export default function Footer() {
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">
             <h4 className="text-[10px] uppercase font-bold tracking-widest mt-2 opacity-50">Explore</h4>
             <ul className="space-y-1">
-              <li><TransitionLink to="/work" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Work</TransitionLink></li>
-              <li><TransitionLink to="/about" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">About</TransitionLink></li>
               <li><TransitionLink to="/services" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Services</TransitionLink></li>
               <li><TransitionLink to="/contact" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Contact</TransitionLink></li>
             </ul>
@@ -38,13 +36,12 @@ export default function Footer() {
         </div>
       </div>
 
-      {/* Bottom Massive Logo */}
       <div className="w-full flex justify-center items-center mb-12 md:mb-6 mt-16 md:mt-0">
-        <img src="/footerLogoBlack.png" alt="Marshall Haber Creative Group" className="h-[12vw] md:h-[6vw] lg:h-[5.5vw] xl:h-[7vw] w-auto" />
+        <img src="/logonewlong.png" alt="Marshall Haber Creative Group" className="h-[12vw] md:h-[6vw] lg:h-[5.5vw] xl:h-[7vw] w-auto" />
       </div>
 
       {/* Bottom Legal Links */}
-      <div className="w-full flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest px-4 border-t border-current pt-8 mt-12 gap-8 md:gap-0">
+      <div className="w-full flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest px-4 border-t border-[#F4EDD9]/20 pt-8 mt-12 gap-8 md:gap-0">
         <div className="flex flex-col items-center md:items-start gap-2">
           <p>© 2015—2026 Marshall Haber Creative Group</p>
           <div className="flex gap-4">

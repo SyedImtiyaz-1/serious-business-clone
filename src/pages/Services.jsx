@@ -60,14 +60,19 @@ const rightColumnData = [
   }
 ];
 
-function RenderBlock({ item, index, delayOffset }) {
+const servicesData = [
+  ...leftColumnData,
+  ...rightColumnData
+];
+
+function RenderBlock({ item, index }) {
   return (
     <motion.div
       className={styles.block}
       initial={{ opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
       viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.6, delay: 0.1 + index * 0.1 + delayOffset }}
+      transition={{ duration: 0.6, delay: 0.1 + (index % 2) * 0.1 + Math.floor(index / 2) * 0.05 }}
     >
       <h3 className={styles.blockTitle}>{item.title}</h3>
       <p className={styles.blockText}>{item.text}</p>
@@ -107,21 +112,11 @@ export default function Services() {
         {/* Content Divider */}
         <div className={styles.divider} />
 
-        {/* 2-Column List Section */}
+        {/* 2-Column Grid Section */}
         <section className={styles.contentSection}>
-          {/* Left Column */}
-          <div className={styles.column}>
-            {leftColumnData.map((item, i) => (
-              <RenderBlock key={item.title} item={item} index={i} delayOffset={0} />
-            ))}
-          </div>
-
-          {/* Right Column */}
-          <div className={styles.column}>
-            {rightColumnData.map((item, i) => (
-              <RenderBlock key={item.title} item={item} index={i} delayOffset={0.2} />
-            ))}
-          </div>
+          {servicesData.map((item, i) => (
+            <RenderBlock key={item.title} item={item} index={i} />
+          ))}
         </section>
       </div>
 

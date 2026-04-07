@@ -2,7 +2,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigation } from "../../context/NavigationContext";
 
-const COLORS = ["#1a1a1a", "#fac541", "#cba6f7", "#F4EDD9"];
+const COLORS = ["#020817", "#2B59C3", "#0B0215", "#F4EDD9", "#FFFFFF"];
 const SLIDE = 0.55;
 const STAGGER = 0.08;
 const ALL_IN_MS = (SLIDE + (COLORS.length - 1) * STAGGER) * 1000; // ~790ms
@@ -61,7 +61,7 @@ export default function Loader() {
 
       {/* On initial load: plain background matching homepage */}
       {!isNavigating && isLoading && (
-        <div style={{ position: "absolute", inset: 0, backgroundColor: "#F4EDD9", zIndex: 0 }} />
+        <div style={{ position: "absolute", inset: 0, backgroundColor: "#020817", zIndex: 0 }} />
       )}
 
       {/* Logo — always shown during load */}
@@ -71,7 +71,7 @@ export default function Loader() {
         transition={{ duration: 0.2 }}
       >
         <img
-          src="/footerLogoBlack.png"
+          src="/logonewlong.png"
           alt="Marshall Haber Creative Group"
           style={{ height: "clamp(40px, 8vw, 100px)", width: "auto" }}
         />

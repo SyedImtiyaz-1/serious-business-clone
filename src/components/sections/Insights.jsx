@@ -4,22 +4,22 @@ import Reveal from "../ui/Reveal";
 
 const cards = [
   {
-    bg: "#F4EDD9",
+    bg: "#F4EDD9", // Cream
     brand: "Marshall Haber",
     label: "The Heart of the Shift:",
     title: "Brand Messaging is the\nSoul of Rebranding",
     desc: "The Heart of the Shift: Brand Messaging Is the Soul of Rebranding",
   },
   {
-    bg: "#f5f0e3",
+    bg: "#2B59C3", // Blue
     brand: "Marshall Haber",
     label: "Research Is Our Love Language:",
-    labelColor: "#e8849a",
+    labelColor: "#F4EDD9",
     title: "The Art of\nGathering Insights",
     desc: "Research Is Our Love Language: The Art of Gathering Insights",
   },
   {
-    bg: "#f5f0e3",
+    bg: "#0B0215", // Night
     brand: "Marshall Haber",
     label: "The Founders' Guide to Rebranding",
     titleLarge: "...is it time?",
@@ -45,35 +45,35 @@ export default function Insights() {
   const backgroundColor = useTransform(
     scrollYProgress,
     [0, 1],
-    ["#fafafa", "#1a1a1a"]
+    ["#020817", "#F4EDD9"]
   );
 
-  // Text: #1a1a1a → #fbc1d4
+  // Text: Navy → Cream (interchanged)
   const textColor = useTransform(
     scrollYProgress,
     [0, 1],
-    ["#1a1a1a", "#F4EDD9"]
+    ["#F4EDD9", "#020817"]
   );
 
-  // Subtext / muted: #555 → #fbc1d4 at lower opacity
+  // Subtext / muted
   const mutedColor = useTransform(
     scrollYProgress,
     [0, 1],
-    ["#555555", "#F4EDD9"]
+    ["#F4EDD9", "#020817"]
   );
 
-  // Border: dark/light → white/10
+  // Border
   const borderColor = useTransform(
     scrollYProgress,
     [0, 1],
-    ["rgba(26,26,26,0.15)", "rgba(255,255,255,0.1)"]
+    ["rgba(244,237,217,0.15)", "rgba(2,8,23,0.1)"]
   );
 
   // Button border + text
   const buttonBorder = useTransform(
     scrollYProgress,
     [0, 1],
-    ["#1a1a1a", "#F4EDD9"]
+    ["#F4EDD9", "#020817"]
   );
 
   return (
