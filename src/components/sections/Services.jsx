@@ -7,49 +7,66 @@ export default function ServiceBlock({
   list,
   textColor = "text-[#1a1a1a]",
   imageContent,
-  direction = "left",
 }) {
   return (
-    <div className={`w-full min-h-full flex flex-col md:flex-row px-6 md:px-12 py-12 md:py-16 lg:py-20 ${textColor} justify-center`}>
+    <div
+      className={`w-full h-full flex flex-col md:flex-row ${textColor}`}
+      style={{
+        padding: "clamp(20px, 3vh, 40px) clamp(24px, 3.5vw, 56px)",
+        gap: "clamp(16px, 2vw, 32px)",
+      }}
+    >
+      {/* LEFT: title + description + list grouped at top */}
+      <div className="w-full md:w-[50%] flex flex-col justify-start shrink-0 min-h-0" style={{ gap: "clamp(16px, 3vh, 32px)" }}>
 
-      {/* Left Half (Text + Lists) */}
-      <div className="w-full md:w-1/2 flex flex-col justify-center mb-12 md:mb-0">
+        {/* Title */}
         <motion.h2
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-20%" }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          className="text-[14vw] md:text-[6vw] lg:text-[7vw] font-black leading-[0.9] tracking-tighter mb-8 md:mb-12 lg:mb-16 text-inherit"
-          style={{ fontFamily: "var(--font-geist-sans)" }}
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          className="text-inherit font-black leading-[0.88] tracking-tighter"
+          style={{
+            fontFamily: "var(--font-geist-sans)",
+            fontSize: "clamp(2.8rem, 7.5vw, 7rem)",
+          }}
         >
           {title}
         </motion.h2>
 
+        {/* Description + list */}
         <motion.div
-          initial={{ opacity: 0, y: 50 }}
+          initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-20%" }}
-          transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.15 }}
-          className="flex flex-col md:flex-row gap-6 md:gap-8 max-w-[95%]"
+          viewport={{ once: true, margin: "-10%" }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
+          className="flex flex-col md:flex-row gap-5 md:gap-8"
         >
-          <p className="text-[16px] md:text-[18px] lg:text-[20px] font-medium leading-[1.3] w-full md:w-1/2 pr-0 md:pr-4 opacity-90 tracking-tight" style={{ fontFamily: "var(--font-geist-sans)" }}>{description}</p>
-          <ul className="text-[12px] md:text-[13px] font-semibold leading-relaxed w-full md:w-1/2 space-y-[4px]">
+          <p
+            className="text-[14px] md:text-[15px] font-medium leading-[1.45] w-full md:w-1/2 opacity-85 tracking-tight"
+            style={{ fontFamily: "var(--font-geist-sans)" }}
+          >
+            {description}
+          </p>
+          <ul className="text-[12px] md:text-[13px] font-semibold leading-relaxed w-full md:w-1/2 space-y-[5px]">
             {list.map((item, i) => (
               <li key={i}>{item}</li>
             ))}
           </ul>
         </motion.div>
+
       </div>
 
-      {/* Right Half (Image) — slides in from the right */}
+      {/* RIGHT: square image box */}
       <motion.div
-        initial={{ opacity: 0, x: 120 }}
+        initial={{ opacity: 0, x: 60 }}
         whileInView={{ opacity: 1, x: 0 }}
-        viewport={{ once: true, margin: "-20%" }}
-        transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: 0.2 }}
-        className="w-full md:w-1/2 flex items-center justify-end"
+        viewport={{ once: true, margin: "-10%" }}
+        transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
+        className="shrink-0 self-start ml-auto"
+        style={{ width: "clamp(260px, 48vh, 580px)", aspectRatio: "1 / 1" }}
       >
-        <div className="w-full md:w-[85%] lg:w-[75%] aspect-[4/3] rounded-md overflow-hidden relative shadow-sm">
+        <div className="w-full h-full rounded-2xl overflow-hidden shadow-sm">
           {imageContent}
         </div>
       </motion.div>

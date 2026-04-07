@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useRef, useState, useLayoutEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import TransitionLink from '../components/ui/TransitionLink';
 import styles from './Clients.module.css';
@@ -51,6 +51,15 @@ function FadeIn({ children, delay = 0, className }) {
 
 /* ─── Main ─── */
 export default function Clients() {
+    useLayoutEffect(() => {
+        document.body.style.backgroundColor = "#F4EDD9";
+        document.body.style.color = "#020817";
+        return () => {
+            document.body.style.backgroundColor = "";
+            document.body.style.color = "";
+        };
+    }, []);
+
     const [activeFilter, setActiveFilter] = useState('All');
 
     const filtered = activeFilter === 'All'

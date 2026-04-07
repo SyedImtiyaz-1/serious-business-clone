@@ -17,8 +17,9 @@
   --bg: var(--color-navy);
 
   /* Theme Accents */
-  --accent-color: var(--color-navy);
-  --accent-bg: var(--color-cream);
+  --accent-color: #ffffff;
+  --accent-bg: #ffffff;
+  --accent-text: #020817;
 }
 
 /* Base styles */
@@ -120,4 +121,17 @@ body {
 .hover-underline:hover::after {
   transform: scaleX(1);
   transform-origin: bottom left;
+}
+
+/* Awards grid responsive */
+@media (max-width: 768px) {
+  .awards-grid {
+    grid-template-columns: repeat(2, 1fr) !important;
+  }
+}
+
+@media (max-width: 480px) {
+  .awards-grid {
+    grid-template-columns: 1fr !important;
+  }
 }

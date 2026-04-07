@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, useLayoutEffect } from 'react';
 import TransitionLink from '../components/ui/TransitionLink';
 import { motion } from 'framer-motion';
 import projects from '../data/projects';
@@ -7,6 +7,15 @@ import styles from './Work.module.css';
 export default function Work() {
   const [activeTab, setActiveTab] = useState('Featured');
   const [activeIndustry, setActiveIndustry] = useState('All');
+
+  useLayoutEffect(() => {
+    document.body.style.backgroundColor = "#F4EDD9";
+    document.body.style.color = "#020817";
+    return () => {
+      document.body.style.backgroundColor = "";
+      document.body.style.color = "";
+    };
+  }, []);
 
   const industries = useMemo(() => ['All', ...new Set(projects.map(p => p.category))], []);
   const industriesCount = useMemo(() => new Set(projects.map(p => p.category)).size, []);
@@ -98,7 +107,7 @@ export default function Work() {
                 <div className={styles.cardContent}>
                   <h2 className={styles.cardTitle}>{project.client} | {project.title}</h2>
                   <p className={styles.cardSubtitle}>
-                    {project.category} &middot; Visual Identity &middot; Website
+                    {project.category} – Visual Identity – Website
                   </p>
                 </div>
               </TransitionLink>

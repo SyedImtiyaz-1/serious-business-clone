@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useLayoutEffect } from 'react';
 import { motion } from 'framer-motion';
 import TransitionLink from '../components/ui/TransitionLink';
 import ContactModal from '../components/ui/ContactModal';
@@ -26,7 +26,6 @@ export default function About() {
     if (!sectionRef.current) return;
     const rect = sectionRef.current.getBoundingClientRect();
 
-    // Position relative to the section
     const x = e.clientX - rect.left;
     const y = e.clientY - rect.top;
 
@@ -34,7 +33,6 @@ export default function About() {
     const dy = y - lastPos.current.y;
     const dist = Math.sqrt(dx * dx + dy * dy);
 
-    // Spawn a new image every 80 pixels moved
     if (dist > 80) {
       lastPos.current = { x, y };
 
@@ -43,13 +41,12 @@ export default function About() {
         src: randomImages[count.current % randomImages.length],
         x,
         y,
-        rotate: (Math.random() - 0.5) * 30 // -15 to +15 deg
+        rotate: (Math.random() - 0.5) * 30,
       };
 
       setTrail(prev => [...prev, newImage]);
       count.current += 1;
 
-      // Unmount the image after 2 seconds
       setTimeout(() => {
         setTrail(prev => prev.filter(img => img.id !== newImage.id));
       }, 2000);
@@ -69,25 +66,20 @@ export default function About() {
         className={styles.heroSection}
         onMouseMove={handleMouseMove}
       >
-        {/* Scattered Image Trail */}
-          {trail.map((img) => (
-            <motion.img
-              key={img.id}
-              src={img.src}
-              alt=""
-              className={styles.trailImage}
-              style={{
-                top: img.y,
-                left: img.x,
-              }}
-              initial={{ opacity: 0, scale: 0.5, rotate: img.rotate }}
-              animate={{ opacity: 1, scale: 1, rotate: img.rotate }}
-              exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.8, ease: "easeOut" } }}
-              transition={{ duration: 0.4, ease: "backOut" }}
-            />
-          ))}
+        {trail.map((img) => (
+          <motion.img
+            key={img.id}
+            src={img.src}
+            alt=""
+            className={styles.trailImage}
+            style={{ top: img.y, left: img.x }}
+            initial={{ opacity: 0, scale: 0.5, rotate: img.rotate }}
+            animate={{ opacity: 1, scale: 1, rotate: img.rotate }}
+            exit={{ opacity: 0, scale: 0.9, transition: { duration: 0.8, ease: "easeOut" } }}
+            transition={{ duration: 0.4, ease: "backOut" }}
+          />
+        ))}
 
-        {/* Foreground Content */}
         <div className={styles.textContent}>
           <p className={styles.mainParagraph}>
             <strong>SERIOUS.BUSINESS</strong> started in 2015 as a <strong>passion project</strong> at Hyper Island, Stockholm by a diverse group of creatives with the goal of re-defining what a serious business is really about: <strong>kindness and creativity.</strong>
@@ -95,7 +87,6 @@ export default function About() {
         </div>
       </section>
 
-      {/* CTA Section */}
       <section className={styles.ctaSection}>
         <button
           onClick={() => setIsContactModalOpen(true)}

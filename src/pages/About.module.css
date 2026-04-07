@@ -2,7 +2,7 @@
 .pageWrapper {
   width: 100%;
   min-height: 100vh;
-  background-color: var(--bg, #fcfbf8);
+  background-color: #F4EDD9;
 }
 
 
@@ -31,7 +31,7 @@
 .mainParagraph {
   font-size: clamp(1.5rem, 3.5vw, 2.5rem);
   line-height: 1.25;
-  color: var(--color-cream);
+  color: #020817;
   margin: 0;
   letter-spacing: -0.01em;
 }

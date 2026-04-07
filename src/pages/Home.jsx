@@ -4,7 +4,6 @@ import AboutSection from "../components/sections/About";
 import ServiceBlock, { StrategyImage, VisualImage, WebsiteImage, ProductImage } from "../components/sections/Services";
 import StackContainer from "../components/layout/StackContainer";
 import Works from "../components/sections/Works";
-import ClientSection from "../components/sections/ClientSection";
 import Insights from "../components/sections/Insights";
 import CTA from "../components/sections/CTA";
 import gsap from "gsap";
@@ -19,11 +18,13 @@ export default function Home() {
     document.body.style.color = "#F4EDD9";
 
     const ctx = gsap.context(() => {
+      // Body → cream: dark buttons
       gsap.to("body", {
         backgroundColor: "#F4EDD9",
         color: "#020817",
         "--accent-color": "#020817",
         "--accent-bg": "#020817",
+        "--accent-text": "#F4EDD9",
         immediateRender: false,
         ease: "power2.inOut",
         scrollTrigger: {
@@ -35,11 +36,13 @@ export default function Home() {
         }
       });
 
+      // Body → dark again: white buttons
       gsap.to("body", {
         backgroundColor: "#020817",
         color: "#F4EDD9",
-        "--accent-color": "#020817",
+        "--accent-color": "#ffffff",
         "--accent-bg": "#ffffff",
+        "--accent-text": "#020817",
         immediateRender: false,
         ease: "power2.inOut",
         scrollTrigger: {
@@ -51,11 +54,13 @@ export default function Home() {
         }
       });
 
+      // Footer: dark bg, white buttons
       gsap.to("body", {
         backgroundColor: "#020817",
         color: "#F4EDD9",
-        "--accent-color": "#F4EDD9",
+        "--accent-color": "#ffffff",
         "--accent-bg": "#ffffff",
+        "--accent-text": "#020817",
         immediateRender: false,
         ease: "power2.inOut",
         scrollTrigger: {
@@ -144,8 +149,6 @@ export default function Home() {
       <StackContainer panels={servicePanels} />
 
       <Works />
-      <ClientSection />
-
       <div className="dark-section">
         <div className="relative z-[60] py-20">
           <div className="w-full">

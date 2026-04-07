@@ -1,4 +1,23 @@
 import { motion, useScroll, useTransform } from "framer-motion";
+
+const clientLogos = [
+  { file: "jpmorgan.png",                          name: "JPMorgan Chase" },
+  { file: "berkshire-hathaway-logonew.png",        name: "Berkshire Hathaway" },
+  { file: "09_Jeffries_Logo.png",                  name: "Jeffries" },
+  { file: "16_Eurotech_Logo.png",                  name: "Eurotech" },
+  { file: "23_Signature_Bank.png",                 name: "Signature Bank" },
+  { file: "Celadon_Logo.png",                      name: "Celadon" },
+  { file: "MIZ_Logo_SVG_Gadrientdark.png",         name: "MIZ" },
+  { file: "centerbridge.png",                      name: "Centerbridge" },
+  { file: "HumankindInvestments_Logo.png",         name: "Humankind Investments" },
+  { file: "kaplan.png",                            name: "Kaplan" },
+  { file: "rivington.png",                         name: "Rivington" },
+  { file: "trishmcevoy-1.png",                     name: "Trish McEvoy" },
+  { file: "usher-new-logo_white.png",              name: "Usher" },
+  { file: "YR.png",                                name: "Y&R" },
+  { file: "1200px-Special_Olympics_logo.svg_-1.png", name: "Special Olympics" },
+  { file: "Burson-Marsteller-logo_250px.png",      name: "Burson-Marsteller" },
+];
 import { useRef } from "react";
 import Reveal from "../ui/Reveal";
 
@@ -76,6 +95,13 @@ export default function Insights() {
     ["#F4EDD9", "#020817"]
   );
 
+  // Logo filter: white on dark bg → dark/natural on cream bg
+  const logoFilter = useTransform(
+    scrollYProgress,
+    [0, 0.6, 1],
+    ["brightness(10) grayscale(1)", "brightness(10) grayscale(1)", "brightness(0) grayscale(1)"]
+  );
+
   return (
     <motion.div
       ref={sectionRef}
@@ -84,24 +110,44 @@ export default function Insights() {
     >
       <div className="px-6 py-14 md:py-28 max-w-[1400px] mx-auto">
 
-        {/* Heading */}
-        <div className="mb-10 md:mb-14 overflow-hidden">
+        {/* Heading row — title left, button right */}
+        <div className="flex items-start justify-between gap-6 mb-10 md:mb-14">
           <Reveal>
             <motion.h2
-              style={{ color: textColor, fontFamily: "var(--font-geist-sans)" }}
-              className="font-black leading-[1.05] tracking-tight"
-              css={{ fontSize: "clamp(2rem, 8vw, 5rem)" }}
+              style={{ color: textColor, fontFamily: "var(--font-geist-sans)", fontSize: "clamp(2rem, 6vw, 4.5rem)" }}
+              className="font-black leading-[1.0] tracking-tight"
             >
               Latest insights for<br />scaleup teams
             </motion.h2>
           </Reveal>
+
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ duration: 0.7, delay: 0.2 }}
+            className="flex items-center gap-2 shrink-0 mt-2"
+          >
+            <motion.button
+              style={{ borderColor: buttonBorder, color: buttonBorder, backgroundColor: "transparent" }}
+              className="flex items-center gap-2 px-5 py-2.5 border rounded-full text-sm font-semibold whitespace-nowrap"
+            >
+              What's trending.
+            </motion.button>
+            <motion.div
+              style={{ borderColor: buttonBorder, color: buttonBorder }}
+              className="w-10 h-10 border rounded-full flex items-center justify-center text-base font-bold shrink-0"
+            >
+              ←
+            </motion.div>
+          </motion.div>
         </div>
 
         {/* Cards */}
         <div className="-mx-6 md:mx-0 mb-10 md:mb-24">
           <div
             className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible px-6 md:px-0 snap-x snap-mandatory scrollbar-hide"
-            style={{ gap: "16px" }}
+            style={{ gap: "clamp(1rem, 2.5vw, 2.5rem)" }}
           >
             {cards.map((card, i) => (
               <motion.div
@@ -110,38 +156,49 @@ export default function Insights() {
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
-                style={{ width: "clamp(240px, 58vw, 420px)", flexShrink: 0, flexGrow: 0 }}
+                style={{ width: "clamp(240px, 58vw, 460px)", flexShrink: 0, flexGrow: 0 }}
                 className="md:w-auto md:flex-1 snap-start flex flex-col gap-0 cursor-pointer"
               >
-                {/* Card image box */}
+                {/* Card box */}
                 <div
-                  className="w-full text-[#1a1a1a] rounded-2xl flex flex-col items-center justify-center text-center"
+                  className="w-full rounded-2xl flex flex-col items-center justify-center text-center"
                   style={{
                     backgroundColor: card.bg,
                     aspectRatio: "4/3",
-                    padding: "clamp(20px, 4vw, 40px)",
+                    padding: "clamp(24px, 4vw, 48px)",
+                    color: card.bg === "#2B59C3" || card.bg === "#0B0215" ? "#F4EDD9" : "#1a1a1a",
                   }}
                 >
-                  <p className="text-[10px] font-bold uppercase tracking-widest mb-3 opacity-60">
+                  {/* Brand label */}
+                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-6 opacity-50">
                     {card.brand}
                   </p>
+
+                  {/* Subtitle label */}
                   <p
-                    className="font-playfair text-sm italic mb-2 tracking-wide"
-                    style={{ color: card.labelColor || "inherit" }}
+                    className="text-sm mb-3 tracking-wide leading-snug"
+                    style={{
+                      fontFamily: "Georgia, serif",
+                      fontStyle: "italic",
+                      color: card.labelColor || "inherit",
+                      opacity: card.labelColor ? 1 : 0.7,
+                    }}
                   >
                     {card.label}
                   </p>
+
+                  {/* Main title */}
                   {card.titleLarge ? (
                     <h3
                       className="font-black leading-tight tracking-tighter"
-                      style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(1.8rem, 5vw, 3rem)" }}
+                      style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(2rem, 5vw, 3.2rem)" }}
                     >
                       {card.titleLarge}
                     </h3>
                   ) : (
                     <h3
                       className="font-black leading-tight tracking-tight"
-                      style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(1rem, 3vw, 1.75rem)" }}
+                      style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(1.3rem, 2.8vw, 2rem)" }}
                     >
                       {card.title.split("\n").map((line, j, arr) => (
                         <span key={j}>{line}{j < arr.length - 1 && <br />}</span>
@@ -152,22 +209,22 @@ export default function Insights() {
 
                 {/* Description */}
                 <motion.p
-                  initial={{ opacity: 0, y: 30 }}
+                  initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
                   transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 + 0.2 }}
-                  style={{ color: textColor, fontSize: "clamp(1.1rem, 3vw, 1.4rem)", wordBreak: "break-word", overflowWrap: "break-word" }}
-                  className="font-bold leading-snug mt-5 mb-5"
+                  style={{ color: textColor, fontSize: "clamp(0.95rem, 1.8vw, 1.15rem)" }}
+                  className="font-semibold leading-snug mt-5 mb-4"
                 >
                   {card.desc}
                 </motion.p>
 
-                {/* Category label + divider */}
+                {/* Category + divider */}
                 <motion.div
-                  initial={{ opacity: 0, y: 20 }}
-                  whileInView={{ opacity: 1, y: 0 }}
+                  initial={{ opacity: 0 }}
+                  whileInView={{ opacity: 1 }}
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 + 0.3 }}
+                  transition={{ duration: 1, delay: i * 0.1 + 0.3 }}
                   style={{ borderBottomColor: borderColor }}
                   className="border-b pb-3 mt-auto"
                 >
@@ -182,23 +239,6 @@ export default function Insights() {
             ))}
           </div>
         </div>
-
-        {/* "What's trending" button */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, amount: 0.3 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="flex justify-start mb-14 md:mb-20"
-        >
-          <motion.button
-            style={{ borderColor: buttonBorder, color: buttonBorder }}
-            className="flex items-center gap-3 px-6 py-3 border rounded-full text-sm font-semibold transition-colors"
-          >
-            <span>What's trending.</span>
-            <span>←</span>
-          </motion.button>
-        </motion.div>
 
         {/* Relationships */}
         <motion.div
@@ -255,29 +295,29 @@ export default function Insights() {
           >
             Getting love from:
           </motion.h3>
-          <div className="md:col-span-9 grid grid-cols-2 md:grid-cols-3 gap-y-12 gap-x-8">
-            {[
-              { abbr: "W.", name: "Awwwards.", detail: "2 x Agency of the year Nominee\n7 x Site of the day\n2 x Developer Award" },
-              { abbr: "L.", name: "The Lovie Awards", detail: "2 x Gold Lovie\n2 x Silver Lovie\n2 x People's choice" },
-              { abbr: "FWA", name: "The FWA", detail: "2 x FWA of the Day", tracking: "tracking-tighter" },
-              { abbr: "GDA", name: "German Design Award", detail: "Special Mention Award" },
-              { abbr: "Bē", name: "Behance", detail: "1x Graphic Design" },
-              { abbr: "R.", name: "Red Dot Design Award", detail: "Communication Design Award" },
-            ].map((a, i) => (
+          <div
+            className="md:col-span-9"
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(4, 1fr)",
+              rowGap: "2.5rem",
+              columnGap: "2rem",
+            }}
+          >
+            {clientLogos.map((logo, i) => (
               <motion.div
-                key={a.name}
-                initial={{ opacity: 0, y: 40 }}
+                key={logo.file}
+                initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: i * 0.08 }}
+                viewport={{ once: true, amount: 0.1 }}
+                transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.04 }}
+                style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", height: "48px" }}
               >
-                <motion.h4 style={{ color: textColor }} className={`text-4xl font-black mb-3 ${a.tracking || ""}`}>
-                  {a.abbr}
-                </motion.h4>
-                <motion.p style={{ color: textColor }} className="font-bold text-sm mb-1">{a.name}</motion.p>
-                <motion.p style={{ color: mutedColor }} className="text-[10px] font-semibold leading-tight whitespace-pre-line opacity-60">
-                  {a.detail}
-                </motion.p>
+                <motion.img
+                  src={`/CliendLogo/${logo.file}`}
+                  alt={logo.name}
+                  style={{ filter: logoFilter, maxHeight: "100%", maxWidth: "100%", width: "auto", objectFit: "contain", opacity: 0.85 }}
+                />
               </motion.div>
             ))}
           </div>

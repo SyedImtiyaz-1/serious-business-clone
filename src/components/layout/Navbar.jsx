@@ -1,14 +1,21 @@
 import { motion, useScroll, AnimatePresence } from "framer-motion";
 import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
+import { useLocation } from "react-router-dom";
 import TransitionLink from "../ui/TransitionLink";
 import gsap from "gsap";
 
-const SmileIcon = () => (
-  <svg viewBox="0 0 100 100" className="w-5 h-5 fill-current">
-    <circle cx="33" cy="40" r="6" />
-    <circle cx="67" cy="40" r="6" />
-    <path d="M30 65 Q50 85 70 65" stroke="currentColor" strokeWidth="8" strokeLinecap="round" fill="none" />
+// Right chevron ">" — default state on Contact button
+const ChevronRight = () => (
+  <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="9 18 15 12 9 6" />
+  </svg>
+);
+
+// Left chevron "<" — hover state on Contact button
+const ChevronLeft = () => (
+  <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+    <polyline points="15 18 9 12 15 6" />
   </svg>
 );
 
@@ -76,29 +83,31 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
         </div>
       </motion.div>
 
-      <motion.div
-        style={staticStyle}
-        animate={{
-          opacity: (isLetsWork && !isHovered && !icon) ? 0 : 1,
-          scale: (isLetsWork && !isHovered && !icon) ? 0.8 : 1,
-        }}
-        transition={{ opacity: { duration: 0.3 }, scale: { duration: 0.3 } }}
-        className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center flex-shrink-0 relative overflow-hidden"
-      >
-        <div
-          className="absolute inset-0 flex items-center justify-center transition-all duration-500"
-          style={{ opacity: isHovered || isActive ? 0 : 1, transform: isHovered || isActive ? "scale(0) rotate(-180deg)" : "scale(1) rotate(0deg)" }}
+      {(icon || hoverIcon) && (
+        <motion.div
+          style={staticStyle}
+          animate={{
+            opacity: (isLetsWork && !isHovered && !icon) ? 0 : 1,
+            scale: (isLetsWork && !isHovered && !icon) ? 0.8 : 1,
+          }}
+          transition={{ opacity: { duration: 0.3 }, scale: { duration: 0.3 } }}
+          className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center flex-shrink-0 relative overflow-hidden"
         >
-          {icon}
-        </div>
-        <div
-          ref={iconWrapperRef}
-          className="absolute inset-0 flex items-center justify-center transition-all duration-500"
-          style={{ opacity: isHovered || isActive ? 1 : 0, transform: isHovered || isActive ? "scale(1) rotate(0deg)" : "scale(0) rotate(180deg)" }}
-        >
-          {hoverIcon || icon}
-        </div>
-      </motion.div>
+          <div
+            className="absolute inset-0 flex items-center justify-center transition-all duration-500"
+            style={{ opacity: isHovered || isActive ? 0 : 1, transform: isHovered || isActive ? "scale(0) rotate(-180deg)" : "scale(1) rotate(0deg)" }}
+          >
+            {icon}
+          </div>
+          <div
+            ref={iconWrapperRef}
+            className="absolute inset-0 flex items-center justify-center transition-all duration-500"
+            style={{ opacity: isHovered || isActive ? 1 : 0, transform: isHovered || isActive ? "scale(1) rotate(0deg)" : "scale(0) rotate(180deg)" }}
+          >
+            {hoverIcon || icon}
+          </div>
+        </motion.div>
+      )}
     </motion.div>
   );
 };
@@ -242,12 +251,25 @@ const DesktopMenu = () => {
         </div>
       </motion.div>
 
-      {/* Icon circle */}
+      {/* Icon circle — > when closed, < when open */}
       <motion.div
         style={staticStyle}
-        className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center flex-shrink-0 cursor-pointer"
+        className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center flex-shrink-0 cursor-pointer overflow-hidden relative"
       >
-        <MenuIcon isOpen={isMenuHovered} />
+        {/* Default: > */}
+        <div
+          className="absolute inset-0 flex items-center justify-center transition-all duration-300"
+          style={{ opacity: isMenuHovered ? 0 : 1, transform: isMenuHovered ? "scale(0) rotate(90deg)" : "scale(1) rotate(0deg)" }}
+        >
+          <ChevronRight />
+        </div>
+        {/* Hover: < */}
+        <div
+          className="absolute inset-0 flex items-center justify-center transition-all duration-300"
+          style={{ opacity: isMenuHovered ? 1 : 0, transform: isMenuHovered ? "scale(1) rotate(0deg)" : "scale(0) rotate(-90deg)" }}
+        >
+          <ChevronLeft />
+        </div>
       </motion.div>
 
       {/* Dropdown via portal */}
@@ -302,28 +324,52 @@ const DesktopMenu = () => {
 
 export default function Navbar() {
   const { scrollY } = useScroll();
+  const { pathname } = useLocation();
+  const isHomePage = pathname === "/";
   const [showCenterLogo, setShowCenterLogo] = useState(false);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
+  const [isLightBg, setIsLightBg] = useState(false);
 
   useEffect(() => {
     const unsub = scrollY.on("change", (latest) => {
       setShowCenterLogo(latest > 300);
     });
 
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        setIsFooterVisible(entry.isIntersecting);
-      },
+    const footerObserver = new IntersectionObserver(
+      ([entry]) => setIsFooterVisible(entry.isIntersecting),
       { threshold: 0 }
     );
-
     const footer = document.getElementById("main-footer");
-    if (footer) observer.observe(footer);
+    if (footer) footerObserver.observe(footer);
+
+    // Detect light/cream page by checking body background color
+    const checkBg = () => {
+      const bg = document.body.style.backgroundColor;
+      setIsLightBg(bg === "rgb(244, 237, 217)" || bg === "#F4EDD9" || bg === "#f4edd9");
+    };
+    checkBg();
+
+    // Also watch .dark-section for home page scroll transitions
+    const lightSection = document.querySelector(".dark-section");
+    const bgObserver = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) setIsLightBg(true);
+        else checkBg();
+      },
+      { threshold: 0.05 }
+    );
+    if (lightSection) bgObserver.observe(lightSection);
+
+    // MutationObserver to catch GSAP style changes on body
+    const mutObs = new MutationObserver(checkBg);
+    mutObs.observe(document.body, { attributes: true, attributeFilter: ["style"] });
 
     return () => {
       unsub();
-      if (footer) observer.unobserve(footer);
+      if (footer) footerObserver.unobserve(footer);
+      if (lightSection) bgObserver.disconnect();
+      mutObs.disconnect();
     };
   }, [scrollY]);
 
@@ -345,13 +391,13 @@ export default function Navbar() {
         </TransitionLink>
       </div>
 
-      {/* Desktop Left: Let's Work */}
+      {/* Desktop Left: Contact */}
       <div className="hidden md:block shrink-0">
         <NavButton
-          text="Let's work"
-          icon={null}
-          hoverIcon={<SmileIcon />}
-          isLetsWork={true}
+          text="Contact"
+          icon={<ChevronRight />}
+          hoverIcon={<ChevronLeft />}
+          isLetsWork={false}
         />
       </div>
 
@@ -368,16 +414,19 @@ export default function Navbar() {
             <img
               src="/logonewlong.png"
               alt="Marshall Haber Creative Group"
-              className="absolute h-24 w-auto cursor-pointer transition-opacity duration-700 ease-in-out"
-              style={{ opacity: showCenterLogo ? 0 : 1 }}
+              className="absolute h-24 w-auto cursor-pointer transition-all duration-700 ease-in-out"
+              style={{
+                opacity: showCenterLogo ? 0 : 1,
+                filter: (!isHomePage || isLightBg) ? "invert(1)" : "none",
+              }}
             />
             <img
               src="/logo.png"
               alt="MHCG"
-              className="absolute h-14 w-auto cursor-pointer transition-opacity duration-700 ease-in-out"
-              style={{ 
+              className="absolute h-14 w-auto cursor-pointer transition-all duration-700 ease-in-out"
+              style={{
                 opacity: showCenterLogo ? 1 : 0,
-                filter: "invert(1)" 
+                filter: (!isHomePage || isLightBg) ? "invert(0)" : "invert(1)",
               }}
             />
           </div>

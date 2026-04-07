@@ -62,7 +62,7 @@ export default function StackContainer({ panels }) {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-hidden h-[calc(100vh-100px)]">
+    <div ref={containerRef} className="relative w-full overflow-hidden" style={{ height: "calc(100vh - 96px)" }}>
       {panels.map(({ bg, children }, i) => (
         <section
           key={i}
