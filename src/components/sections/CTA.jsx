@@ -6,7 +6,7 @@ export default function CTA() {
       {/* Top CTA Cards */}
       <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-4">
         {/* Left Card */}
-        <div className="bg-[#F4EDD9] text-[#0b1121] p-8 md:p-10 h-[300px] md:h-[350px] flex flex-col justify-between cursor-pointer group hover:opacity-95 transition-opacity border border-white/10 rounded-xl">
+        <div className="bg-[#E8E6DF] text-[#0b1121] p-8 md:p-10 h-[300px] md:h-[350px] flex flex-col justify-between cursor-pointer group hover:opacity-95 transition-opacity border border-white/10 rounded-xl">
           <p className="font-playfair text-lg md:text-xl leading-tight">
             <span className="font-bold">You feel it too?</span><br />
             Let's talk, no strings attached

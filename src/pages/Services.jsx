@@ -21,6 +21,7 @@ const serviceCards = [
     title: 'Premium Branding',
     text: 'Our bestseller for scaleups: a premium branding approach that connects strategy and creativity to turn complex value into a clear and credible story for enterprise buyers.',
     featured: false,
+    bg: '#f7c4d5',
   },
   {
     id: 'sprint',
@@ -199,7 +200,9 @@ export default function Services() {
           {serviceCards.map((card, i) => (
             <motion.div
               key={card.id}
-              className={`${styles.card} ${card.featured ? styles.cardFeatured : ''}`}
+              className={`${styles.card} ${card.featured ? styles.cardFeatured : ''} ${card.bg ? styles.cardColored : ''
+                }`}
+              style={card.bg ? { backgroundColor: card.bg } : {}}
               initial={{ opacity: 0, y: 24 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}

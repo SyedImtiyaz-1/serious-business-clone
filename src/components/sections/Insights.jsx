@@ -1,29 +1,29 @@
 import { motion, useScroll, useTransform } from "framer-motion";
 
 const clientLogos = [
-  { file: "jpmorgan.png",                          name: "JPMorgan Chase" },
-  { file: "berkshire-hathaway-logonew.png",        name: "Berkshire Hathaway" },
-  { file: "09_Jeffries_Logo.png",                  name: "Jeffries" },
-  { file: "16_Eurotech_Logo.png",                  name: "Eurotech" },
-  { file: "23_Signature_Bank.png",                 name: "Signature Bank" },
-  { file: "Celadon_Logo.png",                      name: "Celadon" },
-  { file: "MIZ_Logo_SVG_Gadrientdark.png",         name: "MIZ" },
-  { file: "centerbridge.png",                      name: "Centerbridge" },
-  { file: "HumankindInvestments_Logo.png",         name: "Humankind Investments" },
-  { file: "kaplan.png",                            name: "Kaplan" },
-  { file: "rivington.png",                         name: "Rivington" },
-  { file: "trishmcevoy-1.png",                     name: "Trish McEvoy" },
-  { file: "usher-new-logo_white.png",              name: "Usher" },
-  { file: "YR.png",                                name: "Y&R" },
+  { file: "jpmorgan.png", name: "JPMorgan Chase" },
+  { file: "berkshire-hathaway-logonew.png", name: "Berkshire Hathaway" },
+  { file: "09_Jeffries_Logo.png", name: "Jeffries" },
+  { file: "16_Eurotech_Logo.png", name: "Eurotech" },
+  { file: "23_Signature_Bank.png", name: "Signature Bank" },
+  { file: "Celadon_Logo.png", name: "Celadon" },
+  { file: "MIZ_Logo_SVG_Gadrientdark.png", name: "MIZ" },
+  { file: "centerbridge.png", name: "Centerbridge" },
+  { file: "HumankindInvestments_Logo.png", name: "Humankind Investments" },
+  { file: "kaplan.png", name: "Kaplan" },
+  { file: "rivington.png", name: "Rivington" },
+  { file: "trishmcevoy-1.png", name: "Trish McEvoy" },
+  { file: "usher-new-logo_white.png", name: "Usher" },
+  { file: "YR.png", name: "Y&R" },
   { file: "1200px-Special_Olympics_logo.svg_-1.png", name: "Special Olympics" },
-  { file: "Burson-Marsteller-logo_250px.png",      name: "Burson-Marsteller" },
+  { file: "Burson-Marsteller-logo_250px.png", name: "Burson-Marsteller" },
 ];
 import { useRef } from "react";
 import Reveal from "../ui/Reveal";
 
 const cards = [
   {
-    bg: "#F4EDD9", // Cream
+    bg: "#E8E6DF", // Cream
     brand: "Marshall Haber",
     label: "The Heart of the Shift:",
     title: "Brand Messaging is the\nSoul of Rebranding",
@@ -147,7 +147,9 @@ export default function Insights() {
         <div className="-mx-6 md:mx-0 mb-10 md:mb-24">
           <div
             className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible px-6 md:px-0 snap-x snap-mandatory scrollbar-hide"
-            style={{ gap: "clamp(1.5rem, 3.5vw, 4rem)" }}
+            style={{
+              gap: "clamp(1.5rem, 3vw, 3rem)",
+            }}
           >
             {cards.map((card, i) => (
               <motion.div
@@ -156,8 +158,11 @@ export default function Insights() {
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
                 transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
-                style={{ width: "clamp(240px, 58vw, 460px)", flexShrink: 0, flexGrow: 0 }}
-                className="md:w-auto md:flex-1 snap-start flex flex-col gap-0 cursor-pointer"
+                style={{
+                  width: "clamp(260px, 70vw, 420px)",
+                  flexShrink: 0,
+                }}
+                className="md:w-auto md:flex-1 snap-start flex flex-col gap-0 cursor-pointer mr-4 md:mr-0"
               >
                 {/* Card box */}
                 <div
@@ -166,7 +171,7 @@ export default function Insights() {
                     backgroundColor: card.bg,
                     aspectRatio: "4/3",
                     padding: "clamp(24px, 4vw, 48px)",
-                    color: card.bg === "#2B59C3" || card.bg === "#0B0215" ? "#F4EDD9" : "#1a1a1a",
+                    color: card.bg === "#2B59C3" || card.bg === "#0B0215" ? "#c2ba9dff" : "#1a1a1a",
                   }}
                 >
                   {/* Brand label */}
@@ -293,15 +298,15 @@ export default function Insights() {
             style={{ color: textColor }}
             className="md:col-span-3 text-2xl font-playfair font-semibold tracking-tight"
           >
-            Getting love from:
+            Clients:
           </motion.h3>
           <div
             className="md:col-span-9"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
-              rowGap: "2.5rem",
-              columnGap: "2rem",
+              rowGap: "4.5rem",
+              columnGap: "4rem",
             }}
           >
             {clientLogos.map((logo, i) => (

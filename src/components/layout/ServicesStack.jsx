@@ -11,8 +11,8 @@ export default function ServicesStack({ panels }) {
             backgroundColor: bg,
             zIndex: 10 + i * 10,
             top: "60px",
-            minHeight: "100vh",
-            boxShadow: "0 -20px 50px rgba(0,0,0,0.10)",
+            minHeight: "50vh",
+
           }}
         >
           {children}

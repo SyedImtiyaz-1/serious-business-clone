@@ -27,7 +27,7 @@ export default function Footer() {
         <div className="flex flex-col gap-8 md:gap-10 text-left md:text-right mt-10 md:mt-0">
           <div>
             <h4 className="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-50">Say Hello</h4>
-            <a href="mailto:newbiz@marshallhaber.com" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">newbiz@marshallhaber.com</a>
+            <a href="mailto:newbiz@marshallhaber.com" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">studio@marshallhaber.com</a>
           </div>
           <div>
             <h4 className="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-50">Exceptional talent?</h4>
@@ -45,16 +45,14 @@ export default function Footer() {
         <div className="flex flex-col items-center md:items-start gap-2">
           <p>© 2015—2026 Marshall Haber Creative Group</p>
           <div className="flex gap-4">
-            <a href="#" className="hover:opacity-60 transition-opacity">Imprint</a>
-            <span>|</span>
-            <a href="#" className="hover:opacity-60 transition-opacity">Privacy</a>
-            <span>|</span>
-            <a href="#" className="hover:opacity-60 transition-opacity">Press</a>
+
+            <a href="#" className="hover:opacity-60 transition-opacity">Legal</a>
+
           </div>
         </div>
 
         <div className="text-center md:text-right font-medium tracking-normal text-sm lowercase opacity-80">
-          <p>99 Wall Street, New York, NY 10005</p>
+          <p>99 WALL STREET, SUITE #1467, NEW YORK, NY 10005, UNITED STATES</p>
           <p>212.494.9052 · studio@marshallhaber.com</p>
         </div>
       </div>
