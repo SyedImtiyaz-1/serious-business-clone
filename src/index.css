@@ -25,13 +25,13 @@
 /* Base styles */
 html {
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
   scroll-behavior: smooth;
 }
 
 body {
   width: 100%;
-  overflow-x: hidden;
+  overflow-x: clip;
   position: relative;
   background-color: var(--bg);
   color: var(--color-cream);
