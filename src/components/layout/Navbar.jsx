@@ -376,7 +376,7 @@ export default function Navbar() {
   return (
     <motion.div
       initial={{ opacity: 1, y: 0 }}
-      animate={{ 
+      animate={{
         opacity: isFooterVisible ? 0 : 1,
         y: isFooterVisible ? -20 : 0,
         pointerEvents: isFooterVisible ? "none" : "auto"
@@ -393,12 +393,14 @@ export default function Navbar() {
 
       {/* Desktop Left: Contact */}
       <div className="hidden md:block shrink-0">
-        <NavButton
-          text="Contact"
-          icon={<ChevronRight />}
-          hoverIcon={<ChevronLeft />}
-          isLetsWork={false}
-        />
+        <TransitionLink to="/contact">
+          <NavButton
+            text="Contact"
+            icon={<ChevronRight />}
+            hoverIcon={<ChevronLeft />}
+            isLetsWork={false}
+          />
+        </TransitionLink>
       </div>
 
       {/* Center: Desktop Logo */}
@@ -417,7 +419,7 @@ export default function Navbar() {
               className="absolute h-24 w-auto cursor-pointer transition-all duration-700 ease-in-out"
               style={{
                 opacity: showCenterLogo ? 0 : 1,
-                filter: (!isHomePage || isLightBg) ? "invert(1)" : "none",
+                filter: isLightBg ? "invert(1)" : "none",
               }}
             />
             <img
@@ -426,7 +428,7 @@ export default function Navbar() {
               className="absolute h-14 w-auto cursor-pointer transition-all duration-700 ease-in-out"
               style={{
                 opacity: showCenterLogo ? 1 : 0,
-                filter: (!isHomePage || isLightBg) ? "invert(0)" : "invert(1)",
+                filter: isLightBg ? "invert(0)" : "invert(1)",
               }}
             />
           </div>

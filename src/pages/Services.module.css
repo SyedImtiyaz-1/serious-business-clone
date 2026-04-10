@@ -104,7 +104,7 @@
 
 /* Subtle pink tint on hover — not full fill */
 .card:not(.cardFeatured):hover {
-  background-color: rgba(249, 196, 210, 0.35);
+  background-color: #f7c4d5;
 }
 
 /* Featured card — no permanent pink, arrow button marks it */

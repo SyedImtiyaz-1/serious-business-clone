@@ -144,9 +144,13 @@ export default function Insights() {
         </div>
 
         {/* Cards */}
-        <div className="-mx-6 md:mx-0 mb-10 md:mb-24">
+        <div className="-mx-4 md:mx-0 mb-10 md:mb-24">
           <div
-            className="flex md:grid md:grid-cols-3 overflow-x-auto md:overflow-visible px-6 md:px-0 snap-x snap-mandatory scrollbar-hide"
+            className="
+      flex flex-col 
+      lg:grid lg:grid-cols-3 
+      px-4 md:px-0
+    "
             style={{
               gap: "clamp(1.5rem, 3vw, 3rem)",
             }}
@@ -157,12 +161,17 @@ export default function Insights() {
                 initial={cardInitial[i]}
                 whileInView={{ opacity: 1, x: 0, y: 0 }}
                 viewport={{ once: true, amount: 0.2 }}
-                transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 }}
-                style={{
-                  width: "clamp(260px, 70vw, 420px)",
-                  flexShrink: 0,
+                transition={{
+                  duration: 1.2,
+                  ease: [0.16, 1, 0.3, 1],
+                  delay: i * 0.1,
                 }}
-                className="md:w-auto md:flex-1 snap-start flex flex-col gap-0 cursor-pointer mr-4 md:mr-0"
+                className="
+          w-full 
+          lg:flex-1 
+          flex flex-col gap-0 
+          cursor-pointer
+        "
               >
                 {/* Card box */}
                 <div
@@ -171,15 +180,16 @@ export default function Insights() {
                     backgroundColor: card.bg,
                     aspectRatio: "4/3",
                     padding: "clamp(24px, 4vw, 48px)",
-                    color: card.bg === "#2B59C3" || card.bg === "#0B0215" ? "#c2ba9dff" : "#1a1a1a",
+                    color:
+                      card.bg === "#2B59C3" || card.bg === "#0B0215"
+                        ? "#c2ba9dff"
+                        : "#1a1a1a",
                   }}
                 >
-                  {/* Brand label */}
                   <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-6 opacity-50">
                     {card.brand}
                   </p>
 
-                  {/* Subtitle label */}
                   <p
                     className="text-sm mb-3 tracking-wide leading-snug"
                     style={{
@@ -192,21 +202,29 @@ export default function Insights() {
                     {card.label}
                   </p>
 
-                  {/* Main title */}
                   {card.titleLarge ? (
                     <h3
                       className="font-black leading-tight tracking-tighter"
-                      style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(2rem, 5vw, 3.2rem)" }}
+                      style={{
+                        fontFamily: "var(--font-geist-sans)",
+                        fontSize: "clamp(2rem, 5vw, 3.2rem)",
+                      }}
                     >
                       {card.titleLarge}
                     </h3>
                   ) : (
                     <h3
                       className="font-black leading-tight tracking-tight"
-                      style={{ fontFamily: "var(--font-geist-sans)", fontSize: "clamp(1.3rem, 2.8vw, 2rem)" }}
+                      style={{
+                        fontFamily: "var(--font-geist-sans)",
+                        fontSize: "clamp(1.3rem, 2.8vw, 2rem)",
+                      }}
                     >
                       {card.title.split("\n").map((line, j, arr) => (
-                        <span key={j}>{line}{j < arr.length - 1 && <br />}</span>
+                        <span key={j}>
+                          {line}
+                          {j < arr.length - 1 && <br />}
+                        </span>
                       ))}
                     </h3>
                   )}
@@ -217,19 +235,22 @@ export default function Insights() {
                   initial={{ opacity: 0, y: 20 }}
                   whileInView={{ opacity: 1, y: 0 }}
                   viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: i * 0.1 + 0.2 }}
-                  style={{ color: textColor, fontSize: "clamp(0.95rem, 1.8vw, 1.15rem)" }}
+                  transition={{
+                    duration: 1,
+                    ease: [0.16, 1, 0.3, 1],
+                    delay: i * 0.1 + 0.2,
+                  }}
+                  style={{
+                    color: textColor,
+                    fontSize: "clamp(0.95rem, 1.8vw, 1.15rem)",
+                  }}
                   className="font-semibold leading-snug mt-5 mb-4"
                 >
                   {card.desc}
                 </motion.p>
 
-                {/* Category + divider */}
+                {/* Divider */}
                 <motion.div
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true, amount: 0.2 }}
-                  transition={{ duration: 1, delay: i * 0.1 + 0.3 }}
                   style={{ borderBottomColor: borderColor }}
                   className="border-b pb-3 mt-auto"
                 >

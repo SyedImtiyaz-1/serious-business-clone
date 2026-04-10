@@ -21,7 +21,6 @@ const serviceCards = [
     title: 'Premium Branding',
     text: 'Our bestseller for scaleups: a premium branding approach that connects strategy and creativity to turn complex value into a clear and credible story for enterprise buyers.',
     featured: false,
-    bg: '#f7c4d5',
   },
   {
     id: 'sprint',
