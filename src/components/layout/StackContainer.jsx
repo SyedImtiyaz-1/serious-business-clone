@@ -16,8 +16,8 @@ export default function StackContainer({ panels }) {
       const tl = gsap.timeline({
         scrollTrigger: {
           trigger: containerRef.current,
-          start: "top top+=104", // Account for Navbar height (approx)
-          end: () => `+=${window.innerHeight * (allPanels.length - 1)}`,
+          start: "top top+=60",
+          end: () => `+=${window.innerHeight * 0.55 * (allPanels.length - 1)}`,
           pin: true,
           scrub: true,
           invalidateOnRefresh: true,

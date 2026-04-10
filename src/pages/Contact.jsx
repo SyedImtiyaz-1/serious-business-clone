@@ -1,4 +1,4 @@
-import { useState, useRef } from 'react';
+import { useState, useRef, useLayoutEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import heroVideo from '../assets/video.mp4';
 import styles from './Contact.module.css';
@@ -33,6 +33,13 @@ export default function Contact() {
   const [submitted, setSubmitted] = useState(false);
   const [focused, setFocused] = useState(null);
 
+  useLayoutEffect(() => {
+    document.body.style.backgroundColor = '#F4EDD9';
+    return () => {
+      document.body.style.backgroundColor = '';
+    };
+  }, []);
+
   const handleSubmit = (e) => {
     e.preventDefault();
     setSubmitted(true);
@@ -44,6 +51,7 @@ export default function Contact() {
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
       transition={{ duration: 0.5 }}
+      className={styles.pageWrapper}
     >
       {/* Hero Section */}
       <section className={styles.hero}>

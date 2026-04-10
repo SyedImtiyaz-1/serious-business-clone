@@ -1,3 +1,10 @@
+/* Page Wrapper */
+.pageWrapper {
+  width: 100%;
+  min-height: 100vh;
+  background-color: #F4EDD9;
+}
+
 /* Hero */
 .hero {
   padding: 160px 40px 80px;
@@ -20,8 +27,9 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: #e8849a;
+  color: #020817;
   margin-bottom: 24px;
+  opacity: 0.5;
 }
 
 .heroTitle {
@@ -29,7 +37,7 @@
   font-weight: 900;
   line-height: 1.05;
   letter-spacing: -0.03em;
-  color: #fff;
+  color: #020817;
   margin-bottom: 20px;
   font-family: var(--font-geist-sans);
 }
@@ -37,7 +45,7 @@
 .heroSubtitle {
   font-size: 18px;
   font-weight: 300;
-  color: rgba(255, 255, 255, 0.5);
+  color: rgba(2, 8, 23, 0.5);
   max-width: 400px;
   margin: 0 auto;
 }
@@ -83,7 +91,7 @@
 }
 
 .infoCard {
-  background: #fdf2f6;
+  background: rgba(2, 8, 23, 0.05);
   border-radius: 16px;
   padding: 40px 32px;
   text-align: center;
@@ -99,8 +107,8 @@
   width: 56px;
   height: 56px;
   border-radius: 50%;
-  background: #fbc1d4;
-  color: #1a1a1a;
+  background: rgba(2, 8, 23, 0.1);
+  color: #020817;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -141,7 +149,7 @@
 
 /* Form Section */
 .formWrapper {
-  background: #1a1a1a;
+  background: #020817;
   padding: 100px 40px;
 }
 
@@ -165,7 +173,8 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: #e8849a;
+  color: #F4EDD9;
+  opacity: 0.5;
   margin-bottom: 20px;
 }
 
@@ -220,7 +229,7 @@
 }
 
 .inputGroup.focused label {
-  color: #e8849a;
+  color: #F4EDD9;
 }
 
 .input,
@@ -246,7 +255,7 @@
 
 .input:focus,
 .textarea:focus {
-  border-bottom-color: #e8849a;
+  border-bottom-color: #F4EDD9;
 }
 
 .textarea {
@@ -264,7 +273,7 @@
 .checkbox {
   width: 18px;
   height: 18px;
-  accent-color: #e8849a;
+  accent-color: #F4EDD9;
   cursor: pointer;
 }
 
@@ -279,8 +288,8 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #fbc1d4;
-  color: #1a1a1a;
+  background: #F4EDD9;
+  color: #020817;
   font-size: 13px;
   font-weight: 600;
   text-transform: uppercase;
@@ -296,7 +305,7 @@
 
 .submitBtn:hover {
   transform: translateY(-2px);
-  box-shadow: 0 10px 30px rgba(251, 193, 212, 0.3);
+  box-shadow: 0 10px 30px rgba(244, 237, 217, 0.3);
 }
 
 .submitBtn svg {
@@ -317,7 +326,7 @@
 }
 
 .successIcon {
-  color: #fbc1d4;
+  color: #F4EDD9;
   margin-bottom: 20px;
 }
 
