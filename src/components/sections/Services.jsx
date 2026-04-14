@@ -10,14 +10,11 @@ export default function ServiceBlock({
 }) {
   return (
     <div
-      className={`w-full flex flex-col md:flex-row items-center ${textColor}`}
-      style={{
-        padding: "clamp(20px, 3vh, 40px) clamp(24px, 3.5vw, 56px)",
-        gap: "clamp(24px, 4vh, 48px)"
-      }}
+      className={`w-full flex flex-col md:flex-row items-stretch ${textColor} relative`}
+      style={{ minHeight: "340px" }}
     >
-      {/* LEFT: title + description + list grouped at top */}
-      <div className="w-full md:w-[60%] flex flex-col justify-start shrink-0 min-h-0 items-start" style={{ gap: "clamp(16px, 3vh, 32px)" }}>
+      {/* LEFT: title + description + list */}
+      <div className="w-full md:w-[60%] flex flex-col justify-start shrink-0 items-start p-6 md:p-10" style={{ gap: "clamp(6px, 1vh, 12px)" }}>
 
         {/* Title */}
         <motion.h2
@@ -25,10 +22,10 @@ export default function ServiceBlock({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-inherit font-black leading-[0.88] tracking-tighter mb-4"
+          className="text-inherit font-black leading-[0.88] tracking-tighter"
           style={{
             fontFamily: "var(--font-geist-sans)",
-            fontSize: "clamp(2.8rem, 7.5vw, 7rem)",
+            fontSize: "clamp(2.4rem, 6vw, 5.5rem)",
           }}
         >
           {title}
@@ -41,7 +38,7 @@ export default function ServiceBlock({
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
 
-          className="flex flex-col md:flex-row gap-6 md:gap-10 mt-2"
+          className="flex flex-col md:flex-row gap-6 md:gap-10"
         >
           <p
             className="text-[17px] md:text-[19px] font-medium leading-[1.5] w-full md:w-1/2 opacity-85 tracking-tight"
@@ -58,16 +55,15 @@ export default function ServiceBlock({
 
       </div>
 
-      {/* RIGHT: square image box */}
+      {/* RIGHT: image at top-right corner with padding */}
       <motion.div
         initial={{ opacity: 0, x: 60 }}
         whileInView={{ opacity: 1, x: 0 }}
         viewport={{ once: true, margin: "-10%" }}
         transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1], delay: 0.1 }}
-        className="shrink-0 flex items-center justify-center"
-        style={{ width: "clamp(220px, 28vw, 420px)", aspectRatio: "1 / 1" }}
+        className="w-full md:w-[40%] flex items-start justify-end p-6 md:p-10"
       >
-        <div className="w-full h-full rounded-2xl overflow-hidden shadow-sm">
+        <div className="w-full max-w-[300px] aspect-square rounded-2xl overflow-hidden">
           {imageContent}
         </div>
       </motion.div>

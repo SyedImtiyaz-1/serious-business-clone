@@ -1,9 +1,17 @@
+import { useLocation } from "react-router-dom";
 import TransitionLink from "../ui/TransitionLink";
 import Reveal from "../ui/Reveal";
 
 export default function Footer() {
+  const { pathname } = useLocation();
+  const isCreamPage = pathname === "/about" || pathname === "/contact";
+
+  const bgClass = isCreamPage ? "bg-[#F4EDD9] text-[#020817]" : "bg-[#020817] text-[#F4EDD9]";
+  const borderClass = isCreamPage ? "border-[#020817]/20" : "border-[#F4EDD9]/20";
+  const logoSrc = isCreamPage ? "/footerLogoBlack.png" : "/logonewlong.png";
+
   return (
-    <footer id="main-footer" className="w-full pt-20 pb-6 px-6 relative overflow-hidden z-50 bg-[#020817] text-[#F4EDD9]">
+    <footer id="main-footer" className={`w-full pt-20 pb-6 px-6 relative overflow-hidden z-50 ${bgClass}`}>
 
       {/* Grid Links Section */}
       <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row justify-between mb-16 md:mb-32 text-base font-medium tracking-tight">
@@ -37,11 +45,11 @@ export default function Footer() {
       </div>
 
       <div className="w-full flex justify-center items-center mb-12 md:mb-6 mt-16 md:mt-0">
-        <img src="/logonewlong.png" alt="Marshall Haber Creative Group" className="h-[12vw] md:h-[6vw] lg:h-[5.5vw] xl:h-[7vw] w-auto" />
+        <img src={logoSrc} alt="Marshall Haber Creative Group" className="h-[12vw] md:h-[6vw] lg:h-[5.5vw] xl:h-[7vw] w-auto" />
       </div>
 
       {/* Bottom Legal Links */}
-      <div className="w-full flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest px-4 border-t border-[#F4EDD9]/20 pt-8 mt-12 gap-8 md:gap-0">
+      <div className={`w-full flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest px-4 border-t ${borderClass} pt-8 mt-12 gap-8 md:gap-0`}>
         <div className="flex flex-col items-center md:items-start gap-2">
           <p>© 2015—2026 Marshall Haber Creative Group</p>
           <div className="flex gap-4">
@@ -51,7 +59,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="text-center md:text-right font-medium tracking-normal text-sm lowercase opacity-80">
+        <div className="text-center md:text-right font-medium tracking-normal text-sm uppercase opacity-80">
           <p>99 WALL STREET, SUITE #1467, NEW YORK, NY 10005, UNITED STATES</p>
           <p>212.494.9052 · studio@marshallhaber.com</p>
         </div>

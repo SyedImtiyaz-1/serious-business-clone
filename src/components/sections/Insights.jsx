@@ -23,7 +23,7 @@ import Reveal from "../ui/Reveal";
 
 const cards = [
   {
-    bg: "#E8E6DF", // Cream
+    bg: "#f7c4d5", // Pink
     brand: "Marshall Haber",
     label: "The Heart of the Shift:",
     title: "Brand Messaging is the\nSoul of Rebranding",

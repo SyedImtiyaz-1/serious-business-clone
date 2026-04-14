@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback, useLayoutEffect } from 'react';
+import { useState, useRef, useCallback, useLayoutEffect, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import TransitionLink from '../components/ui/TransitionLink';
 import ContactModal from '../components/ui/ContactModal';
@@ -21,6 +21,15 @@ export default function About() {
   const lastPos = useRef({ x: 0, y: 0 });
   const count = useRef(0);
   const sectionRef = useRef(null);
+
+  useEffect(() => {
+    document.body.style.backgroundColor = '#F4EDD9';
+    document.body.style.color = '#111111';
+    return () => {
+      document.body.style.backgroundColor = '';
+      document.body.style.color = '';
+    };
+  }, []);
 
   const handleMouseMove = useCallback((e) => {
     if (!sectionRef.current) return;

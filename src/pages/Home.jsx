@@ -87,51 +87,43 @@ export default function Home() {
 
   const servicePanels = [
     {
-      bg: "#2B59C3", // Blue Accent
-      z: 20,
+      bg: "#2B59C3",
       children: <ServiceBlock
         title="Brand Strategy"
         description="It’s the core of your company’s identity. It guides all business decisions, ensuring a consistent and impactful presence in the market."
-        list={["Research & Insights", "Brand Model", "Positioning", "Value proposition", "Messaging", "Verbal identity", "Naming"]}
+        list={["Research & Insights", "Brand Model", "Positioning", "Value proposition", "Messaging", "Verbal Identity", "Naming"]}
         imageContent={<StrategyImage />}
-        direction="left"
         textColor="text-[#F4EDD9]"
       />
     },
     {
-      bg: "#0B0215", // Night
-      z: 30,
+      bg: "#0B0215",
       children: <ServiceBlock
-        title="Visual Identity"
-        description="Visual identity is the unique visual language of your brand, creating memorable impressions and emotional connections with your audience."
-        list={["Logotype, Typography & Colour", "Visual Language", "Illustrations & 3D", "Art Direction", "Brandbook & Guidelines", "Motion Design", "Brand Applications"]}
+        title="Identity"
+        description="Distinctive visual systems designed to be immediate, enduring, and unmistakable."
+        list={["Logo & Wordmark", "Typography & Color", "Art Direction", "Brand Systems", "Guidelines"]}
         imageContent={<VisualImage />}
-        direction="right"
         textColor="text-[#F4EDD9]"
       />
     },
     {
-      bg: "#F4EDD9", // Cream
-      z: 40,
+      bg: "#F4EDD9",
       children: <ServiceBlock
-        title="Website"
-        description="Our website design services blend innovation and creativity to deliver user-centric solutions that elevate your brand and engage your audience."
-        list={["UX Design", "Website Design", "Responsive Design", "Website Motion", "Animations"]}
+        title="Digital"
+        description="High-performance digital experiences—designed with precision and built to scale."
+        list={["UX & UI Design", "Website Design", "Web Development", "Interaction & Motion"]}
         imageContent={<WebsiteImage />}
-        direction="left"
         textColor="text-[#020817]"
       />
     },
     {
-      bg: "#020817", // Navy (Primary BG)
-      z: 50,
+      bg: "#020817",
       children: <ServiceBlock
         title="Product"
-        description="Our product design services focus on creating intuitive and aesthetically pleasing products that resonate with your audience and stand out in the market."
-        list={["UX Design", "User Testing", "Prototyping", "UI Design", "App Design", "Interaction Design"]}
+        description="Thoughtfully designed products that are intuitive, refined, and built for real use."
+        list={["UX Design", "Prototyping", "UI Systems", "App Design"]}
         textColor="text-[#F4EDD9]"
         imageContent={<ProductImage />}
-        direction="right"
       />
     },
   ];

@@ -1,12 +1,13 @@
-import { useState, useMemo, useLayoutEffect } from 'react';
+import { useState, useMemo, useLayoutEffect, useEffect } from 'react';
 import TransitionLink from '../components/ui/TransitionLink';
 import { motion } from 'framer-motion';
-import projects from '../data/projects';
+import hardcodedProjects from '../data/projects';
 import styles from './Work.module.css';
 
 export default function Work() {
   const [activeTab, setActiveTab] = useState('Featured');
   const [activeIndustry, setActiveIndustry] = useState('All');
+  const [cmsProjects, setCmsProjects] = useState([]);
 
   useLayoutEffect(() => {
     document.body.style.backgroundColor = "#F4EDD9";
@@ -17,18 +18,49 @@ export default function Work() {
     };
   }, []);
 
-  const industries = useMemo(() => ['All', ...new Set(projects.map(p => p.category))], []);
-  const industriesCount = useMemo(() => new Set(projects.map(p => p.category)).size, []);
+  // Fetch CMS projects and merge with hardcoded
+  useEffect(() => {
+    fetch("/api/admin/pages/work")
+      .then(res => res.json())
+      .then(data => {
+        const cms = data?.sections?.projects || [];
+        const mapped = cms
+          .filter(p => p.title)
+          .map(p => ({
+            slug: p.slug || p.title.toLowerCase().replace(/\s+/g, '-'),
+            title: p.title,
+            subtitle: p.subtitle || '',
+            category: p.category || 'Uncategorized',
+            client: p.client || p.title,
+            description: p.description || '',
+            image: p.imageUrl || '',
+            video: p.videoUrl || '',
+            fromCms: true,
+          }));
+        setCmsProjects(mapped);
+      })
+      .catch(() => {});
+  }, []);
+
+  // Merge: hardcoded first, then CMS-added (skip duplicates by slug)
+  const allProjects = useMemo(() => {
+    const hardcodedSlugs = new Set(hardcodedProjects.map(p => p.slug));
+    const newCms = cmsProjects.filter(p => !hardcodedSlugs.has(p.slug));
+    return [...hardcodedProjects, ...newCms];
+  }, [cmsProjects]);
+
+  const industries = useMemo(() => ['All', ...new Set(allProjects.map(p => p.category))], [allProjects]);
+  const industriesCount = useMemo(() => new Set(allProjects.map(p => p.category)).size, [allProjects]);
 
   const filteredProjects = useMemo(() => {
     if (activeTab === 'Featured') {
-      return projects.slice(0, 6);
+      return allProjects.slice(0, 6);
     }
     if (activeTab === 'Industries' && activeIndustry !== 'All') {
-      return projects.filter(p => p.category === activeIndustry);
+      return allProjects.filter(p => p.category === activeIndustry);
     }
-    return projects;
-  }, [activeTab, activeIndustry]);
+    return allProjects;
+  }, [activeTab, activeIndustry, allProjects]);
 
   return (
     <motion.div
@@ -45,21 +77,21 @@ export default function Work() {
             aria-selected={activeTab === 'Featured'}
             onClick={() => setActiveTab('Featured')}
           >
-            Featured<span className={styles.tabCount}>06</span>
+            Featured<span className={styles.tabCount}>{String(Math.min(6, allProjects.length)).padStart(2, '0')}</span>
           </button>
           <button
             className={styles.tabButton}
             aria-selected={activeTab === 'All projects'}
             onClick={() => setActiveTab('All projects')}
           >
-            All projects<span className={styles.tabCount}>{projects.length}</span>
+            All projects<span className={styles.tabCount}>{allProjects.length}</span>
           </button>
           <button
             className={styles.tabButton}
             aria-selected={activeTab === 'Industries'}
             onClick={() => setActiveTab('Industries')}
           >
-            Industries<span className={styles.tabCount}>0{industriesCount}</span>
+            Industries<span className={styles.tabCount}>{String(industriesCount).padStart(2, '0')}</span>
             {activeTab === 'Industries' && <div className={styles.tabDot} />}
           </button>
         </div>
@@ -98,11 +130,24 @@ export default function Work() {
             >
               <TransitionLink to={`/work/${project.slug}`} className={styles.card}>
                 <div className={styles.cardImage}>
-                  <img
-                    src={project.image}
-                    alt={project.title}
-                    className={styles.cardMedia}
-                  />
+                  {project.video ? (
+                    <video
+                      src={project.video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className={styles.cardMedia}
+                    />
+                  ) : project.image ? (
+                    <img
+                      src={project.image}
+                      alt={project.title}
+                      className={styles.cardMedia}
+                    />
+                  ) : (
+                    <div className={styles.cardMedia} style={{ backgroundColor: '#e0e0e0', width: '100%', height: '100%' }} />
+                  )}
                 </div>
                 <div className={styles.cardContent}>
                   <h2 className={styles.cardTitle}>{project.client} | {project.title}</h2>

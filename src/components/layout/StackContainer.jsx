@@ -9,51 +9,27 @@ export default function StackContainer({ panels }) {
   const panelsRef = useRef([]);
 
   useLayoutEffect(() => {
+    const allPanels = panelsRef.current.filter(Boolean);
+    if (allPanels.length <= 1) return;
+
     const ctx = gsap.context(() => {
-      const allPanels = panelsRef.current;
-      if (allPanels.length <= 1) return;
-
-      const tl = gsap.timeline({
-        scrollTrigger: {
-          trigger: containerRef.current,
-          start: "top top+=104", // Account for Navbar height (approx)
-          end: () => `+=${window.innerHeight * (allPanels.length - 1)}`,
-          pin: true,
-          scrub: true,
-          invalidateOnRefresh: true,
-        }
-      });
-
       allPanels.forEach((panel, i) => {
-        if (i === 0) return;
+        if (i === allPanels.length - 1) return;
 
-        const prevPanel = allPanels[i - 1];
-        const prevOverlay = prevPanel.querySelector(".card-overlay");
+        const nextPanel = allPanels[i + 1];
+        const overlay = panel.querySelector(".card-overlay");
 
-        tl.fromTo(panel, 
-          { yPercent: 100 }, 
-          { yPercent: 0, ease: "none" }
-        )
-        .to(prevPanel, 
-          { 
-            scale: 0.94, 
-            filter: "blur(2px)",
-            ease: "none" 
-          }, 
-          "<"
-        )
-        .to(prevOverlay, 
-          { 
-            opacity: 0.7, 
-            ease: "none" 
-          }, 
-          "<"
-        );
-
-        // Hide panels that are 2+ levels deep to save performance and prevent ghosting
-        if (i > 1) {
-          const depthPanel = allPanels[i - 2];
-          tl.to(depthPanel, { autoAlpha: 0, duration: 0.1 }, "<");
+        if (overlay) {
+          gsap.to(overlay, {
+            opacity: 0.5,
+            ease: "none",
+            scrollTrigger: {
+              trigger: nextPanel,
+              start: "top bottom",
+              end: "top top",
+              scrub: 1,
+            },
+          });
         }
       });
     }, containerRef);
@@ -62,34 +38,28 @@ export default function StackContainer({ panels }) {
   }, []);
 
   return (
-    <div ref={containerRef} className="relative w-full overflow-hidden" style={{ height: "calc(100vh - 96px)" }}>
+    <div ref={containerRef} className="relative w-full">
       {panels.map(({ bg, children }, i) => (
-        <section
+        <div
           key={i}
-          ref={el => (panelsRef.current[i] = el)}
+          ref={(el) => (panelsRef.current[i] = el)}
           style={{
             backgroundColor: bg,
-            zIndex: 10 + i,
-            position: "absolute",
+            position: "sticky",
             top: 0,
-            left: 0,
-            width: "100%",
-            height: "100%",
-            boxShadow: "0 -30px 60px rgba(0,0,0,0.2)",
-            opacity: 1, // Force opaque
-            display: "block",
+            zIndex: 10 + i,
+            transformOrigin: "center top",
+            boxShadow: i > 0 ? "0 -20px 50px rgba(0,0,0,0.18)" : "none",
           }}
-          className="flex flex-col"
         >
-          {/* Overlay for dimming instead of panel opacity to prevent ghosting */}
-          <div 
-            className="card-overlay absolute inset-0 bg-black pointer-events-none z-10" 
-            style={{ opacity: 0 }}
+          <div
+            className="card-overlay absolute inset-0 bg-black pointer-events-none"
+            style={{ opacity: 0, zIndex: 2 }}
           />
-          <div className="flex-1 w-full overflow-hidden relative z-0">
+          <div className="relative w-full" style={{ zIndex: 1 }}>
             {children}
           </div>
-        </section>
+        </div>
       ))}
     </div>
   );

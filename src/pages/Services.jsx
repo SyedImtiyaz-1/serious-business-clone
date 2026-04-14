@@ -48,9 +48,9 @@ const brandingPanels = [
     bg: '#cba6f7',
     children: (
       <ServiceBlock
-        title="Strategy"
-        description="We define the clarity and direction that everything else builds on."
-        list={['Research & Insights', 'Brand Architecture', 'Positioning', 'Messaging', 'Naming']}
+        title="Brand Strategy"
+        description="It's the core of your company's identity. It guides all business decisions, ensuring a consistent and impactful presence in the market."
+        list={['Research & Insights', 'Brand Model', 'Positioning', 'Value proposition', 'Messaging', 'Verbal Identity', 'Naming']}
         imageContent={<StrategyImage />}
       />
     ),
@@ -90,6 +90,17 @@ const brandingPanels = [
     ),
   },
   {
+    bg: '#f5f0e8',
+    children: (
+      <ServiceBlock
+        title="Sprints"
+        description="We work in rapid, focused cycles—prototyping, testing, and refining to move ideas forward quickly."
+        list={['Rapid Prototyping', 'Design Sprints', 'MVP Development', 'Iteration & Optimization', 'Concept Testing']}
+        imageContent={<WebsiteImage />}
+      />
+    ),
+  },
+  {
     bg: '#e8f5e9',
     children: (
       <ServiceBlock
@@ -113,13 +124,14 @@ const brandingPanels = [
     ),
   },
   {
-    bg: '#f5f0e8',
+    bg: '#2B59C3',
     children: (
       <ServiceBlock
-        title="Sprints"
-        description="We work in rapid, focused cycles—prototyping, testing, and refining to move ideas forward quickly."
-        list={['Rapid Prototyping', 'Design Sprints', 'MVP Development', 'Iteration & Optimization', 'Concept Testing']}
-        imageContent={<WebsiteImage />}
+        title="Objects"
+        description="Physical expressions of your brand—designed with the same level of care and intention."
+        list={['Corporate Gifting', 'Merchandise & Swag', 'Packaging', 'Custom Products']}
+        textColor="text-[#ffffff]"
+        imageContent={<ProductImage />}
       />
     ),
   },

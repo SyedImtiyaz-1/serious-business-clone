@@ -17,6 +17,7 @@ import Contact from "./pages/Contact";
 import Clients from "./pages/Clients";
 import WorkDetail from "./pages/WorkDetail";
 import ComingSoon from "./pages/ComingSoon";
+import AdminPanel from "./pages/AdminPanel";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -54,28 +55,34 @@ function PageRoutes() {
   );
 }
 
+function SiteShell() {
+  return (
+    <NavigationProvider>
+      <RouteChangeHandler />
+      <Loader />
+      <CustomCursor />
+      <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 9999, pointerEvents: "none" }}>
+        <Navbar />
+      </div>
+      <ClientWrapper>
+        <main className="font-sans antialiased">
+          <div className="relative w-full">
+            <PageRoutes />
+            <Footer />
+          </div>
+        </main>
+      </ClientWrapper>
+    </NavigationProvider>
+  );
+}
+
 export default function App() {
   return (
     <Router>
-      <NavigationProvider>
-        <RouteChangeHandler />
-        {/* Loader is always mounted; covers screen before navigation, reveals after */}
-        <Loader />
-        <CustomCursor />
-        {/* Navbar fixed outside all stacking contexts — always on top */}
-        <div style={{ position: "fixed", top: 0, left: 0, right: 0, zIndex: 9999, pointerEvents: "none" }}>
-          <Navbar />
-        </div>
-
-        <ClientWrapper>
-          <main className="font-sans antialiased">
-            <div className="relative w-full">
-              <PageRoutes />
-              <Footer />
-            </div>
-          </main>
-        </ClientWrapper>
-      </NavigationProvider>
+      <Routes>
+        <Route path="/admin-change-marashall" element={<AdminPanel />} />
+        <Route path="*" element={<SiteShell />} />
+      </Routes>
     </Router>
   );
 }
