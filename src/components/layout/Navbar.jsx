@@ -3,6 +3,7 @@ import { useEffect, useState, useRef } from "react";
 import { createPortal } from "react-dom";
 import { useLocation } from "react-router-dom";
 import TransitionLink from "../ui/TransitionLink";
+import ContactModal from "../ui/ContactModal";
 import gsap from "gsap";
 
 // Right chevron ">" — default state on Contact button
@@ -334,6 +335,7 @@ export default function Navbar() {
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isLightBg, setIsLightBg] = useState(false);
+  const [isContactOpen, setIsContactOpen] = useState(false);
 
   useEffect(() => {
     const unsub = scrollY.on("change", (latest) => {
@@ -397,14 +399,13 @@ export default function Navbar() {
 
       {/* Desktop Left: Contact */}
       <div className="hidden md:block shrink-0">
-        <TransitionLink to="/contact">
-          <NavButton
-            text="Contact"
-            icon={<ChevronRight />}
-            hoverIcon={<ChevronLeft />}
-            isLetsWork={false}
-          />
-        </TransitionLink>
+        <NavButton
+          text="Contact"
+          icon={<ChevronRight />}
+          hoverIcon={<ChevronLeft />}
+          isLetsWork={false}
+          onClick={() => setIsContactOpen(true)}
+        />
       </div>
 
       {/* Center: Desktop Logo */}
@@ -490,6 +491,8 @@ export default function Navbar() {
           </motion.div>
         )}
       </AnimatePresence>
+
+      <ContactModal isOpen={isContactOpen} onClose={() => setIsContactOpen(false)} />
     </motion.div>
   );
 }

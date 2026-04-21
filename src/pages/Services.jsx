@@ -3,7 +3,6 @@ import { useLayoutEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import videoSrc from '../assets/video.mp4';
-import TransitionLink from '../components/ui/TransitionLink';
 
 gsap.registerPlugin(ScrollTrigger);
 import StackContainer from '../components/layout/StackContainer';
@@ -33,7 +32,6 @@ const serviceCards = [
     title: 'Subscription',
     text: 'Design subscriptions are our way of collaborating long-term with clients, acting as their extended team to speed up growth and ensure consistency.',
     featured: true,
-    link: '/contact',
   },
   {
     id: 'venture',
@@ -222,11 +220,11 @@ export default function Services() {
                 <h3 className={styles.cardTitle}>{card.title}</h3>
                 <p className={styles.cardText}>{card.text}</p>
               </div>
-              <TransitionLink to={card.link || '/contact'} className={styles.cardArrow}>
+              <span className={styles.cardArrow} aria-hidden="true">
                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
                   <path d="M3 13L13 3M13 3H6M13 3V10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
                 </svg>
-              </TransitionLink>
+              </span>
             </motion.div>
           ))}
         </div>

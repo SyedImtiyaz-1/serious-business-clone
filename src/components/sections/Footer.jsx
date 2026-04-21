@@ -41,6 +41,10 @@ export default function Footer() {
             <h4 className="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-50">Exceptional talent?</h4>
             <a href="mailto:apply@marshallhaber.com" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">apply@marshallhaber.com</a>
           </div>
+          <div>
+            <h4 className="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-50">Call us</h4>
+            <a href="tel:+12124949052" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">+1 212.494.9052</a>
+          </div>
         </div>
       </div>
 
@@ -61,7 +65,7 @@ export default function Footer() {
 
         <div className="text-center md:text-right font-medium tracking-normal text-sm uppercase opacity-80">
           <p>99 WALL STREET, SUITE #1467, NEW YORK, NY 10005, UNITED STATES</p>
-          <p>212.494.9052 · studio@marshallhaber.com</p>
+          <p><a href="tel:+12124949052" className="hover:opacity-60 transition-opacity">212.494.9052</a> · studio@marshallhaber.com</p>
         </div>
       </div>
     </footer>
