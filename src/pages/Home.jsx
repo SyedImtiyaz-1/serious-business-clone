@@ -29,8 +29,8 @@ export default function Home() {
         ease: "power2.inOut",
         scrollTrigger: {
           trigger: ".dark-section",
-          start: "top 95%",
-          end: "top 15%",
+          start: "top 70%",
+          end: "top 30%",
           scrub: 1.5,
           invalidateOnRefresh: true,
         }
@@ -47,8 +47,8 @@ export default function Home() {
         ease: "power2.inOut",
         scrollTrigger: {
           trigger: ".dark-section",
-          start: "bottom 85%",
-          end: "bottom 10%",
+          start: "bottom 50%",
+          end: "bottom 20%",
           scrub: 1.5,
           invalidateOnRefresh: true,
         }
@@ -136,7 +136,8 @@ export default function Home() {
       <AboutSection />
 
       <Works />
-      <div className="dark-section">
+      <div aria-hidden="true" className="h-12 bg-[linear-gradient(to_bottom,#020817,#F4EDD9)]" />
+      <div className="dark-section bg-[#F4EDD9]">
         <div className="relative z-[60] py-20">
           <div className="w-full">
             <Insights />
@@ -144,7 +145,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="w-full h-[12vh] flex items-end pb-4 px-6" style={{ fontFamily: "'PP Mori', sans-serif" }}>
+      <div className="w-full h-[12vh] flex items-end pb-4 px-6 bg-[#F4EDD9] text-[#020817]" style={{ fontFamily: "'PP Mori', sans-serif" }}>
         <span className="text-[2.2rem] md:text-[3rem] font-bold tracking-tighter leading-none">Services</span>
       </div>
       <StackContainer panels={servicePanels} />

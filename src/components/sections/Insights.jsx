@@ -1,8 +1,8 @@
-import { motion, useScroll, useTransform } from "framer-motion";
+import { motion } from "framer-motion";
 
 const clientLogos = [
   { file: "jpmorgan.png", name: "JPMorgan Chase" },
-  { file: "berkshire-hathaway-logonew.png", name: "Berkshire Hathaway" },
+  { file: "https://marshallhaber.com/wp-content/uploads/2019/11/BG-LOGO.jpg", name: "BG" },
   { file: "09_Jeffries_Logo.png", name: "Jeffries" },
   { file: "16_Eurotech_Logo.png", name: "Eurotech" },
   { file: "23_Signature_Bank.png", name: "Signature Bank" },
@@ -55,58 +55,17 @@ const cardInitial = [
 export default function Insights() {
   const sectionRef = useRef(null);
 
-  const { scrollYProgress } = useScroll({
-    target: sectionRef,
-    offset: ["start 80%", "start 20%"],
-  });
-
-  // Background: website color → #1a1a1a
-  const backgroundColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["#020817", "#F4EDD9"]
-  );
-
-  // Text: Navy → Cream (interchanged)
-  const textColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["#F4EDD9", "#020817"]
-  );
-
-  // Subtext / muted
-  const mutedColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["#F4EDD9", "#020817"]
-  );
-
-  // Border
-  const borderColor = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["rgba(244,237,217,0.15)", "rgba(2,8,23,0.1)"]
-  );
-
-  // Button border + text
-  const buttonBorder = useTransform(
-    scrollYProgress,
-    [0, 1],
-    ["#F4EDD9", "#020817"]
-  );
-
-  // Logo filter: white on dark bg → dark/natural on cream bg
-  const logoFilter = useTransform(
-    scrollYProgress,
-    [0, 0.6, 1],
-    ["brightness(10) grayscale(1)", "brightness(10) grayscale(1)", "brightness(0) grayscale(1)"]
-  );
+  // Section has a static cream bg; all text/borders stay dark for readability.
+  const textColor = "#020817";
+  const mutedColor = "#020817";
+  const borderColor = "rgba(2,8,23,0.1)";
+  const buttonBorder = "#020817";
+  const logoFilter = "brightness(0) grayscale(1)";
 
   return (
     <motion.div
       ref={sectionRef}
-      style={{ backgroundColor }}
-      className="w-full relative"
+      className="w-full relative bg-[#F4EDD9]"
     >
       <div className="px-6 md:px-12 py-14 md:py-28 w-full">
 
@@ -300,9 +259,17 @@ export default function Insights() {
                 style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", height: "48px" }}
               >
                 <motion.img
-                  src={`/CliendLogo/${logo.file}`}
+                  src={logo.file.startsWith("http") ? logo.file : `/CliendLogo/${logo.file}`}
                   alt={logo.name}
-                  style={{ filter: logoFilter, maxHeight: "100%", maxWidth: "100%", width: "auto", objectFit: "contain", opacity: 0.85 }}
+                  style={{
+                    filter: logo.file.startsWith("http") ? "none" : logoFilter,
+                    maxHeight: "100%",
+                    maxWidth: "100%",
+                    width: "auto",
+                    objectFit: "contain",
+                    opacity: 0.85,
+                    mixBlendMode: logo.file.startsWith("http") ? "multiply" : "normal",
+                  }}
                 />
               </motion.div>
             ))}

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useLayoutEffect } from 'react';
 import { useParams, Navigate, Link } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import TransitionLink from '../components/ui/TransitionLink';
@@ -10,6 +10,15 @@ export default function WorkDetail() {
   const { slug } = useParams();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
   const project = projects.find((p) => p.slug === slug);
+
+  useLayoutEffect(() => {
+    document.body.style.backgroundColor = "#F4EDD9";
+    document.body.style.color = "#020817";
+    return () => {
+      document.body.style.backgroundColor = "";
+      document.body.style.color = "";
+    };
+  }, []);
 
   if (!project) return <Navigate to="/work" replace />;
 
@@ -24,16 +33,16 @@ export default function WorkDetail() {
       transition={{ duration: 0.5 }}
     >
       <div className={styles.container}>
-        {/* Header Texts */}
+        {/* Header */}
         <section className={styles.heroHeader}>
-          <motion.h2
-            className={styles.clientName}
+          <motion.p
+            className={styles.eyebrow}
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7 }}
           >
-            {project.client}
-          </motion.h2>
+            {project.category}
+          </motion.p>
           <motion.h1
             className={styles.projectTitle}
             initial={{ opacity: 0, y: 20 }}
@@ -42,11 +51,20 @@ export default function WorkDetail() {
           >
             {project.title}
           </motion.h1>
+          {project.subtitle && project.subtitle.toLowerCase() !== project.category.toLowerCase() && (
+            <motion.p
+              className={styles.tagline}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.7, delay: 0.15 }}
+            >
+              {project.subtitle}
+            </motion.p>
+          )}
         </section>
 
         {/* Info Grid */}
         <section className={styles.infoGrid}>
-          {/* Left Column */}
           <motion.div
             className={styles.infoColumn}
             initial={{ opacity: 0, y: 20 }}
@@ -54,16 +72,21 @@ export default function WorkDetail() {
             transition={{ duration: 0.7, delay: 0.2 }}
           >
             <div className={styles.infoDivider} />
-            <h3 className={styles.infoLabel}>Recognition</h3>
-            <div className={styles.infoContent}>
-              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                <path d="M12 15V3m0 12l-4-4m4 4l4-4M2 17l.621 2.485A2 2 0 0 0 4.561 21h14.878a2 2 0 0 0 1.94-1.515L22 17"></path>
-              </svg>
-              <span>{project.category}</span>
-            </div>
+            <h3 className={styles.infoLabel}>Client</h3>
+            <p className={styles.infoValue}>{project.client}</p>
           </motion.div>
 
-          {/* Right Column */}
+          <motion.div
+            className={styles.infoColumn}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.25 }}
+          >
+            <div className={styles.infoDivider} />
+            <h3 className={styles.infoLabel}>Industry</h3>
+            <p className={styles.infoValue}>{project.category}</p>
+          </motion.div>
+
           <motion.div
             className={styles.infoColumn}
             initial={{ opacity: 0, y: 20 }}
@@ -71,11 +94,21 @@ export default function WorkDetail() {
             transition={{ duration: 0.7, delay: 0.3 }}
           >
             <div className={styles.infoDivider} />
-            <p className={styles.infoText}>
-              {project.description || project.subtitle}
-            </p>
+            <h3 className={styles.infoLabel}>Services</h3>
+            <p className={styles.infoValue}>Strategy · Brand Identity · Website</p>
           </motion.div>
         </section>
+
+        {project.description && (
+          <motion.section
+            className={styles.descriptionSection}
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.35 }}
+          >
+            <p className={styles.description}>{project.description}</p>
+          </motion.section>
+        )}
 
         {/* Main Image */}
         <motion.section

@@ -22,7 +22,9 @@ export default function Footer() {
             <h4 className="text-[10px] uppercase font-bold tracking-widest mt-2 opacity-50">Explore</h4>
             <ul className="space-y-1">
               <li><TransitionLink to="/services" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Services</TransitionLink></li>
-              <li><TransitionLink to="/contact" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Contact</TransitionLink></li>
+              <li><TransitionLink to="/work" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Work</TransitionLink></li>
+              <li><TransitionLink to="/about" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">About</TransitionLink></li>
+              <li><TransitionLink to="/clients" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">Clients</TransitionLink></li>
             </ul>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 sm:gap-6">

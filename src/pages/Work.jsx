@@ -1,13 +1,15 @@
-import { useState, useMemo, useLayoutEffect, useEffect } from 'react';
+import { useState, useMemo, useLayoutEffect, useEffect, useRef } from 'react';
 import TransitionLink from '../components/ui/TransitionLink';
-import { motion } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import hardcodedProjects from '../data/projects';
 import styles from './Work.module.css';
 
 export default function Work() {
   const [activeTab, setActiveTab] = useState('Featured');
-  const [activeIndustry, setActiveIndustry] = useState('All');
   const [cmsProjects, setCmsProjects] = useState([]);
+  const [hoveredSlug, setHoveredSlug] = useState(null);
+  const [cursor, setCursor] = useState({ x: 0, y: 0 });
+  const listRef = useRef(null);
 
   useLayoutEffect(() => {
     document.body.style.backgroundColor = "#F4EDD9";
@@ -18,7 +20,6 @@ export default function Work() {
     };
   }, []);
 
-  // Fetch CMS projects and merge with hardcoded
   useEffect(() => {
     fetch("/api/admin/pages/work")
       .then(res => res.json())
@@ -42,25 +43,39 @@ export default function Work() {
       .catch(() => {});
   }, []);
 
-  // Merge: hardcoded first, then CMS-added (skip duplicates by slug)
   const allProjects = useMemo(() => {
     const hardcodedSlugs = new Set(hardcodedProjects.map(p => p.slug));
     const newCms = cmsProjects.filter(p => !hardcodedSlugs.has(p.slug));
     return [...hardcodedProjects, ...newCms];
   }, [cmsProjects]);
 
-  const industries = useMemo(() => ['All', ...new Set(allProjects.map(p => p.category))], [allProjects]);
-  const industriesCount = useMemo(() => new Set(allProjects.map(p => p.category)).size, [allProjects]);
+  const industriesCount = useMemo(
+    () => new Set(allProjects.map(p => p.category)).size,
+    [allProjects]
+  );
 
-  const filteredProjects = useMemo(() => {
-    if (activeTab === 'Featured') {
-      return allProjects.slice(0, 6);
-    }
-    if (activeTab === 'Industries' && activeIndustry !== 'All') {
-      return allProjects.filter(p => p.category === activeIndustry);
-    }
-    return allProjects;
-  }, [activeTab, activeIndustry, allProjects]);
+  const grouped = useMemo(() => {
+    const map = new Map();
+    allProjects.forEach(p => {
+      if (!map.has(p.category)) map.set(p.category, []);
+      map.get(p.category).push(p);
+    });
+    return [...map.entries()];
+  }, [allProjects]);
+
+  const featuredProjects = useMemo(() => allProjects.slice(0, 6), [allProjects]);
+
+  const hoveredProject = hoveredSlug
+    ? allProjects.find(p => p.slug === hoveredSlug)
+    : null;
+
+  const handleMouseMove = (e) => {
+    if (!listRef.current) return;
+    const rect = listRef.current.getBoundingClientRect();
+    const x = Math.max(0, Math.min(e.clientX - rect.left, rect.width - 320));
+    const y = Math.max(0, Math.min(e.clientY - rect.top - 110, rect.height - 200));
+    setCursor({ x, y });
+  };
 
   return (
     <motion.div
@@ -69,97 +84,176 @@ export default function Work() {
       transition={{ duration: 0.6 }}
       className={styles.pageWrapper}
     >
-      {/* Tabs Header Section */}
+      {/* Tabs Header */}
       <section className={styles.tabsSection}>
         <div className={styles.tabsContainer}>
           <button
             className={styles.tabButton}
             aria-selected={activeTab === 'Featured'}
-            onClick={() => setActiveTab('Featured')}
+            onClick={() => { setActiveTab('Featured'); setHoveredSlug(null); }}
           >
             Featured<span className={styles.tabCount}>{String(Math.min(6, allProjects.length)).padStart(2, '0')}</span>
+            {activeTab === 'Featured' && <span className={styles.tabDot} />}
           </button>
           <button
             className={styles.tabButton}
             aria-selected={activeTab === 'All projects'}
-            onClick={() => setActiveTab('All projects')}
+            onClick={() => { setActiveTab('All projects'); setHoveredSlug(null); }}
           >
-            All projects<span className={styles.tabCount}>{allProjects.length}</span>
+            All projects<span className={styles.tabCount}>{String(allProjects.length).padStart(2, '0')}</span>
+            {activeTab === 'All projects' && <span className={styles.tabDot} />}
           </button>
           <button
             className={styles.tabButton}
             aria-selected={activeTab === 'Industries'}
-            onClick={() => setActiveTab('Industries')}
+            onClick={() => { setActiveTab('Industries'); setHoveredSlug(null); }}
           >
             Industries<span className={styles.tabCount}>{String(industriesCount).padStart(2, '0')}</span>
-            {activeTab === 'Industries' && <div className={styles.tabDot} />}
+            {activeTab === 'Industries' && <span className={styles.tabDot} />}
           </button>
         </div>
       </section>
 
-      {/* Industries Sub-filter */}
-      {activeTab === 'Industries' && (
-        <motion.div
-          initial={{ opacity: 0, height: 0, y: -10 }}
-          animate={{ opacity: 1, height: 'auto', y: 0 }}
-          style={{ overflow: 'hidden' }}
-        >
-          <div className={styles.subFilters}>
-            {industries.map(ind => (
-              <button
-                key={ind}
-                className={`${styles.subFilterBtn} ${activeIndustry === ind ? styles.subFilterBtnActive : ''}`}
-                onClick={() => setActiveIndustry(ind)}
+      {/* Content */}
+      {activeTab === 'Featured' && (
+        <section className={styles.workGrid}>
+          <motion.div className={styles.grid}>
+            {featuredProjects.map((project, i) => (
+              <motion.div
+                key={project.slug}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: (i % 6) * 0.05 }}
               >
-                {ind}
-              </button>
+                <TransitionLink to={`/work/${project.slug}`} className={styles.card}>
+                  <div className={styles.cardImage}>
+                    {project.video ? (
+                      <video
+                        src={project.video}
+                        autoPlay
+                        loop
+                        muted
+                        playsInline
+                        className={styles.cardMedia}
+                      />
+                    ) : project.image ? (
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className={styles.cardMedia}
+                      />
+                    ) : (
+                      <div className={styles.cardMedia} style={{ backgroundColor: '#e0e0e0', width: '100%', height: '100%' }} />
+                    )}
+                  </div>
+                  <div className={styles.cardContent}>
+                    <h2 className={styles.cardTitle}>{project.client} | {project.title}</h2>
+                    <p className={styles.cardSubtitle}>
+                      {project.category} – Visual Identity – Website
+                    </p>
+                  </div>
+                </TransitionLink>
+              </motion.div>
             ))}
-          </div>
-        </motion.div>
+          </motion.div>
+        </section>
       )}
 
-      {/* Grid Section */}
-      <section className={styles.workGrid}>
-        <motion.div className={styles.grid}>
-          {filteredProjects.map((project, i) => (
+      {(activeTab === 'All projects' || activeTab === 'Industries') && (
+        <div
+          ref={listRef}
+          className={styles.listWrap}
+          onMouseMove={handleMouseMove}
+          onMouseLeave={() => setHoveredSlug(null)}
+        >
+          {activeTab === 'All projects' && (
             <motion.div
-              key={project.slug}
-              initial={{ opacity: 0, y: 30 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: (i % 6) * 0.05 }}
+              className={styles.rowList}
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.35 }}
             >
-              <TransitionLink to={`/work/${project.slug}`} className={styles.card}>
-                <div className={styles.cardImage}>
-                  {project.video ? (
-                    <video
-                      src={project.video}
-                      autoPlay
-                      loop
-                      muted
-                      playsInline
-                      className={styles.cardMedia}
-                    />
-                  ) : project.image ? (
-                    <img
-                      src={project.image}
-                      alt={project.title}
-                      className={styles.cardMedia}
-                    />
-                  ) : (
-                    <div className={styles.cardMedia} style={{ backgroundColor: '#e0e0e0', width: '100%', height: '100%' }} />
-                  )}
-                </div>
-                <div className={styles.cardContent}>
-                  <h2 className={styles.cardTitle}>{project.client} | {project.title}</h2>
-                  <p className={styles.cardSubtitle}>
-                    {project.category} – Visual Identity – Website
-                  </p>
-                </div>
-              </TransitionLink>
+              {allProjects.map(p => (
+                <WorkRow
+                  key={p.slug}
+                  project={p}
+                  rightCol="Strategy, Visual Identity, Website"
+                  onEnter={() => setHoveredSlug(p.slug)}
+                  onLeave={() => setHoveredSlug(null)}
+                />
+              ))}
             </motion.div>
-          ))}
-        </motion.div>
-      </section>
+          )}
+
+          {activeTab === 'Industries' && (
+            <motion.div
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.35 }}
+            >
+              {grouped.map(([category, items]) => (
+                <div key={category} className={styles.group}>
+                  <h3 className={styles.groupHeading}>{category}</h3>
+                  <div className={styles.rowList}>
+                    {items.map(p => (
+                      <WorkRow
+                        key={p.slug}
+                        project={p}
+                        rightCol={category}
+                        onEnter={() => setHoveredSlug(p.slug)}
+                        onLeave={() => setHoveredSlug(null)}
+                      />
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </motion.div>
+          )}
+
+          <AnimatePresence>
+            {hoveredProject && (
+              <motion.div
+                key="preview"
+                className={styles.previewCard}
+                aria-hidden="true"
+                initial={{ opacity: 0, scale: 0.95 }}
+                animate={{
+                  opacity: 1,
+                  scale: 1,
+                  x: cursor.x,
+                  y: cursor.y,
+                }}
+                exit={{ opacity: 0, scale: 0.95 }}
+                transition={{
+                  opacity: { duration: 0.18 },
+                  scale: { duration: 0.18 },
+                  x: { type: 'spring', damping: 25, stiffness: 200 },
+                  y: { type: 'spring', damping: 25, stiffness: 200 },
+                }}
+              >
+                {hoveredProject.image ? (
+                  <img src={hoveredProject.image} alt="" />
+                ) : null}
+              </motion.div>
+            )}
+          </AnimatePresence>
+        </div>
+      )}
     </motion.div>
+  );
+}
+
+function WorkRow({ project, rightCol, onEnter, onLeave }) {
+  return (
+    <TransitionLink
+      to={`/work/${project.slug}`}
+      className={styles.row}
+      onMouseEnter={onEnter}
+      onMouseLeave={onLeave}
+    >
+      <span className={styles.rowTitle}>{project.subtitle || project.title}</span>
+      <span className={styles.rowClient}>{project.client}</span>
+      <span className={styles.rowMeta}>{rightCol}</span>
+    </TransitionLink>
   );
 }

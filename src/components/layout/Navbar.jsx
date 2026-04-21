@@ -382,11 +382,7 @@ export default function Navbar() {
   return (
     <motion.div
       initial={{ opacity: 1, y: 0 }}
-      animate={{
-        opacity: isFooterVisible ? 0 : 1,
-        y: isFooterVisible ? -20 : 0,
-        pointerEvents: isFooterVisible ? "none" : "auto"
-      }}
+      animate={{ opacity: 1, y: 0, pointerEvents: "auto" }}
       transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
       className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none"
       style={{ position: "relative", zIndex: 9999 }}

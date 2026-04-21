@@ -33,16 +33,7 @@ export default function Works() {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full px-6 py-32">
-
-      {/* "Our approach" button */}
-      <div className="flex justify-center mb-40 -mt-16">
-        <button className="px-6 py-3 rounded-full bg-[#F4EDD9] text-[#020817] text-sm font-bold flex items-center gap-2 hover:scale-105 transition-transform shadow-[0_4px_14px_0_rgba(0,0,0,0.2)]">
-          <span>Our approach</span>
-          <span>←</span>
-        </button>
-      </div>
-
+    <div ref={containerRef} className="w-full px-6 pt-12 pb-24 bg-[#020817] text-[#F4EDD9]">
       <Reveal>
         <h2
           className="text-[clamp(1.8rem,8vw,4.5rem)] md:text-[5.5vw] lg:text-[4.5vw] font-bold leading-[1.1] mb-16 text-inherit text-center"

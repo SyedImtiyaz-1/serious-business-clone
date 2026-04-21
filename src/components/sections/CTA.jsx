@@ -2,7 +2,7 @@ import Reveal from "../ui/Reveal";
 
 export default function CTA() {
   return (
-    <section className="w-full px-6 mb-20 bg-transparent">
+    <section className="w-full px-6 pt-20 pb-20 bg-[#020817] text-[#F4EDD9]">
       {/* Top CTA Cards */}
       <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-4">
         {/* Left Card */}
