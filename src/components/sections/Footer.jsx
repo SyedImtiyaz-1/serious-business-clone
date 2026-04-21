@@ -4,7 +4,9 @@ import Reveal from "../ui/Reveal";
 
 export default function Footer() {
   const { pathname } = useLocation();
-  const isCreamPage = pathname === "/about" || pathname === "/contact";
+  const creamPaths = ["/about", "/contact", "/services", "/clients", "/work"];
+  const isCreamPage =
+    creamPaths.includes(pathname) || pathname.startsWith("/work/");
 
   const bgClass = isCreamPage ? "bg-[#F4EDD9] text-[#020817]" : "bg-[#020817] text-[#F4EDD9]";
   const borderClass = isCreamPage ? "border-[#020817]/20" : "border-[#F4EDD9]/20";
