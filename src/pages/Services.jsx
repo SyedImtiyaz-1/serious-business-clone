@@ -247,6 +247,27 @@ export default function Services() {
       {/* ── Branding services stacked section ── */}
       <div className={styles.brandingLabel}>Our branding services</div>
       <StackContainer panels={brandingPanels} />
+
+      {/* ── Programs list ── */}
+      <section className={styles.programs}>
+        <h2 className={styles.programsHeading}>Programs</h2>
+        <div className={styles.programsList}>
+          {programs.map((p) => (
+            <div key={p.name} className={styles.programRow} role="link" tabIndex={0}>
+              <span className={styles.programName}>{p.name}</span>
+              <span className={styles.programTagline}>{p.tagline}</span>
+              <span className={styles.programArrow} aria-hidden>→</span>
+            </div>
+          ))}
+        </div>
+      </section>
     </motion.div>
   );
 }
+
+const programs = [
+  { name: 'Brand Refresh', tagline: 'Stay Relevant. Stay Visible.' },
+  { name: 'Reposition', tagline: 'Don’t Become the Best. Become the Only.' },
+  { name: 'Expansion', tagline: 'Enter New Markets with an Edge.' },
+  { name: 'Turnaround', tagline: 'Make Your Next Move Your Turning Point.' },
+];

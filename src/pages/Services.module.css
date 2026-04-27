@@ -259,4 +259,93 @@
   .card:nth-child(4) {
     border-bottom: none;
   }
+
+  .programs {
+    padding: 4rem 1.25rem 5rem;
+  }
+
+  .programRow {
+    grid-template-columns: 1fr auto;
+    gap: 0.5rem 1.5rem;
+    padding: 1.25rem 1rem;
+  }
+
+  .programTagline {
+    grid-column: 1 / -1;
+    font-size: 0.9rem;
+  }
+}
+
+/* ── Programs list ── */
+.programs {
+  width: 100%;
+  padding: 6rem clamp(1.25rem, 4vw, 4rem) 7rem;
+  background-color: #F4EDD9;
+}
+
+.programsHeading {
+  font-family: 'PP Mori', sans-serif;
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: #020817;
+  margin: 0 0 2rem;
+}
+
+.programsList {
+  display: flex;
+  flex-direction: column;
+}
+
+.programRow {
+  display: grid;
+  grid-template-columns: minmax(180px, 1fr) 2fr auto;
+  align-items: center;
+  gap: 2rem;
+  padding: 1.5rem clamp(1rem, 2vw, 2rem);
+  border-top: 1px solid rgba(2, 8, 23, 0.18);
+  color: #020817;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 0.4s ease, color 0.4s ease;
+  outline: none;
+}
+
+.programRow:last-child {
+  border-bottom: 1px solid rgba(2, 8, 23, 0.18);
+}
+
+.programRow:hover,
+.programRow:focus-visible {
+  background-color: #0B0215;
+  color: #F4EDD9;
+}
+
+.programName {
+  font-family: 'PP Mori', sans-serif;
+  font-size: clamp(1.05rem, 1.4vw, 1.25rem);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.programTagline {
+  font-family: 'PP Mori', sans-serif;
+  font-size: clamp(0.95rem, 1.1vw, 1.05rem);
+  font-weight: 400;
+  opacity: 0.75;
+}
+
+.programArrow {
+  font-family: 'PP Mori', sans-serif;
+  font-size: 1.25rem;
+  font-weight: 500;
+  opacity: 0;
+  transform: translateX(-12px);
+  transition: opacity 0.35s ease, transform 0.35s ease;
+}
+
+.programRow:hover .programArrow,
+.programRow:focus-visible .programArrow {
+  opacity: 1;
+  transform: translateX(0);
 }

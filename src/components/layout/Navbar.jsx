@@ -114,7 +114,6 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
 };
 
 const menuItems = [
-  { label: "Home", to: "/", sub: [] },
   { label: "Work", to: "/work", sub: [] },
   { label: "About", to: "/about", sub: [] },
   { label: "Clients", to: "/clients", sub: [] },
@@ -389,7 +388,12 @@ export default function Navbar() {
     >
       <div className="md:hidden block pointer-events-auto leading-none mt-4">
         <TransitionLink to="/">
-          <img src="/logonewlong.png" alt="Marshall Haber Creative Group" className="h-6 w-auto cursor-pointer" />
+          <img
+            src="/logonewlong.png"
+            alt="Marshall Haber Creative Group"
+            className="h-6 w-auto cursor-pointer transition-[filter] duration-500"
+            style={{ filter: isLightBg ? "invert(1)" : "none" }}
+          />
         </TransitionLink>
       </div>
 
@@ -428,7 +432,7 @@ export default function Navbar() {
               alt="MHCG"
               className="absolute h-14 w-auto cursor-pointer transition-all duration-700 ease-in-out"
               style={{
-                opacity: showCenterLogo ? 1 : 0,
+                opacity: showCenterLogo && !isLightBg ? 1 : 0,
                 filter: isLightBg ? "invert(0)" : "invert(1)",
               }}
             />
@@ -471,11 +475,17 @@ export default function Navbar() {
             </div>
 
             <div className="flex flex-col gap-6 text-3xl font-semibold">
-              <TransitionLink to="/" onClick={() => setIsOpen(false)}>Home</TransitionLink>
               <TransitionLink to="/work" onClick={() => setIsOpen(false)}>Work</TransitionLink>
               <TransitionLink to="/about" onClick={() => setIsOpen(false)}>About</TransitionLink>
+              <TransitionLink to="/clients" onClick={() => setIsOpen(false)}>Clients</TransitionLink>
               <TransitionLink to="/services" onClick={() => setIsOpen(false)}>Services</TransitionLink>
-              <TransitionLink to="/contact" onClick={() => setIsOpen(false)}>Contact</TransitionLink>
+              <button
+                type="button"
+                className="text-left"
+                onClick={() => { setIsOpen(false); setIsContactOpen(true); }}
+              >
+                Contact
+              </button>
             </div>
 
             <div className="text-sm">

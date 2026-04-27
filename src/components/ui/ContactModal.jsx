@@ -3,11 +3,9 @@ import { motion, AnimatePresence } from 'framer-motion';
 import styles from './ContactModal.module.css';
 
 const SERVICE_OPTIONS = ['Brand Strategy', 'Identity', 'Website', 'Product design', 'Other'];
-const BUDGET_OPTIONS = ['15k€–25k€', '25k€–50k€', '50k€–100k€', '100k€+'];
 
 const INITIAL = {
     services: new Set(),
-    budget: null,
     name: '',
     email: '',
     message: '',
@@ -16,7 +14,6 @@ const INITIAL = {
 
 export default function ContactModal({ isOpen, onClose }) {
     const [services, setServices] = useState(INITIAL.services);
-    const [budget, setBudget] = useState(INITIAL.budget);
     const [name, setName] = useState(INITIAL.name);
     const [email, setEmail] = useState(INITIAL.email);
     const [message, setMessage] = useState(INITIAL.message);
@@ -24,7 +21,7 @@ export default function ContactModal({ isOpen, onClose }) {
     const prevOverflow = useRef('');
 
     const isPristine =
-        services.size === 0 && !budget && !name && !email && !message;
+        services.size === 0 && !name && !email && !message;
 
     const finalClose = () => {
         onClose();
@@ -42,7 +39,6 @@ export default function ContactModal({ isOpen, onClose }) {
     useEffect(() => {
         if (!isOpen) {
             setServices(new Set());
-            setBudget(null);
             setName('');
             setEmail('');
             setMessage('');
@@ -81,15 +77,10 @@ export default function ContactModal({ isOpen, onClose }) {
         });
     };
 
-    const selectBudget = (opt) => {
-        setBudget((prev) => (prev === opt ? null : opt));
-    };
-
     const handleSubmit = (e) => {
         e.preventDefault();
         const payload = {
             services: Array.from(services),
-            budget,
             name,
             email,
             message,
@@ -182,29 +173,6 @@ export default function ContactModal({ isOpen, onClose }) {
                                                             type="button"
                                                             className={`${styles.chip} ${active ? styles.chipActive : ''}`}
                                                             onClick={() => toggleService(opt)}
-                                                            aria-pressed={active}
-                                                            whileTap={{ scale: 0.96 }}
-                                                        >
-                                                            {opt}
-                                                        </motion.button>
-                                                    );
-                                                })}
-                                            </div>
-                                        </div>
-
-                                        <div className={styles.section}>
-                                            <label className={styles.sectionLabel}>
-                                                Do you have a budget range?
-                                            </label>
-                                            <div className={styles.chipRow}>
-                                                {BUDGET_OPTIONS.map((opt) => {
-                                                    const active = budget === opt;
-                                                    return (
-                                                        <motion.button
-                                                            key={opt}
-                                                            type="button"
-                                                            className={`${styles.chip} ${active ? styles.chipActive : ''}`}
-                                                            onClick={() => selectBudget(opt)}
                                                             aria-pressed={active}
                                                             whileTap={{ scale: 0.96 }}
                                                         >

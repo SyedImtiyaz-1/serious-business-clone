@@ -1,4 +1,5 @@
 import { motion } from "framer-motion";
+import TransitionLink from "../ui/TransitionLink";
 
 const clientLogos = [
   { file: "jpmorgan.png", name: "JPMorgan Chase" },
@@ -275,6 +276,16 @@ export default function Insights() {
             ))}
           </div>
         </motion.div>
+
+        <div className="flex justify-center mt-12 md:mt-16">
+          <TransitionLink
+            to="/clients"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-[#020817]/25 text-[#020817] text-xs md:text-sm font-bold tracking-[0.15em] uppercase hover:bg-[#020817] hover:text-[#F4EDD9] transition-colors"
+          >
+            Show All
+            <span aria-hidden>→</span>
+          </TransitionLink>
+        </div>
 
       </div>
     </motion.div>
