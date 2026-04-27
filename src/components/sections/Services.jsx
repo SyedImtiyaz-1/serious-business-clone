@@ -15,7 +15,7 @@ export default function ServiceBlock({
       style={{ minHeight: "500px" }}
     >
       {/* LEFT: title + description + list */}
-      <div className="w-full md:w-[60%] flex flex-col justify-start shrink-0 items-start p-6 md:p-12 gap-6 md:gap-12">
+      <div className="w-full md:w-[60%] flex flex-col justify-start shrink-0 items-start p-6 md:p-14 gap-8 md:gap-16">
 
         {/* Title */}
         <motion.h2
@@ -23,10 +23,10 @@ export default function ServiceBlock({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          className="text-inherit font-bold leading-[0.95] tracking-tight"
+          className="text-inherit font-bold leading-[0.92] tracking-tight"
           style={{
             fontFamily: "'PP Mori', sans-serif",
-            fontSize: "clamp(2.6rem, 6.4vw, 6rem)",
+            fontSize: "clamp(2.6rem, 6.6vw, 6rem)",
           }}
         >
           {title}
@@ -38,16 +38,16 @@ export default function ServiceBlock({
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true, margin: "-10%" }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1], delay: 0.12 }}
-          className="grid grid-cols-1 md:grid-cols-2 gap-6 md:gap-12 items-start w-full"
+          className="grid grid-cols-1 md:grid-cols-2 gap-8 md:gap-16 items-start w-full"
         >
           <p
-            className="text-[16px] md:text-[17px] font-normal leading-[1.55] opacity-85 tracking-tight max-w-[36ch]"
-            style={{ fontFamily: "'PP Mori', sans-serif" }}
+            className="text-[18px] md:text-[22px] font-normal leading-[1.45] tracking-tight max-w-[42ch]"
+            style={{ fontFamily: "'Nib Pro', serif", fontStyle: "normal" }}
           >
             {description}
           </p>
           <ul
-            className="text-[14px] md:text-[15px] font-medium leading-[1.85] space-y-[2px]"
+            className="text-[14px] md:text-[16px] font-normal leading-[1.9]"
             style={{ fontFamily: "'PP Mori', sans-serif" }}
           >
             {list.map((item, i) => (

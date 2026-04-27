@@ -432,7 +432,7 @@ export default function Navbar() {
               alt="MHCG"
               className="absolute h-14 w-auto cursor-pointer transition-all duration-700 ease-in-out"
               style={{
-                opacity: showCenterLogo && !isLightBg ? 1 : 0,
+                opacity: showCenterLogo ? 1 : 0,
                 filter: isLightBg ? "invert(0)" : "invert(1)",
               }}
             />

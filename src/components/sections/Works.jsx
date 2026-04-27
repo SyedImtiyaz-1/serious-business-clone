@@ -64,12 +64,12 @@ export default function Works() {
                 </div>
 
                 <Reveal>
-                  <h3 className="text-2xl font-bold mb-2">
+                  <h3 className="text-xl md:text-2xl font-bold mb-2 text-center leading-snug px-2">
                     <span className="group-hover-underline">{p.title} | {p.subtitle}</span>
                   </h3>
                 </Reveal>
                 <Reveal delay={0.4}>
-                  <p className="text-sm font-medium opacity-60 uppercase tracking-wide">{p.category}</p>
+                  <p className="text-xs md:text-sm font-medium opacity-60 uppercase tracking-wide text-center">{p.category}</p>
                 </Reveal>
               </motion.div>
             </TransitionLink>

@@ -104,7 +104,7 @@ export default function Insights() {
         </div>
 
         {/* Cards */}
-        <div className="-mx-4 md:mx-0 mb-10 md:mb-24">
+        <div className="-mx-4 md:mx-0 mb-8 md:mb-12">
           <div
             className="
       flex flex-col 
@@ -228,7 +228,7 @@ export default function Insights() {
 
         {/* Awards */}
         <motion.div
-          className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t pt-10 md:pt-16 mb-10 md:mb-20"
+          className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t pt-8 md:pt-10 mb-10 md:mb-16"
           style={{ borderTopColor: borderColor, fontFamily: "'PP Mori', sans-serif" }}
         >
           <motion.h3
