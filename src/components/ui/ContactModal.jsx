@@ -241,7 +241,7 @@ export default function ContactModal({ isOpen, onClose }) {
                             >
                                 <span className={styles.confirmDot} aria-hidden="true" />
                                 <h3 id="contact-confirm-title" className={styles.confirmHeading}>
-                                    Forgot to press Submit?
+                                    Forgot to <br/> press Submit?
                                 </h3>
                                 <div className={styles.confirmActions}>
                                     <button

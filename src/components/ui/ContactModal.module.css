@@ -242,7 +242,7 @@
     position: fixed;
     top: 0;
     bottom: 0;
-    right: clamp(16px, 4vw, 48px);
+    right: clamp(48px, 12vw, 200px);
     left: auto;
     margin-top: auto;
     margin-bottom: auto;

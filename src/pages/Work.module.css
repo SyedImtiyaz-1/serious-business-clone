@@ -5,7 +5,7 @@
   min-height: 100vh;
   background-color: #F4EDD9;
   color: #020817;
-  padding-top: 4rem;
+  padding-top: 0;
   position: relative;
 }
 /* Grid Container */
@@ -15,7 +15,7 @@
 
 /* Tabs Header Section */
 .tabsSection {
-  padding: 6rem clamp(16px, 2vw, 28px) 4rem;
+  padding: 8rem clamp(16px, 2vw, 28px) 3rem;
   display: flex;
   justify-content: center;
   align-items: center;

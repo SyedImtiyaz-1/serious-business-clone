@@ -5,13 +5,6 @@ import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import videoSrc from '../assets/video.mp4';
 
 gsap.registerPlugin(ScrollTrigger);
-import StackContainer from '../components/layout/StackContainer';
-import ServiceBlock, {
-  StrategyVideo,
-  VisualImage,
-  WebsiteImage,
-  ProductImage,
-} from '../components/sections/Services';
 import styles from './Services.module.css';
 
 const serviceCards = [
@@ -41,98 +34,15 @@ const serviceCards = [
   },
 ];
 
-const brandingPanels = [
-  {
-    bg: '#cba6f7',
-    children: (
-      <ServiceBlock
-        title="Brand Strategy"
-        description="It's the core of your company's identity. It guides all business decisions, ensuring a consistent and impactful presence in the market."
-        list={['Research & Insights', 'Brand Model', 'Positioning', 'Value proposition', 'Messaging', 'Verbal Identity', 'Naming']}
-        imageContent={<StrategyVideo />}
-      />
-    ),
-  },
-  {
-    bg: '#ffffff',
-    children: (
-      <ServiceBlock
-        title="Identity"
-        description="Distinctive visual systems designed to be immediate, enduring, and unmistakable."
-        list={['Logo & Wordmark', 'Typography & Color', 'Art Direction', 'Brand Systems', 'Guidelines']}
-        imageContent={<VisualImage />}
-      />
-    ),
-  },
-  {
-    bg: '#fac541',
-    children: (
-      <ServiceBlock
-        title="Digital"
-        description="High-performance digital experiences—designed with precision and built to scale."
-        list={['UX & UI Design', 'Website Design', 'Web Development', 'Interaction & Motion']}
-        imageContent={<WebsiteImage />}
-      />
-    ),
-  },
-  {
-    bg: '#1a1a1a',
-    children: (
-      <ServiceBlock
-        title="Product"
-        description="Thoughtfully designed products that are intuitive, refined, and built for real use."
-        list={['UX Design', 'Prototyping', 'UI Systems', 'App Design']}
-        textColor="text-[#ffffff]"
-        imageContent={<ProductImage />}
-      />
-    ),
-  },
-  {
-    bg: '#f5f0e8',
-    children: (
-      <ServiceBlock
-        title="Sprints"
-        description="We work in rapid, focused cycles—prototyping, testing, and refining to move ideas forward quickly."
-        list={['Rapid Prototyping', 'Design Sprints', 'MVP Development', 'Iteration & Optimization', 'Concept Testing']}
-        imageContent={<WebsiteImage />}
-      />
-    ),
-  },
-  {
-    bg: '#e8f5e9',
-    children: (
-      <ServiceBlock
-        title="Experiential"
-        description="Immersive brand experiences that create real-world impact."
-        list={['Brand Activations', 'Events & Installations', 'Spatial Design', 'Interactive Experiences']}
-        imageContent={<StrategyVideo />}
-      />
-    ),
-  },
-  {
-    bg: '#1c1c2e',
-    children: (
-      <ServiceBlock
-        title="Film & Content"
-        description="Cinematic storytelling that elevates brands and drives engagement."
-        list={['Brand Films', 'Campaign Content', 'Motion & Animation', 'Post-Production']}
-        textColor="text-[#ffffff]"
-        imageContent={<VisualImage />}
-      />
-    ),
-  },
-  {
-    bg: '#2B59C3',
-    children: (
-      <ServiceBlock
-        title="Objects"
-        description="Physical expressions of your brand—designed with the same level of care and intention."
-        list={['Corporate Gifting', 'Merchandise & Swag', 'Packaging', 'Custom Products']}
-        textColor="text-[#ffffff]"
-        imageContent={<ProductImage />}
-      />
-    ),
-  },
+const brandingServices = [
+  { name: 'Brand Strategy', tagline: "It's the core of your company's identity." },
+  { name: 'Identity', tagline: 'Distinctive visual systems built to last.' },
+  { name: 'Digital', tagline: 'High-performance digital experiences.' },
+  { name: 'Product', tagline: 'Thoughtfully designed products, built for real use.' },
+  { name: 'Sprints', tagline: 'Rapid cycles to move ideas forward fast.' },
+  { name: 'Experiential', tagline: 'Immersive brand experiences with real-world impact.' },
+  { name: 'Film & Content', tagline: 'Cinematic storytelling that drives engagement.' },
+  { name: 'Objects', tagline: 'Physical expressions of your brand.' },
 ];
 
 export default function Services() {
@@ -244,30 +154,20 @@ export default function Services() {
         </div>
       </div>
 
-      {/* ── Branding services stacked section ── */}
-      <div className={styles.brandingLabel}>Our branding services</div>
-      <StackContainer panels={brandingPanels} />
-
-      {/* ── Programs list ── */}
+      {/* ── Branding services list ── */}
       <section className={styles.programs}>
-        <h2 className={styles.programsHeading}>Programs</h2>
+        <h2 className={styles.programsHeading}>Our branding services</h2>
         <div className={styles.programsList}>
-          {programs.map((p) => (
-            <div key={p.name} className={styles.programRow} role="link" tabIndex={0}>
-              <span className={styles.programName}>{p.name}</span>
-              <span className={styles.programTagline}>{p.tagline}</span>
+          {brandingServices.map((s) => (
+            <div key={s.name} className={styles.programRow} role="link" tabIndex={0}>
+              <span className={styles.programName}>{s.name}</span>
+              <span className={styles.programTagline}>{s.tagline}</span>
               <span className={styles.programArrow} aria-hidden>→</span>
             </div>
           ))}
         </div>
       </section>
+
     </motion.div>
   );
 }
-
-const programs = [
-  { name: 'Brand Refresh', tagline: 'Stay Relevant. Stay Visible.' },
-  { name: 'Reposition', tagline: 'Don’t Become the Best. Become the Only.' },
-  { name: 'Expansion', tagline: 'Enter New Markets with an Edge.' },
-  { name: 'Turnaround', tagline: 'Make Your Next Move Your Turning Point.' },
-];
