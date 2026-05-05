@@ -2,7 +2,7 @@
 .pageWrapper {
   width: 100%;
   min-height: 100vh;
-  background-color: #F4EDD9;
+  background-color: #fbf0f2;
 }
 
 /* Hero */
@@ -173,7 +173,7 @@
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 3px;
-  color: #F4EDD9;
+  color: #fbf0f2;
   opacity: 0.5;
   margin-bottom: 20px;
 }
@@ -229,7 +229,7 @@
 }
 
 .inputGroup.focused label {
-  color: #F4EDD9;
+  color: #fbf0f2;
 }
 
 .input,
@@ -255,7 +255,7 @@
 
 .input:focus,
 .textarea:focus {
-  border-bottom-color: #F4EDD9;
+  border-bottom-color: #fbf0f2;
 }
 
 .textarea {
@@ -273,7 +273,7 @@
 .checkbox {
   width: 18px;
   height: 18px;
-  accent-color: #F4EDD9;
+  accent-color: #fbf0f2;
   cursor: pointer;
 }
 
@@ -288,7 +288,7 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  background: #F4EDD9;
+  background: #fbf0f2;
   color: #020817;
   font-size: 13px;
   font-weight: 600;
@@ -326,7 +326,7 @@
 }
 
 .successIcon {
-  color: #F4EDD9;
+  color: #fbf0f2;
   margin-bottom: 20px;
 }
 

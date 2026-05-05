@@ -12,7 +12,7 @@ export default function WorkDetail() {
   const project = projects.find((p) => p.slug === slug);
 
   useLayoutEffect(() => {
-    document.body.style.backgroundColor = "#F4EDD9";
+    document.body.style.backgroundColor = "#fbf0f2";
     document.body.style.color = "#020817";
     return () => {
       document.body.style.backgroundColor = "";

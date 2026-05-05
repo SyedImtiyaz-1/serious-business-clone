@@ -128,7 +128,7 @@ export default function Awards() {
                   fontSize: "clamp(2rem, 3.5vw, 3rem)",
                   fontWeight: 900,
                   letterSpacing: "-0.03em",
-                  color: "var(--color-cream, #F4EDD9)",
+                  color: "var(--color-cream, #fbf0f2)",
                   lineHeight: 1,
                   marginBottom: "1.25rem",
                 }}
@@ -141,7 +141,7 @@ export default function Awards() {
                 style={{
                   fontSize: "0.875rem",
                   fontWeight: 700,
-                  color: "var(--color-cream, #F4EDD9)",
+                  color: "var(--color-cream, #fbf0f2)",
                   margin: "0 0 0.5rem",
                   letterSpacing: "-0.01em",
                 }}
@@ -156,7 +156,7 @@ export default function Awards() {
                     key={a}
                     style={{
                       fontSize: "0.78rem",
-                      color: "var(--color-cream, #F4EDD9)",
+                      color: "var(--color-cream, #fbf0f2)",
                       opacity: 0.5,
                       lineHeight: 1.6,
                     }}

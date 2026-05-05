@@ -85,7 +85,7 @@ export default function Hero() {
         ref={textRef}
         className="absolute top-[45vh] md:top-[35vh] w-full flex justify-center z-20 pointer-events-none px-6"
       >
-        <h2 className="text-[24px] sm:text-[32px] md:text-[40px] lg:text-[50px] leading-[1.1] text-[#F4EDD9] text-center tracking-tight max-w-[900px]">
+        <h2 className="text-[24px] sm:text-[32px] md:text-[40px] lg:text-[50px] leading-[1.1] text-[#fbf0f2] text-center tracking-tight max-w-[900px]">
           <span className="font-bold" style={{ fontFamily: "'PP Mori', sans-serif" }}>Premium Branding Agency</span> <br className="hidden sm:block" />
           <span style={{ fontFamily: "'Nib Pro', serif", fontWeight: 400 }}>for B2B Tech Scaleups</span>
         </h2>

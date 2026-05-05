@@ -34,7 +34,7 @@ const cards = [
     bg: "#2B59C3", // Blue
     brand: "Marshall Haber",
     label: "Research Is Our Love Language:",
-    labelColor: "#F4EDD9",
+    labelColor: "#fbf0f2",
     title: "The Art of\nGathering Insights",
     desc: "Research Is Our Love Language: The Art of Gathering Insights",
   },
@@ -66,7 +66,7 @@ export default function Insights() {
   return (
     <motion.div
       ref={sectionRef}
-      className="w-full relative bg-[#F4EDD9]"
+      className="w-full relative bg-[#fbf0f2]"
     >
       <div className="px-6 md:px-12 pt-14 md:pt-28 pb-8 md:pb-12 w-full">
 
@@ -142,7 +142,7 @@ export default function Insights() {
                     padding: "clamp(24px, 4vw, 48px)",
                     color:
                       card.bg === "#2B59C3" || card.bg === "#0B0215"
-                        ? "#F4EDD9"
+                        ? "#fbf0f2"
                         : "#020817",
                   }}
                 >
@@ -268,7 +268,7 @@ export default function Insights() {
         <div className="flex justify-center mt-8 md:mt-10">
           <TransitionLink
             to="/clients"
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-[#020817]/25 text-[#020817] text-xs md:text-sm font-bold tracking-[0.15em] uppercase hover:bg-[#020817] hover:text-[#F4EDD9] transition-colors"
+            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-[#020817]/25 text-[#020817] text-xs md:text-sm font-bold tracking-[0.15em] uppercase hover:bg-[#020817] hover:text-[#fbf0f2] transition-colors"
           >
             Show All
             <span aria-hidden>→</span>

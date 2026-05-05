@@ -2,7 +2,7 @@ import { motion, useAnimation } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useNavigation } from "../../context/NavigationContext";
 
-const COLORS = ["#020817", "#2B59C3", "#0B0215", "#F4EDD9", "#FFFFFF"];
+const COLORS = ["#020817", "#2B59C3", "#0B0215", "#fbf0f2", "#FFFFFF"];
 const SLIDE = 0.55;
 const STAGGER = 0.08;
 const ALL_IN_MS = (SLIDE + (COLORS.length - 1) * STAGGER) * 1000; // ~790ms

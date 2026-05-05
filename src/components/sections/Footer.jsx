@@ -7,8 +7,8 @@ export default function Footer() {
   const isCreamPage =
     creamPaths.includes(pathname) || pathname.startsWith("/work/");
 
-  const bgClass = isCreamPage ? "bg-[#F4EDD9] text-[#020817]" : "bg-[#020817] text-[#F4EDD9]";
-  const borderClass = isCreamPage ? "border-[#020817]/20" : "border-[#F4EDD9]/20";
+  const bgClass = isCreamPage ? "bg-[#fbf0f2] text-[#020817]" : "bg-[#020817] text-[#fbf0f2]";
+  const borderClass = isCreamPage ? "border-[#020817]/20" : "border-[#fbf0f2]/20";
   const logoSrc = isCreamPage ? "/footerLogoBlack.png" : "/logonewlong.png";
 
   return (

@@ -2,7 +2,7 @@
 .page {
   width: 100%;
   min-height: 100vh;
-  background-color: #F4EDD9;
+  background-color: #fbf0f2;
   color: #020817;
   padding-top: 6rem;
 }
@@ -32,7 +32,7 @@
 
 .backLink:hover {
   background: #020817;
-  color: #F4EDD9;
+  color: #fbf0f2;
 }
 
 .backLink svg {
@@ -226,7 +226,7 @@
 
 .ctaBlockDark {
   background-color: #020817;
-  color: #F4EDD9;
+  color: #fbf0f2;
   padding: 3rem 3rem;
   display: flex;
   flex-direction: column;

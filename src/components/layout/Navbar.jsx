@@ -139,7 +139,7 @@ const DesktopMenu = () => {
   const [activeItem, setActiveItem] = useState(null);
   const [dropdownPos, setDropdownPos] = useState({ top: 0, left: 0 });
   const { pathname } = useLocation();
-  const staticStyle = { backgroundColor: "var(--accent-bg, #F4EDD9)", color: "var(--accent-text, #020817)" };
+  const staticStyle = { backgroundColor: "var(--accent-bg, #fbf0f2)", color: "var(--accent-text, #020817)" };
 
   const menuTimeoutRef = useRef(null);
   const itemTimeoutRef = useRef(null);
@@ -289,7 +289,7 @@ const DesktopMenu = () => {
               onMouseEnter={handleDropdownEnter}
               onMouseLeave={handleDropdownLeave}
               style={{
-                backgroundColor: "var(--accent-bg, #F4EDD9)",
+                backgroundColor: "var(--accent-bg, #fbf0f2)",
                 color: "var(--accent-text, #020817)",
                 position: "fixed",
                 top: dropdownPos.top,
@@ -344,8 +344,8 @@ export default function Navbar() {
 
   useEffect(() => {
     setShowCenterLogo(useShortLogoByDefault);
-    const unsub = scrollY.on("change", () => {
-      setShowCenterLogo(useShortLogoByDefault);
+    const unsub = scrollY.on("change", (latest) => {
+      setShowCenterLogo(useShortLogoByDefault || latest > 300);
     });
 
     const footerObserver = new IntersectionObserver(
@@ -359,8 +359,8 @@ export default function Navbar() {
     const checkBg = () => {
       const bg = document.body.style.backgroundColor;
       const lightBackgrounds = [
+        "rgb(251, 240, 242)", "#FBF0F2", "#fbf0f2",
         "rgb(244, 237, 217)", "#F4EDD9", "#f4edd9",
-        "rgb(248, 246, 240)", "#F8F6F0", "#f8f6f0",
         "rgb(255, 255, 255)", "#FFFFFF", "#ffffff", "white",
       ];
       setIsLightBg(lightBackgrounds.includes(bg));
@@ -474,13 +474,13 @@ export default function Navbar() {
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
-            className="fixed inset-0 bg-[#020817] z-[200] pointer-events-auto flex flex-col justify-between px-6 py-8 md:hidden text-[#F4EDD9]"
+            className="fixed inset-0 bg-[#020817] z-[200] pointer-events-auto flex flex-col justify-between px-6 py-8 md:hidden text-[#fbf0f2]"
           >
             <div className="flex justify-between items-center">
               <img src="/logonewlong.png" className="h-6" />
               <button
                 onClick={(e) => { e.stopPropagation(); setIsOpen(false); }}
-                className="w-10 h-10 rounded-full bg-[#F4EDD9] text-[#020817] flex items-center justify-center cursor-pointer border border-white/20"
+                className="w-10 h-10 rounded-full bg-[#fbf0f2] text-[#020817] flex items-center justify-center cursor-pointer border border-white/20"
               >
                 ✕
               </button>

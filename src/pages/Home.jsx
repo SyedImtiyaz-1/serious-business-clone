@@ -16,16 +16,16 @@ export default function Home() {
   useLayoutEffect(() => {
     // Set initial body color for home page
     document.body.style.backgroundColor = "#020817";
-    document.body.style.color = "#F4EDD9";
+    document.body.style.color = "#fbf0f2";
 
     const ctx = gsap.context(() => {
       // Body → cream: dark buttons
       gsap.to("body", {
-        backgroundColor: "#F4EDD9",
+        backgroundColor: "#fbf0f2",
         color: "#020817",
         "--accent-color": "#020817",
         "--accent-bg": "#020817",
-        "--accent-text": "#F4EDD9",
+        "--accent-text": "#fbf0f2",
         immediateRender: false,
         ease: "power2.inOut",
         scrollTrigger: {
@@ -40,7 +40,7 @@ export default function Home() {
       // Body → dark again: white buttons
       gsap.to("body", {
         backgroundColor: "#020817",
-        color: "#F4EDD9",
+        color: "#fbf0f2",
         "--accent-color": "#ffffff",
         "--accent-bg": "#ffffff",
         "--accent-text": "#020817",
@@ -58,7 +58,7 @@ export default function Home() {
       // Footer: dark bg, white buttons
       gsap.to("body", {
         backgroundColor: "#020817",
-        color: "#F4EDD9",
+        color: "#fbf0f2",
         "--accent-color": "#ffffff",
         "--accent-bg": "#ffffff",
         "--accent-text": "#020817",
@@ -94,7 +94,7 @@ export default function Home() {
         description="It’s the core of your company’s identity. It guides all business decisions, ensuring a consistent and impactful presence in the market."
         list={["Research & Insights", "Brand Model", "Positioning", "Value proposition", "Messaging", "Verbal Identity", "Naming"]}
         imageContent={<StrategyVideo />}
-        textColor="text-[#F4EDD9]"
+        textColor="text-[#fbf0f2]"
       />
     },
     {
@@ -104,11 +104,11 @@ export default function Home() {
         description="Distinctive visual systems designed to be immediate, enduring, and unmistakable."
         list={["Logo & Wordmark", "Typography & Color", "Art Direction", "Brand Systems", "Guidelines"]}
         imageContent={<VisualImage />}
-        textColor="text-[#F4EDD9]"
+        textColor="text-[#fbf0f2]"
       />
     },
     {
-      bg: "#F4EDD9",
+      bg: "#fbf0f2",
       children: <ServiceBlock
         title="Digital"
         description="High-performance digital experiences—designed with precision and built to scale."
@@ -123,7 +123,7 @@ export default function Home() {
         title="Product"
         description="Thoughtfully designed products that are intuitive, refined, and built for real use."
         list={["UX Design", "Prototyping", "UI Systems", "App Design"]}
-        textColor="text-[#F4EDD9]"
+        textColor="text-[#fbf0f2]"
         imageContent={<ProductImage />}
       />
     },
@@ -138,8 +138,8 @@ export default function Home() {
 
       <ClientSection />
       <Works />
-      <div aria-hidden="true" className="h-12 bg-[linear-gradient(to_bottom,#020817,#F4EDD9)]" />
-      <div className="dark-section bg-[#F4EDD9]">
+      <div aria-hidden="true" className="h-12 bg-[linear-gradient(to_bottom,#020817,#fbf0f2)]" />
+      <div className="dark-section bg-[#fbf0f2]">
         <div className="relative z-[60] pt-20 pb-0">
           <div className="w-full">
             <Insights />
@@ -147,7 +147,7 @@ export default function Home() {
         </div>
       </div>
 
-      <div className="w-full flex items-end pt-4 pb-4 px-6 bg-[#F4EDD9] text-[#020817]" style={{ fontFamily: "'PP Mori', sans-serif" }}>
+      <div className="w-full flex items-end pt-4 pb-4 px-6 bg-[#fbf0f2] text-[#020817]" style={{ fontFamily: "'PP Mori', sans-serif" }}>
         <span className="text-[2.2rem] md:text-[3rem] font-bold tracking-tighter leading-none">Services</span>
       </div>
       <StackContainer panels={servicePanels} />

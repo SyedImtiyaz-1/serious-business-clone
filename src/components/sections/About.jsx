@@ -52,7 +52,7 @@ export default function About() {
     <div className="w-full min-h-screen bg-[#020817]">
 
       {/* ✅ YOUR ORIGINAL CONTAINER (UNCHANGED DESIGN) */}
-      <div className="px-6 md:px-12 py-24 md:py-32 flex items-center w-full text-[#F4EDD9] relative min-h-screen">
+      <div className="px-6 md:px-12 py-24 md:py-32 flex items-center w-full text-[#fbf0f2] relative min-h-screen">
 
         <div className="grid grid-cols-1 md:grid-cols-12 w-full gap-20">
 
@@ -71,7 +71,7 @@ export default function About() {
 
             <Reveal delay={0.4}>
               <TransitionLink to="/about">
-                <button className="px-6 py-3 rounded-full bg-[#F4EDD9] text-[#020817] text-sm font-semibold flex items-center gap-2 transition-all duration-300 hover:bg-white hover:text-black hover:scale-105 shadow-sm border border-transparent hover:border-white">
+                <button className="px-6 py-3 rounded-full bg-[#fbf0f2] text-[#020817] text-sm font-semibold flex items-center gap-2 transition-all duration-300 hover:bg-white hover:text-black hover:scale-105 shadow-sm border border-transparent hover:border-white">
                   <span>About us</span>
                   <span>→</span>
                 </button>
@@ -81,7 +81,7 @@ export default function About() {
 
           {/* Right Column */}
           <div className="md:col-span-5 flex flex-col justify-center">
-            <div className="flex items-center justify-between border-b border-[#F4EDD9]/20 mb-6 pb-2 text-sm font-bold tracking-wider uppercase" style={{ fontFamily: "'PP Mori', sans-serif" }}>
+            <div className="flex items-center justify-between border-b border-[#fbf0f2]/20 mb-6 pb-2 text-sm font-bold tracking-wider uppercase" style={{ fontFamily: "'PP Mori', sans-serif" }}>
               <span>Key Facts</span>
               <span>
                 {String(current + 1).padStart(2, "0")} /{" "}
@@ -134,8 +134,8 @@ export default function About() {
                   key={i}
                   onClick={() => setCurrent(i)}
                   className={`transition-all duration-300 rounded-full ${i === current
-                      ? "w-4 h-1.5 bg-[#F4EDD9]"
-                      : "w-1.5 h-1.5 bg-[#F4EDD9]/20"
+                      ? "w-4 h-1.5 bg-[#fbf0f2]"
+                      : "w-1.5 h-1.5 bg-[#fbf0f2]/20"
                     }`}
                 />
               ))}

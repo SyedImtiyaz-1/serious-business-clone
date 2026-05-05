@@ -49,7 +49,7 @@ export default function Services() {
   const videoRef = useRef(null);
 
   useLayoutEffect(() => {
-    document.body.style.backgroundColor = '#F4EDD9';
+    document.body.style.backgroundColor = '#fbf0f2';
     document.body.style.color = '#111111';
 
     const ctx = gsap.context(() => {

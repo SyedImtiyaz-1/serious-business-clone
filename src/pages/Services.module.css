@@ -2,7 +2,7 @@
 .page {
   width: 100%;
   min-height: 100vh;
-  background-color: #F4EDD9;
+  background-color: #fbf0f2;
   color: #111111;
 }
 
@@ -178,7 +178,7 @@
 
 .cardArrow:hover {
   background: #111111;
-  color: #F4EDD9;
+  color: #fbf0f2;
 }
 
 /* ── Scroll-scale video ── */
@@ -281,7 +281,7 @@
 .programs {
   width: 100%;
   padding: 6rem clamp(1.25rem, 4vw, 4rem) 7rem;
-  background-color: #F4EDD9;
+  background-color: #fbf0f2;
 }
 
 .programsHeading {
@@ -319,7 +319,7 @@
 .programRow:hover,
 .programRow:focus-visible {
   background-color: #0B0215;
-  color: #F4EDD9;
+  color: #fbf0f2;
 }
 
 .programName {

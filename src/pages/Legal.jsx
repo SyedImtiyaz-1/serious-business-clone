@@ -4,7 +4,7 @@ import styles from "./Legal.module.css";
 
 export default function Legal() {
   useEffect(() => {
-    document.body.style.backgroundColor = "#F4EDD9";
+    document.body.style.backgroundColor = "#fbf0f2";
     document.body.style.color = "#020817";
     return () => {
       document.body.style.backgroundColor = "";

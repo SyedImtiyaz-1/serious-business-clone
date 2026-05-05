@@ -451,7 +451,7 @@ const FALLBACK_DATA = {
     servicePanels: [
       { title: "Brand Strategy", description: "It's the core of your company's identity. It guides all business decisions, ensuring a consistent and impactful presence in the market.", items: "Research & Insights, Brand Model, Positioning, Value proposition, Messaging, Verbal Identity, Naming", bgColor: "#2B59C3", imageUrl: "", videoUrl: "" },
       { title: "Identity", description: "Distinctive visual systems designed to be immediate, enduring, and unmistakable.", items: "Logo & Wordmark, Typography & Color, Art Direction, Brand Systems, Guidelines", bgColor: "#0B0215", imageUrl: "", videoUrl: "" },
-      { title: "Digital", description: "High-performance digital experiences—designed with precision and built to scale.", items: "UX & UI Design, Website Design, Web Development, Interaction & Motion", bgColor: "#F4EDD9", imageUrl: "", videoUrl: "" },
+      { title: "Digital", description: "High-performance digital experiences—designed with precision and built to scale.", items: "UX & UI Design, Website Design, Web Development, Interaction & Motion", bgColor: "#fbf0f2", imageUrl: "", videoUrl: "" },
       { title: "Product", description: "Thoughtfully designed products that are intuitive, refined, and built for real use.", items: "UX Design, Prototyping, UI Systems, App Design", bgColor: "#020817", imageUrl: "", videoUrl: "" },
     ],
     works: { heading: "We partner with ambitious\nscaleups in New York\nand the Americas", ctaText: "See more projects" },

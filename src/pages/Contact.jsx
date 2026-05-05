@@ -34,7 +34,7 @@ export default function Contact() {
   const [focused, setFocused] = useState(null);
 
   useLayoutEffect(() => {
-    document.body.style.backgroundColor = '#F4EDD9';
+    document.body.style.backgroundColor = '#fbf0f2';
     return () => {
       document.body.style.backgroundColor = '';
     };

@@ -5,7 +5,7 @@ export default function CTA() {
   const [isContactOpen, setIsContactOpen] = useState(false);
 
   return (
-    <section className="w-full px-6 pt-20 pb-20 bg-[#020817] text-[#F4EDD9]">
+    <section className="w-full px-6 pt-20 pb-20 bg-[#020817] text-[#fbf0f2]">
       {/* Top CTA Cards */}
       <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-4">
         {/* Left Card */}
