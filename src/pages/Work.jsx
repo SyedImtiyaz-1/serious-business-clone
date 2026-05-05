@@ -12,7 +12,7 @@ export default function Work() {
   const listRef = useRef(null);
 
   useLayoutEffect(() => {
-    document.body.style.backgroundColor = "#FFFFFF";
+    document.body.style.backgroundColor = "#fbf0f2";
     document.body.style.color = "#020817";
     return () => {
       document.body.style.backgroundColor = "";
