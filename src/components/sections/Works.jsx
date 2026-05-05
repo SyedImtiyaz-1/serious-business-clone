@@ -1,36 +1,13 @@
 import { motion } from "framer-motion";
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 import Reveal from "../ui/Reveal";
 import TransitionLink from "../ui/TransitionLink";
 import projects from "../../data/projects";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const featured = projects.slice(0, 6);
 
 export default function Works() {
   const containerRef = useRef(null);
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const images = gsap.utils.toArray('.parallax-img');
-      images.forEach((img) => {
-        gsap.to(img, {
-          yPercent: 15,
-          ease: "none",
-          scrollTrigger: {
-            trigger: img.parentElement,
-            start: "top bottom",
-            end: "bottom top",
-            scrub: true
-          }
-        });
-      });
-    }, containerRef);
-    return () => ctx.revert();
-  }, []);
 
   return (
     <div ref={containerRef} className="w-full px-6 pt-12 pb-24 bg-[#020817] text-[#fbf0f2]">
@@ -61,8 +38,7 @@ export default function Works() {
                     alt={p.title}
                     loading="lazy"
                     decoding="async"
-                    className="absolute -top-[10%] -bottom-[10%] left-0 right-0 w-full h-[120%] object-cover parallax-img"
-                    style={{ willChange: 'transform' }}
+                    className="absolute inset-0 w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
                   />
                 </div>
 

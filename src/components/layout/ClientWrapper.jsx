@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import Lenis from "@studio-freight/lenis";
 import { gsap } from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 
@@ -7,28 +6,13 @@ gsap.registerPlugin(ScrollTrigger);
 
 export default function ClientWrapper({ children }) {
   useEffect(() => {
-    const lenis = new Lenis({
-      lerp: 0.18,
-      smoothWheel: true,
-      wheelMultiplier: 1.3,
-      touchMultiplier: 2,
-      // syncTouch: false → use native touch on mobile (much faster)
-    });
-
-    window.__lenis = lenis;
-    lenis.on("scroll", ScrollTrigger.update);
-
-    let rafId;
-    const raf = (time) => {
-      lenis.raf(time);
-      rafId = requestAnimationFrame(raf);
-    };
-    rafId = requestAnimationFrame(raf);
-
+    // Use native scroll. Lenis was adding a per-frame raf loop that, combined
+    // with GSAP ScrollTriggers and framer-motion viewports, choked scroll
+    // performance on the deployed bundle. Native scroll is GPU-accelerated
+    // and competes with nothing.
+    document.documentElement.style.scrollBehavior = "smooth";
     return () => {
-      cancelAnimationFrame(rafId);
-      lenis.destroy();
-      if (window.__lenis === lenis) delete window.__lenis;
+      document.documentElement.style.scrollBehavior = "";
     };
   }, []);
 

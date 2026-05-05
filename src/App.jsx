@@ -26,11 +26,7 @@ gsap.registerPlugin(ScrollTrigger);
 function RouteChangeHandler() {
   const location = useLocation();
   useLayoutEffect(() => {
-    if (window.__lenis) {
-      window.__lenis.scrollTo(0, { immediate: true });
-    } else {
-      window.scrollTo(0, 0);
-    }
+    window.scrollTo(0, 0);
     ScrollTrigger.getAll().forEach(t => t.kill(true));
     gsap.killTweensOf(document.body);
     document.body.style.backgroundColor = "";
