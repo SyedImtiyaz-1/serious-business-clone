@@ -138,7 +138,7 @@ export default function Home() {
 
       <ClientSection />
       <Works />
-      <div aria-hidden="true" className="h-12 bg-[linear-gradient(to_bottom,#ffffff,#F4EDD9)]" />
+      <div aria-hidden="true" className="h-12 bg-[linear-gradient(to_bottom,#020817,#F4EDD9)]" />
       <div className="dark-section bg-[#F4EDD9]">
         <div className="relative z-[60] pt-20 pb-0">
           <div className="w-full">
