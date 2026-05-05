@@ -40,6 +40,10 @@ export default function Footer() {
             <h4 className="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-50">Say Hello</h4>
             <a href="mailto:studio@marshallhaber.com" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">studio@marshallhaber.com</a>
           </div>
+          <div>
+            <h4 className="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-50">Call us</h4>
+            <a href="tel:+12124949052" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">+1 212.494.9052</a>
+          </div>
         </div>
       </div>
 
