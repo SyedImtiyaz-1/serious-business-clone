@@ -208,18 +208,6 @@ export default function Insights() {
                   {card.desc}
                 </motion.p>
 
-                {/* Divider */}
-                <motion.div
-                  style={{ borderBottomColor: borderColor }}
-                  className="border-b pb-3 mt-auto"
-                >
-                  <motion.span
-                    style={{ color: mutedColor }}
-                    className="text-[11px] font-bold uppercase tracking-widest opacity-50"
-                  >
-                    Knowledge
-                  </motion.span>
-                </motion.div>
               </motion.div>
             ))}
           </div>

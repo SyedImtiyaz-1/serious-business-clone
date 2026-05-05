@@ -1,10 +1,9 @@
 import { useLocation } from "react-router-dom";
 import TransitionLink from "../ui/TransitionLink";
-import Reveal from "../ui/Reveal";
 
 export default function Footer() {
   const { pathname } = useLocation();
-  const creamPaths = ["/about", "/contact", "/services", "/clients", "/work"];
+  const creamPaths = ["/about", "/contact", "/services", "/clients", "/work", "/legal"];
   const isCreamPage =
     creamPaths.includes(pathname) || pathname.startsWith("/work/");
 
@@ -39,15 +38,7 @@ export default function Footer() {
         <div className="flex flex-col gap-8 md:gap-10 text-left md:text-right mt-10 md:mt-0">
           <div>
             <h4 className="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-50">Say Hello</h4>
-            <a href="mailto:newbiz@marshallhaber.com" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">studio@marshallhaber.com</a>
-          </div>
-          <div>
-            <h4 className="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-50">Exceptional talent?</h4>
-            <a href="mailto:apply@marshallhaber.com" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">apply@marshallhaber.com</a>
-          </div>
-          <div>
-            <h4 className="text-[10px] uppercase font-bold tracking-widest mb-2 opacity-50">Call us</h4>
-            <a href="tel:+12124949052" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">+1 212.494.9052</a>
+            <a href="mailto:studio@marshallhaber.com" className="text-[1.5rem] md:text-[1.3rem] font-semibold hover:opacity-60 transition-opacity">studio@marshallhaber.com</a>
           </div>
         </div>
       </div>
@@ -57,19 +48,11 @@ export default function Footer() {
       </div>
 
       {/* Bottom Legal Links */}
-      <div className={`w-full flex flex-col md:flex-row justify-between items-center text-[10px] font-bold uppercase tracking-widest px-4 border-t ${borderClass} pt-8 mt-12 gap-8 md:gap-0`}>
-        <div className="flex flex-col items-center md:items-start gap-2">
+      <div className={`w-full flex justify-center items-center text-[10px] font-bold uppercase tracking-widest px-4 border-t ${borderClass} pt-8 mt-12`}>
+        <div className="flex items-center gap-4">
           <p>© 2015—2026 Marshall Haber Creative Group</p>
-          <div className="flex gap-4">
-
-            <a href="#" className="hover:opacity-60 transition-opacity">Legal</a>
-
-          </div>
-        </div>
-
-        <div className="text-center md:text-right font-medium tracking-normal text-sm uppercase opacity-80">
-          <p>99 WALL STREET, SUITE #1467, NEW YORK, NY 10005, UNITED STATES</p>
-          <p><a href="tel:+12124949052" className="hover:opacity-60 transition-opacity">212.494.9052</a> · studio@marshallhaber.com</p>
+          <span aria-hidden="true" className="opacity-40">|</span>
+          <TransitionLink to="/legal" className="hover:opacity-60 transition-opacity">Legal</TransitionLink>
         </div>
       </div>
     </footer>

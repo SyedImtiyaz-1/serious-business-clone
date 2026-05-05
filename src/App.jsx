@@ -18,6 +18,7 @@ import Clients from "./pages/Clients";
 import WorkDetail from "./pages/WorkDetail";
 import ComingSoon from "./pages/ComingSoon";
 import AdminPanel from "./pages/AdminPanel";
+import Legal from "./pages/Legal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -25,7 +26,11 @@ gsap.registerPlugin(ScrollTrigger);
 function RouteChangeHandler() {
   const location = useLocation();
   useLayoutEffect(() => {
-    window.scrollTo(0, 0);
+    if (window.__lenis) {
+      window.__lenis.scrollTo(0, { immediate: true });
+    } else {
+      window.scrollTo(0, 0);
+    }
     ScrollTrigger.getAll().forEach(t => t.kill(true));
     gsap.killTweensOf(document.body);
     document.body.style.backgroundColor = "";
@@ -49,6 +54,7 @@ function PageRoutes() {
         <Route path="/services" element={<Services />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/clients" element={<Clients />} />
+        <Route path="/legal" element={<Legal />} />
         <Route path="*" element={<ComingSoon />} />
       </Routes>
     </ErrorBoundary>

@@ -17,6 +17,7 @@
 }
 
 .estHeading {
+  font-family: 'PP Mori', sans-serif;
   font-size: clamp(8rem, 22vw, 28rem);
   font-weight: 700;
   color: #020817;

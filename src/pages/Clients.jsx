@@ -25,13 +25,6 @@ const clients = [
 
 const categories = ['All', ...Array.from(new Set(clients.map(c => c.category)))];
 
-const stats = [
-    { number: '95', suffix: '%', label: 'Of the clients we work with are built on long-term partnerships' },
-    { number: '40', suffix: '+', label: 'Top startups across global markets, EU/USA Markets' },
-    { number: '180', suffix: '+', label: 'Strategies we have designed for our clients' },
-    { number: '320', suffix: 'M€', label: 'Of funding was raised by our partner clients and us' },
-];
-
 /* ─── Fade-in wrapper ─── */
 function FadeIn({ children, delay = 0, className }) {
     const ref = useRef(null);
@@ -138,18 +131,6 @@ export default function Clients() {
                         );
                     })}
                 </motion.div>
-            </section>
-
-            {/* Stats */}
-            <section className={styles.stats}>
-                {stats.map((stat, i) => (
-                    <FadeIn key={stat.label} className={styles.statItem} delay={i * 0.08}>
-                        <span className={styles.statNumber}>
-                            {stat.number}<span className={styles.statSuffix}>{stat.suffix}</span>
-                        </span>
-                        <span className={styles.statLabel}>{stat.label}</span>
-                    </FadeIn>
-                ))}
             </section>
 
             {/* CTA */}

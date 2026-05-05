@@ -33,7 +33,7 @@ export default function Works() {
   }, []);
 
   return (
-    <div ref={containerRef} className="w-full px-6 pt-12 pb-24 bg-[#020817] text-[#F4EDD9]">
+    <div ref={containerRef} className="w-full px-6 pt-12 pb-24 bg-white text-[#020817]">
       <Reveal>
         <h2
           className="text-[clamp(1.8rem,8vw,4.5rem)] md:text-[5.5vw] lg:text-[4.5vw] font-bold leading-[1.1] mb-16 text-inherit text-center"
@@ -64,12 +64,12 @@ export default function Works() {
                 </div>
 
                 <Reveal>
-                  <h3 className="text-xl md:text-2xl font-bold mb-2 text-center leading-snug px-2">
+                  <h3 className="text-xl md:text-2xl font-bold mb-2 text-left leading-snug">
                     <span className="group-hover-underline">{p.title} | {p.subtitle}</span>
                   </h3>
                 </Reveal>
                 <Reveal delay={0.4}>
-                  <p className="text-xs md:text-sm font-medium opacity-60 uppercase tracking-wide text-center">{p.category}</p>
+                  <p className="text-xs md:text-sm font-medium opacity-60 uppercase tracking-wide text-left">{p.category}</p>
                 </Reveal>
               </motion.div>
             </TransitionLink>
@@ -78,7 +78,7 @@ export default function Works() {
       </div>
 
       <div className="mt-20 flex justify-center">
-        <TransitionLink to="/work" className="px-8 py-4 rounded-full border border-current font-semibold hover:bg-[#F4EDD9] hover:text-[#020817] transition-colors inline-block text-[#F4EDD9]">
+        <TransitionLink to="/work" className="px-8 py-4 rounded-full border border-current font-semibold hover:bg-[#020817] hover:text-white transition-colors inline-block text-[#020817]">
           See more projects
         </TransitionLink>
       </div>

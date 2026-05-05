@@ -1,8 +1,8 @@
 .section {
   width: 100%;
   padding: 8rem 0;
-  background-color: transparent;
-  color: inherit;
+  background-color: var(--color-offwhite);
+  color: #020817;
   overflow: hidden;
 }
 

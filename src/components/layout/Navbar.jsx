@@ -63,7 +63,7 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
         layout
         style={staticStyle}
         transition={{ layout: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
-        className="px-6 py-3 rounded-full shadow-sm font-bold text-sm flex items-center overflow-hidden h-[44px]"
+        className="px-7 py-4 rounded-full shadow-sm font-bold text-sm flex items-center overflow-hidden h-[52px]"
       >
         <div className="relative h-5 overflow-hidden flex flex-col items-center">
           <AnimatePresence mode="wait">
@@ -92,7 +92,7 @@ const NavButton = ({ text, activeText, isActive = false, hoverText, icon, hoverI
             scale: (isLetsWork && !isHovered && !icon) ? 0.8 : 1,
           }}
           transition={{ opacity: { duration: 0.3 }, scale: { duration: 0.3 } }}
-          className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center flex-shrink-0 relative overflow-hidden"
+          className="w-[52px] h-[52px] rounded-full shadow-sm flex items-center justify-center flex-shrink-0 relative overflow-hidden"
         >
           <div
             className="absolute inset-0 flex items-center justify-center transition-all duration-500"
@@ -200,7 +200,7 @@ const DesktopMenu = () => {
         layout
         style={staticStyle}
         transition={{ layout: { duration: 0.6, ease: [0.22, 1, 0.36, 1] } }}
-        className="px-6 py-3 rounded-full shadow-sm font-bold text-sm flex items-center overflow-hidden h-[44px] cursor-pointer"
+        className="px-7 py-4 rounded-full shadow-sm font-bold text-sm flex items-center overflow-hidden h-[52px] cursor-pointer"
       >
         <div className="relative h-5 overflow-hidden flex flex-col items-center">
           <AnimatePresence mode="wait">
@@ -258,7 +258,7 @@ const DesktopMenu = () => {
       {/* Icon circle — > when closed, < when open */}
       <motion.div
         style={staticStyle}
-        className="w-11 h-11 rounded-full shadow-sm flex items-center justify-center flex-shrink-0 cursor-pointer overflow-hidden relative"
+        className="w-[52px] h-[52px] rounded-full shadow-sm flex items-center justify-center flex-shrink-0 cursor-pointer overflow-hidden relative"
       >
         {/* Default: > */}
         <div
@@ -330,7 +330,13 @@ export default function Navbar() {
   const { scrollY } = useScroll();
   const { pathname } = useLocation();
   const isHomePage = pathname === "/";
-  const [showCenterLogo, setShowCenterLogo] = useState(false);
+  const useShortLogoByDefault =
+    pathname === "/work" ||
+    pathname === "/clients" ||
+    pathname === "/services" ||
+    pathname === "/legal" ||
+    pathname.startsWith("/work/");
+  const [showCenterLogo, setShowCenterLogo] = useState(useShortLogoByDefault);
   const [isFooterVisible, setIsFooterVisible] = useState(false);
   const [isOpen, setIsOpen] = useState(false);
   const [isLightBg, setIsLightBg] = useState(false);
@@ -338,7 +344,7 @@ export default function Navbar() {
 
   useEffect(() => {
     const unsub = scrollY.on("change", (latest) => {
-      setShowCenterLogo(latest > 300);
+      setShowCenterLogo(useShortLogoByDefault || latest > 300);
     });
 
     const footerObserver = new IntersectionObserver(
@@ -348,10 +354,15 @@ export default function Navbar() {
     const footer = document.getElementById("main-footer");
     if (footer) footerObserver.observe(footer);
 
-    // Detect light/cream page by checking body background color
+    // Detect light/cream/offwhite page by checking body background color
     const checkBg = () => {
       const bg = document.body.style.backgroundColor;
-      setIsLightBg(bg === "rgb(244, 237, 217)" || bg === "#F4EDD9" || bg === "#f4edd9");
+      const lightBackgrounds = [
+        "rgb(244, 237, 217)", "#F4EDD9", "#f4edd9",
+        "rgb(248, 246, 240)", "#F8F6F0", "#f8f6f0",
+        "rgb(255, 255, 255)", "#FFFFFF", "#ffffff", "white",
+      ];
+      setIsLightBg(lightBackgrounds.includes(bg));
     };
     checkBg();
 
@@ -376,7 +387,7 @@ export default function Navbar() {
       if (lightSection) bgObserver.disconnect();
       mutObs.disconnect();
     };
-  }, [scrollY]);
+  }, [scrollY, useShortLogoByDefault]);
 
   return (
     <motion.div
@@ -409,19 +420,19 @@ export default function Navbar() {
       </div>
 
       {/* Center: Desktop Logo */}
-      <div className="absolute top-8 left-1/2 -translate-x-1/2 hidden md:flex items-center justify-center pointer-events-auto h-24">
+      <div className="absolute top-8 left-1/2 -translate-x-1/2 hidden md:flex items-center justify-center pointer-events-auto h-28">
         <TransitionLink to="/">
           <div className="relative flex items-center justify-center">
             {/* Invisible placeholder for maintaining container dimensions */}
             <img
               src="/footerLogoBlack.png"
               alt=""
-              className="h-24 w-auto opacity-0 pointer-events-none"
+              className="h-28 w-auto opacity-0 pointer-events-none"
             />
             <img
               src="/logonewlong.png"
               alt="Marshall Haber Creative Group"
-              className="absolute h-24 w-auto cursor-pointer transition-all duration-700 ease-in-out"
+              className="absolute h-28 w-auto cursor-pointer transition-all duration-700 ease-in-out"
               style={{
                 opacity: showCenterLogo ? 0 : 1,
                 filter: isLightBg ? "invert(1)" : "none",
@@ -430,7 +441,7 @@ export default function Navbar() {
             <img
               src="/logo.png"
               alt="MHCG"
-              className="absolute h-14 w-auto cursor-pointer transition-all duration-700 ease-in-out"
+              className="absolute h-16 w-auto cursor-pointer transition-all duration-700 ease-in-out"
               style={{
                 opacity: showCenterLogo ? 1 : 0,
                 filter: isLightBg ? "invert(0)" : "invert(1)",
