@@ -8,10 +8,11 @@ gsap.registerPlugin(ScrollTrigger);
 export default function ClientWrapper({ children }) {
   useEffect(() => {
     const lenis = new Lenis({
-      lerp: 0.12,
+      lerp: 0.2,
       smoothWheel: true,
-      wheelMultiplier: 1.4,
+      wheelMultiplier: 1.6,
       touchMultiplier: 2,
+      syncTouch: true,
     });
 
     window.__lenis = lenis;
