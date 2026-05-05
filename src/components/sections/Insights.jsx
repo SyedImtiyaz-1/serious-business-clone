@@ -68,7 +68,7 @@ export default function Insights() {
       ref={sectionRef}
       className="w-full relative bg-[#F4EDD9]"
     >
-      <div className="px-6 md:px-12 py-14 md:py-28 w-full">
+      <div className="px-6 md:px-12 pt-14 md:pt-28 pb-8 md:pb-12 w-full">
 
         {/* Heading row — title left, button right */}
         <div className="flex items-start justify-between gap-6 mb-10 md:mb-14">
@@ -265,7 +265,7 @@ export default function Insights() {
           </div>
         </motion.div>
 
-        <div className="flex justify-center mt-12 md:mt-16">
+        <div className="flex justify-center mt-8 md:mt-10">
           <TransitionLink
             to="/clients"
             className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-[#020817]/25 text-[#020817] text-xs md:text-sm font-bold tracking-[0.15em] uppercase hover:bg-[#020817] hover:text-[#F4EDD9] transition-colors"

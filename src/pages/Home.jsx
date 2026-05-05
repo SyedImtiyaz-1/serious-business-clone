@@ -140,14 +140,14 @@ export default function Home() {
       <Works />
       <div aria-hidden="true" className="h-12 bg-[linear-gradient(to_bottom,#ffffff,#F4EDD9)]" />
       <div className="dark-section bg-[#F4EDD9]">
-        <div className="relative z-[60] py-20">
+        <div className="relative z-[60] pt-20 pb-0">
           <div className="w-full">
             <Insights />
           </div>
         </div>
       </div>
 
-      <div className="w-full h-[12vh] flex items-end pb-4 px-6 bg-[#F4EDD9] text-[#020817]" style={{ fontFamily: "'PP Mori', sans-serif" }}>
+      <div className="w-full flex items-end pt-4 pb-4 px-6 bg-[#F4EDD9] text-[#020817]" style={{ fontFamily: "'PP Mori', sans-serif" }}>
         <span className="text-[2.2rem] md:text-[3rem] font-bold tracking-tighter leading-none">Services</span>
       </div>
       <StackContainer panels={servicePanels} />
