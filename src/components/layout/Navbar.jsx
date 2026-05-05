@@ -343,8 +343,9 @@ export default function Navbar() {
   const [isContactOpen, setIsContactOpen] = useState(false);
 
   useEffect(() => {
-    const unsub = scrollY.on("change", (latest) => {
-      setShowCenterLogo(useShortLogoByDefault || latest > 300);
+    setShowCenterLogo(useShortLogoByDefault);
+    const unsub = scrollY.on("change", () => {
+      setShowCenterLogo(useShortLogoByDefault);
     });
 
     const footerObserver = new IntersectionObserver(

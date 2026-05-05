@@ -15,7 +15,7 @@
 
 /* Tabs Header Section */
 .tabsSection {
-  padding: 9rem clamp(16px, 2vw, 28px) 2.5rem;
+  padding: 11rem clamp(16px, 2vw, 28px) 7rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -213,7 +213,7 @@
 /* Work Grid */
 .workGrid {
   width: 100%;
-  padding: 1rem clamp(20px, 2.5vw, 40px) 120px;
+  padding: 0 clamp(20px, 2.5vw, 40px) 140px;
   max-width: 1600px;
   margin: 0 auto;
 }
