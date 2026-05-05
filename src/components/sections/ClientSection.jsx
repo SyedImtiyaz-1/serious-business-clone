@@ -33,9 +33,11 @@ export default function ClientSection() {
           <div className={styles.marqueeTrack}>
             {[...clients, ...clients].map((client, i) => (
               <div key={`${client.name}-${i}`} className={styles.clientLogo}>
-                <img 
-                  src={`/CliendLogo/${client.logo}`} 
-                  alt={client.name} 
+                <img
+                  src={`/CliendLogo/${client.logo}`}
+                  alt={client.name}
+                  loading="lazy"
+                  decoding="async"
                   className={styles.logoImg}
                 />
               </div>

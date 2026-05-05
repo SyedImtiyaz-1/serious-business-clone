@@ -18,59 +18,42 @@ export default function Home() {
     document.body.style.backgroundColor = "#020817";
     document.body.style.color = "#fbf0f2";
 
+    // Use class-based toggles so the browser only repaints at section
+    // boundaries, not every scroll frame. The previous scrub-based body
+    // tweens caused full-document repaints during scroll.
+    document.body.style.transition = "background-color 0.4s ease, color 0.4s ease";
+
+    const setLightTheme = () => {
+      document.body.style.backgroundColor = "#fbf0f2";
+      document.body.style.color = "#020817";
+      document.body.style.setProperty("--accent-color", "#020817");
+      document.body.style.setProperty("--accent-bg", "#020817");
+      document.body.style.setProperty("--accent-text", "#fbf0f2");
+    };
+    const setDarkTheme = () => {
+      document.body.style.backgroundColor = "#020817";
+      document.body.style.color = "#fbf0f2";
+      document.body.style.setProperty("--accent-color", "#ffffff");
+      document.body.style.setProperty("--accent-bg", "#ffffff");
+      document.body.style.setProperty("--accent-text", "#020817");
+    };
+
     const ctx = gsap.context(() => {
-      // Body → cream: dark buttons
-      gsap.to("body", {
-        backgroundColor: "#fbf0f2",
-        color: "#020817",
-        "--accent-color": "#020817",
-        "--accent-bg": "#020817",
-        "--accent-text": "#fbf0f2",
-        immediateRender: false,
-        ease: "power2.inOut",
-        scrollTrigger: {
-          trigger: ".dark-section",
-          start: "top 70%",
-          end: "top 30%",
-          scrub: 1.5,
-          invalidateOnRefresh: true,
-        }
+      ScrollTrigger.create({
+        trigger: ".dark-section",
+        start: "top 60%",
+        end: "bottom 40%",
+        onEnter: setLightTheme,
+        onEnterBack: setLightTheme,
+        onLeave: setDarkTheme,
+        onLeaveBack: setDarkTheme,
       });
 
-      // Body → dark again: white buttons
-      gsap.to("body", {
-        backgroundColor: "#020817",
-        color: "#fbf0f2",
-        "--accent-color": "#ffffff",
-        "--accent-bg": "#ffffff",
-        "--accent-text": "#020817",
-        immediateRender: false,
-        ease: "power2.inOut",
-        scrollTrigger: {
-          trigger: ".dark-section",
-          start: "bottom 50%",
-          end: "bottom 20%",
-          scrub: 1.5,
-          invalidateOnRefresh: true,
-        }
-      });
-
-      // Footer: dark bg, white buttons
-      gsap.to("body", {
-        backgroundColor: "#020817",
-        color: "#fbf0f2",
-        "--accent-color": "#ffffff",
-        "--accent-bg": "#ffffff",
-        "--accent-text": "#020817",
-        immediateRender: false,
-        ease: "power2.inOut",
-        scrollTrigger: {
-          trigger: "footer",
-          start: "top 95%",
-          end: "top 35%",
-          scrub: 1.5,
-          invalidateOnRefresh: true,
-        }
+      ScrollTrigger.create({
+        trigger: "footer",
+        start: "top 80%",
+        onEnter: setDarkTheme,
+        onLeaveBack: setLightTheme,
       });
     });
 
@@ -79,10 +62,12 @@ export default function Home() {
       ctx.revert();
 
       // Reset body inline styles to CSS defaults
+      document.body.style.transition = "";
       document.body.style.backgroundColor = "";
       document.body.style.color = "";
       document.body.style.removeProperty("--accent-color");
       document.body.style.removeProperty("--accent-bg");
+      document.body.style.removeProperty("--accent-text");
     };
   }, []);
 

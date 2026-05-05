@@ -59,7 +59,10 @@ export default function Works() {
                   <img
                     src={p.image}
                     alt={p.title}
+                    loading="lazy"
+                    decoding="async"
                     className="absolute -top-[10%] -bottom-[10%] left-0 right-0 w-full h-[120%] object-cover parallax-img"
+                    style={{ willChange: 'transform' }}
                   />
                 </div>
 

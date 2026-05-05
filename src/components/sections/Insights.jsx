@@ -250,6 +250,8 @@ export default function Insights() {
                 <motion.img
                   src={logo.file.startsWith("http") ? logo.file : `/CliendLogo/${logo.file}`}
                   alt={logo.name}
+                  loading="lazy"
+                  decoding="async"
                   style={{
                     filter: logo.file.startsWith("http") ? "none" : logoFilter,
                     maxHeight: "100%",
