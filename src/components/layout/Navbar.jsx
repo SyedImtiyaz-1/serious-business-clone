@@ -334,6 +334,8 @@ export default function Navbar() {
     pathname === "/work" ||
     pathname === "/clients" ||
     pathname === "/services" ||
+    pathname === "/about" ||
+    pathname === "/contact" ||
     pathname === "/legal" ||
     pathname.startsWith("/work/");
   const [showCenterLogo, setShowCenterLogo] = useState(useShortLogoByDefault);
