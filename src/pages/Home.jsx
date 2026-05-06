@@ -5,7 +5,6 @@ import ServiceBlock, { StrategyVideo, VisualImage, WebsiteImage, ProductImage } 
 import StackContainer from "../components/layout/StackContainer";
 import Works from "../components/sections/Works";
 import Insights from "../components/sections/Insights";
-import ClientSection from "../components/sections/ClientSection";
 import CTA from "../components/sections/CTA";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -121,7 +120,6 @@ export default function Home() {
       <Hero />
       <AboutSection />
 
-      <ClientSection />
       <Works />
       <div aria-hidden="true" className="h-12 bg-[linear-gradient(to_bottom,#020817,#fbf0f2)]" />
       <div className="dark-section bg-[#fbf0f2]">
