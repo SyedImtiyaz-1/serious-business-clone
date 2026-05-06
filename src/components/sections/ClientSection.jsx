@@ -1,5 +1,6 @@
 import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
+import TransitionLink from "../ui/TransitionLink";
 import styles from "./ClientSection.module.css";
 
 const clients = [
@@ -28,9 +29,9 @@ function FadeIn({ children, delay = 0, className }) {
     <motion.div
       ref={ref}
       className={className}
-      initial={{ opacity: 0, y: 30 }}
+      initial={{ opacity: 0, y: 20 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+      transition={{ duration: 0.6, delay, ease: [0.16, 1, 0.3, 1] }}
     >
       {children}
     </motion.div>
@@ -41,25 +42,30 @@ export default function ClientSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <p className={styles.label}>Clients:</p>
+        <div className={styles.headerRow}>
+          <h3 className={styles.label}>Clients:</h3>
 
-        <motion.div className={styles.logoGrid} layout>
-          {clients.map((client, i) => (
-            <FadeIn key={client.name} delay={i * 0.04}>
-              <div className={styles.logoCell}>
-                <div className={styles.logoContent}>
-                  <img
-                    src={`/CliendLogo/${client.logo}`}
-                    alt={client.name}
-                    loading="lazy"
-                    decoding="async"
-                    className={styles.clientLogoImg}
-                  />
-                </div>
-              </div>
-            </FadeIn>
-          ))}
-        </motion.div>
+          <div className={styles.logoGrid}>
+            {clients.map((client, i) => (
+              <FadeIn key={client.name} delay={i * 0.04} className={styles.logoCell}>
+                <img
+                  src={`/CliendLogo/${client.logo}`}
+                  alt={client.name}
+                  loading="lazy"
+                  decoding="async"
+                  className={styles.clientLogoImg}
+                />
+              </FadeIn>
+            ))}
+          </div>
+        </div>
+
+        <div className={styles.showAllWrap}>
+          <TransitionLink to="/clients" className={styles.showAllBtn}>
+            Show All
+            <span aria-hidden>→</span>
+          </TransitionLink>
+        </div>
       </div>
     </section>
   );

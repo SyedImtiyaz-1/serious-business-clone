@@ -1,24 +1,4 @@
 import { motion } from "framer-motion";
-import TransitionLink from "../ui/TransitionLink";
-
-const clientLogos = [
-  { file: "jpmorgan.png", name: "JPMorgan Chase" },
-  { file: "https://marshallhaber.com/wp-content/uploads/2019/11/BG-LOGO.jpg", name: "BG" },
-  { file: "09_Jeffries_Logo.png", name: "Jeffries" },
-  { file: "16_Eurotech_Logo.png", name: "Eurotech" },
-  { file: "23_Signature_Bank.png", name: "Signature Bank" },
-  { file: "Celadon_Logo.png", name: "Celadon" },
-  { file: "MIZ_Logo_SVG_Gadrientdark.png", name: "MIZ" },
-  { file: "centerbridge.png", name: "Centerbridge" },
-  { file: "HumankindInvestments_Logo.png", name: "Humankind Investments" },
-  { file: "kaplan.png", name: "Kaplan" },
-  { file: "rivington.png", name: "Rivington" },
-  { file: "trishmcevoy-1.png", name: "Trish McEvoy" },
-  { file: "usher-new-logo_white.png", name: "Usher" },
-  { file: "YR.png", name: "Y&R" },
-  { file: "1200px-Special_Olympics_logo.svg_-1.png", name: "Special Olympics" },
-  { file: "Burson-Marsteller-logo_250px.png", name: "Burson-Marsteller" },
-];
 import { useRef } from "react";
 import Reveal from "../ui/Reveal";
 
@@ -49,7 +29,7 @@ const cards = [
 
 const cardInitial = [
   { opacity: 0, x: -150 },
-  { opacity: 0, y: 150, scale: 0.95 },
+  { opacity: 0, y: 150 },
   { opacity: 0, x: 150 },
 ];
 
@@ -107,13 +87,11 @@ export default function Insights() {
         {/* Cards */}
         <div className="-mx-4 md:mx-0 mb-8 md:mb-12">
           <div
-            className="
-      flex flex-col 
-      md:grid md:grid-cols-3 
-      px-4 md:px-0
-    "
+            className="flex flex-col px-4 md:px-0 md:grid"
             style={{
               gap: "1rem",
+              gridTemplateColumns: "repeat(3, minmax(0, 1fr))",
+              alignItems: "stretch",
             }}
           >
             {cards.map((card, i) => (
@@ -127,55 +105,61 @@ export default function Insights() {
                   ease: [0.16, 1, 0.3, 1],
                   delay: i * 0.1,
                 }}
-                className="
-          w-full 
-          flex flex-col gap-0 
-          cursor-pointer
-          group
-        "
+                className="flex flex-col gap-0 cursor-pointer group"
+                style={{ width: "100%", minWidth: 0 }}
               >
-                {/* Card box */}
+                {/* Card box — locked aspect ratio via padding trick */}
                 <div
-                  className="w-full flex flex-col items-center justify-center text-center"
                   style={{
+                    position: "relative",
+                    width: "100%",
+                    paddingTop: "55.5556%",
                     backgroundColor: card.bg,
-                    aspectRatio: "1.8 / 1",
-                    padding: "clamp(24px, 4vw, 48px)",
-                    color:
-                      card.bg === "#2B59C3" || card.bg === "#0B0215"
-                        ? "#fbf0f2"
-                        : "#020817",
+                    overflow: "hidden",
                   }}
                 >
-                  <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-6 opacity-50">
-                    {card.brand}
-                  </p>
-
-                  <p
-                    className="text-sm mb-3 tracking-wide leading-snug"
+                  <div
+                    className="flex flex-col items-center justify-center text-center"
                     style={{
-                      fontFamily: "'Nib Pro', serif",
-                      fontStyle: "italic",
-                      color: card.labelColor || "inherit",
+                      position: "absolute",
+                      inset: 0,
+                      padding: "clamp(24px, 4vw, 48px)",
+                      color:
+                        card.bg === "#2B59C3" || card.bg === "#0B0215"
+                          ? "#fbf0f2"
+                          : "#020817",
                     }}
                   >
-                    {card.label}
-                  </p>
+                    <p className="text-[10px] font-bold uppercase tracking-[0.18em] mb-6 opacity-50">
+                      {card.brand}
+                    </p>
 
-                  <h3
-                    className="font-bold leading-tight tracking-tight"
-                    style={{
-                      fontFamily: "'PP Mori', sans-serif",
-                      fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)",
-                    }}
-                  >
-                    {(card.titleLarge || card.title).split("\n").map((line, j, arr) => (
-                      <span key={j}>
-                        {line}
-                        {j < arr.length - 1 && <br />}
-                      </span>
-                    ))}
-                  </h3>
+                    <p
+                      className="text-sm mb-3 tracking-wide leading-snug"
+                      style={{
+                        fontFamily: "'Nib Pro', serif",
+                        fontStyle: "italic",
+                        color: card.labelColor || "inherit",
+                      }}
+                    >
+                      {card.label}
+                    </p>
+
+                    <h3
+                      className="font-bold leading-tight tracking-tight"
+                      style={{
+                        fontFamily: "'PP Mori', sans-serif",
+                        fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)",
+                      }}
+                    >
+                      {(card.titleLarge || card.title).split("\n").map((line, j, arr) => (
+                        <span key={j}>
+                          {line}
+                          {j < arr.length - 1 && <br />}
+                        </span>
+                      ))}
+                    </h3>
+                  </div>
                 </div>
 
                 {/* Description */}
@@ -191,6 +175,9 @@ export default function Insights() {
                   style={{
                     color: textColor,
                     fontSize: "clamp(0.95rem, 1.8vw, 1.15rem)",
+                    minHeight: "calc(2 * 1.375em)",
+                    display: "flex",
+                    alignItems: "flex-start",
                   }}
                   className="font-semibold leading-snug mt-5 mb-4 group-hover-underline"
                 >
@@ -200,16 +187,6 @@ export default function Insights() {
               </motion.div>
             ))}
           </div>
-        </div>
-
-        <div className="flex justify-center mt-8 md:mt-10">
-          <TransitionLink
-            to="/clients"
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-[#020817]/25 text-[#020817] text-xs md:text-sm font-bold tracking-[0.15em] uppercase hover:bg-[#020817] hover:text-[#fbf0f2] transition-colors"
-          >
-            Show All
-            <span aria-hidden>→</span>
-          </TransitionLink>
         </div>
 
       </div>

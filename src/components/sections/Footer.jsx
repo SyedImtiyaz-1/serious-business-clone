@@ -9,7 +9,8 @@ export default function Footer() {
 
   const bgClass = isCreamPage ? "bg-[#fbf0f2] text-[#020817]" : "bg-[#020817] text-[#fbf0f2]";
   const borderClass = isCreamPage ? "border-[#020817]/20" : "border-[#fbf0f2]/20";
-  const logoSrc = isCreamPage ? "/footerLogoBlack.png" : "/logonewlong.png";
+  const logoSrc = "/logonewlong.png";
+  const logoFilter = isCreamPage ? "invert(1) brightness(0)" : "none";
 
   return (
     <footer id="main-footer" className={`w-full pt-20 pb-6 px-6 relative overflow-hidden z-50 ${bgClass}`}>
@@ -48,7 +49,7 @@ export default function Footer() {
       </div>
 
       <div className="w-full flex justify-center items-center mb-12 md:mb-6 mt-16 md:mt-0">
-        <img src={logoSrc} alt="Marshall Haber Creative Group" className="h-[12vw] md:h-[6vw] lg:h-[5.5vw] xl:h-[7vw] w-auto" />
+        <img src={logoSrc} alt="Marshall Haber Creative Group" className="h-[12vw] md:h-[6vw] lg:h-[5.5vw] xl:h-[7vw] w-auto" style={{ filter: logoFilter }} />
       </div>
 
       {/* Bottom Legal Links */}
