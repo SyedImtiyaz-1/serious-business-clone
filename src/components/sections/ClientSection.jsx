@@ -1,4 +1,5 @@
-import { motion } from "framer-motion";
+import { useRef } from "react";
+import { motion, useInView } from "framer-motion";
 import styles from "./ClientSection.module.css";
 
 const clients = [
@@ -20,30 +21,45 @@ const clients = [
   { name: 'Usher', logo: 'usher-new-logo_white.png' },
 ];
 
+function FadeIn({ children, delay = 0, className }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: '-60px' });
+  return (
+    <motion.div
+      ref={ref}
+      className={className}
+      initial={{ opacity: 0, y: 30 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.7, delay, ease: [0.22, 1, 0.36, 1] }}
+    >
+      {children}
+    </motion.div>
+  );
+}
+
 export default function ClientSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.header}>
-          <p className={styles.subtitle}>Trusted by Industry Leaders</p>
-          <h2 className={styles.title}>Credibility that delivers results.</h2>
-        </div>
+        <p className={styles.label}>Clients:</p>
 
-        <div className={styles.marquee}>
-          <div className={styles.marqueeTrack}>
-            {[...clients, ...clients].map((client, i) => (
-              <div key={`${client.name}-${i}`} className={styles.clientLogo}>
-                <img
-                  src={`/CliendLogo/${client.logo}`}
-                  alt={client.name}
-                  loading="lazy"
-                  decoding="async"
-                  className={styles.logoImg}
-                />
+        <motion.div className={styles.logoGrid} layout>
+          {clients.map((client, i) => (
+            <FadeIn key={client.name} delay={i * 0.04}>
+              <div className={styles.logoCell}>
+                <div className={styles.logoContent}>
+                  <img
+                    src={`/CliendLogo/${client.logo}`}
+                    alt={client.name}
+                    loading="lazy"
+                    decoding="async"
+                    className={styles.clientLogoImg}
+                  />
+                </div>
               </div>
-            ))}
-          </div>
-        </div>
+            </FadeIn>
+          ))}
+        </motion.div>
       </div>
     </section>
   );

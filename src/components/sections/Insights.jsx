@@ -66,9 +66,10 @@ export default function Insights() {
   return (
     <motion.div
       ref={sectionRef}
-      className="w-full relative bg-[#fbf0f2]"
+      style={{ backgroundColor: "#fbf0f2" }}
+      className="w-full relative"
     >
-      <div className="px-6 md:px-12 pt-14 md:pt-28 pb-8 md:pb-12 w-full">
+      <div className="px-6 md:px-12 pt-8 md:pt-14 pb-8 md:pb-12 w-full">
 
         {/* Heading row — title left, button right */}
         <div className="flex items-start justify-between gap-6 mb-10 md:mb-14">
@@ -213,30 +214,38 @@ export default function Insights() {
           </div>
         </div>
 
+      </div>
 
-        {/* Awards */}
-        <motion.div
-          className="grid grid-cols-1 md:grid-cols-12 gap-6 md:gap-10 border-t pt-8 md:pt-10 mb-10 md:mb-16"
-          style={{ borderTopColor: borderColor, fontFamily: "'PP Mori', sans-serif" }}
-        >
+      {/* Clients — navy band, breaks out full-width for the grid */}
+      <div style={{ backgroundColor: "#020817" }} className="w-full px-4 md:px-8 py-16 md:py-24">
           <motion.h3
             initial={{ opacity: 0, x: -60 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true, amount: 0.3 }}
             transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-            style={{ color: textColor, fontFamily: "'Nib Pro', serif" }}
-            className="md:col-span-3 text-2xl italic font-semibold tracking-tight"
+            style={{
+              color: "#ffffff",
+              fontFamily: "'PP Mori', sans-serif",
+              fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
+              letterSpacing: "-0.03em",
+              lineHeight: 1.05,
+            }}
+            className="font-bold mb-8 md:mb-12"
           >
             Clients:
           </motion.h3>
+
           <div
-            className="md:col-span-9"
             style={{
               display: "grid",
               gridTemplateColumns: "repeat(4, 1fr)",
-              rowGap: "4.5rem",
-              columnGap: "4rem",
+              gap: "1px",
+              border: "1px solid rgba(255, 255, 255, 0.12)",
+              borderRadius: "1.25rem",
+              overflow: "hidden",
+              backgroundColor: "rgba(255, 255, 255, 0.06)",
             }}
+            className="md:grid-cols-4"
           >
             {clientLogos.map((logo, i) => (
               <motion.div
@@ -245,38 +254,50 @@ export default function Insights() {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true, amount: 0.1 }}
                 transition={{ duration: 0.6, ease: [0.16, 1, 0.3, 1], delay: i * 0.04 }}
-                style={{ display: "flex", alignItems: "center", justifyContent: "flex-start", height: "48px" }}
+                style={{
+                  display: "flex",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  aspectRatio: "1.8 / 1",
+                  backgroundColor: "#020817",
+                  padding: "1.4rem 1.8rem",
+                  cursor: "pointer",
+                  transition: "background 0.3s ease",
+                }}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = "#0d1426")}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = "#020817")}
               >
-                <motion.img
+                <img
                   src={logo.file.startsWith("http") ? logo.file : `/CliendLogo/${logo.file}`}
                   alt={logo.name}
                   loading="lazy"
                   decoding="async"
                   style={{
-                    filter: logo.file.startsWith("http") ? "none" : logoFilter,
-                    maxHeight: "100%",
-                    maxWidth: "100%",
+                    filter: logo.file.startsWith("http")
+                      ? "brightness(0) invert(1) opacity(0.75)"
+                      : "brightness(0) invert(1) opacity(0.75)",
+                    maxHeight: "60%",
+                    maxWidth: "85%",
                     width: "auto",
                     objectFit: "contain",
-                    opacity: 0.85,
-                    mixBlendMode: logo.file.startsWith("http") ? "multiply" : "normal",
+                    transition: "filter 0.3s ease",
                   }}
+                  onMouseEnter={(e) => (e.currentTarget.style.filter = "brightness(0) invert(1) opacity(1)")}
+                  onMouseLeave={(e) => (e.currentTarget.style.filter = "brightness(0) invert(1) opacity(0.75)")}
                 />
               </motion.div>
             ))}
           </div>
-        </motion.div>
-
-        <div className="flex justify-center mt-8 md:mt-10">
-          <TransitionLink
-            to="/clients"
-            className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-[#020817]/25 text-[#020817] text-xs md:text-sm font-bold tracking-[0.15em] uppercase hover:bg-[#020817] hover:text-[#fbf0f2] transition-colors"
-          >
-            Show All
-            <span aria-hidden>→</span>
-          </TransitionLink>
         </div>
 
+      <div className="px-6 md:px-12 py-10 md:py-14 w-full flex justify-center">
+        <TransitionLink
+          to="/clients"
+          className="inline-flex items-center gap-2 px-7 py-3 rounded-full border border-[#020817]/25 text-[#020817] text-xs md:text-sm font-bold tracking-[0.15em] uppercase hover:bg-[#020817] hover:text-[#fbf0f2] transition-colors"
+        >
+          Show All
+          <span aria-hidden>→</span>
+        </TransitionLink>
       </div>
     </motion.div>
   );

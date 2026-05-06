@@ -10,7 +10,7 @@ export default function Works() {
   const containerRef = useRef(null);
 
   return (
-    <div ref={containerRef} className="w-full px-6 pt-12 pb-24 bg-[#020817] text-[#fbf0f2]">
+    <div ref={containerRef} className="w-full px-6 pt-12 pb-10 bg-[#fbf0f2] text-[#020817]">
       <Reveal>
         <h2
           className="text-[clamp(1.8rem,8vw,4.5rem)] md:text-[5.5vw] lg:text-[4.5vw] font-bold leading-[1.1] mb-16 text-inherit text-center"
@@ -57,7 +57,7 @@ export default function Works() {
       </div>
 
       <div className="mt-20 flex justify-center">
-        <TransitionLink to="/work" className="px-8 py-4 rounded-full border border-current font-semibold hover:bg-[#fbf0f2] hover:text-[#020817] transition-colors inline-block text-[#fbf0f2]">
+        <TransitionLink to="/work" className="px-8 py-4 rounded-full border border-current font-semibold hover:bg-[#020817] hover:text-[#fbf0f2] transition-colors inline-block text-[#020817]">
           See more projects
         </TransitionLink>
       </div>

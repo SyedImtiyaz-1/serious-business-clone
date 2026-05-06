@@ -5,6 +5,7 @@ import ServiceBlock, { StrategyVideo, VisualImage, WebsiteImage, ProductImage } 
 import StackContainer from "../components/layout/StackContainer";
 import Works from "../components/sections/Works";
 import Insights from "../components/sections/Insights";
+import ClientSection from "../components/sections/ClientSection";
 import CTA from "../components/sections/CTA";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
@@ -40,8 +41,8 @@ export default function Home() {
     const ctx = gsap.context(() => {
       ScrollTrigger.create({
         trigger: ".dark-section",
-        start: "top 60%",
-        end: "bottom 40%",
+        start: "top top",
+        end: "bottom 60%",
         onEnter: setLightTheme,
         onEnterBack: setLightTheme,
         onLeave: setDarkTheme,
@@ -120,10 +121,10 @@ export default function Home() {
       <Hero />
       <AboutSection />
 
-      <Works />
-      <div aria-hidden="true" className="h-12 bg-[linear-gradient(to_bottom,#020817,#fbf0f2)]" />
+      <ClientSection />
       <div className="dark-section bg-[#fbf0f2]">
-        <div className="relative z-[60] pt-20 pb-0">
+        <Works />
+        <div className="relative z-[60] pt-0 pb-0">
           <div className="w-full">
             <Insights />
           </div>
