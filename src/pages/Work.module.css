@@ -15,7 +15,7 @@
 
 /* Tabs Header Section */
 .tabsSection {
-  padding: 11rem clamp(16px, 2vw, 28px) 7rem;
+  padding: 17rem clamp(16px, 2vw, 28px) 10rem;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -292,7 +292,7 @@
 /* Responsive */
 @media (max-width: 768px) {
   .tabsSection {
-    padding: 4rem 20px 3rem;
+    padding: 8rem 20px 5rem;
   }
 
   .tabsContainer {
