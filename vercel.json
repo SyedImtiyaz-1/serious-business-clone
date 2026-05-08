@@ -1,12 +1,12 @@
 {
+  "framework": "vite",
+  "buildCommand": "vite build",
+  "outputDirectory": "dist",
+  "functions": {
+    "api/admin/upload-image.js": { "maxDuration": 30 },
+    "api/admin/upload-video.js": { "maxDuration": 60 }
+  },
   "rewrites": [
-    {
-      "source": "/api/admin/(.*)",
-      "destination": "/api/admin/[...path]"
-    },
-    {
-      "source": "/(.*)",
-      "destination": "/index.html"
-    }
+    { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]
 }
