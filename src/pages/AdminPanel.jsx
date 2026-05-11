@@ -485,7 +485,7 @@ function MediaUploader({ type, value, onChange }) {
       const res = await fetch(`${API}/upload-${type}`, { method: "POST", headers, body: fd });
       const data = await res.json();
       if (data.url) onChange(data.url);
-    } catch {}
+    } catch { }
     setUploading(false);
   }
 
