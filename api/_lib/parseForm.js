@@ -2,7 +2,7 @@
 // because multer's middleware shape doesn't fit the serverless handler
 // signature. Returns { fields, files } where each file has `.filepath`,
 // `.originalFilename`, `.mimetype`, etc.
-const formidable = require("formidable");
+const { formidable } = require("formidable");
 
 function parseMultipart(req) {
   return new Promise((resolve, reject) => {
