@@ -659,7 +659,7 @@ function ListSectionEditor({ section, data, onChange }) {
 const FALLBACK_DATA = {
   home: {
     hero: { heading: "Premium Branding Agency\nfor B2B Tech Scaleups", subheading: "", videoUrl: "", logoImageUrl: "", bgColor: "#020817" },
-    about: { heading: "Crafting premium\nbrands for scaleups\nthat make people smile.", description: "", buttonText: "About us", imageUrl: "" },
+    about: { heading: "Strategic branding,\ndigital & production\nbuilt for companies in motion.", description: "", buttonText: "About us", imageUrl: "" },
     aboutFacts: [
       { value: "20+", label: "years building brands, platforms, and experiences that actually ship" },
       { value: "$100M+", label: "in projects, developments, and ventures supported through our work" },

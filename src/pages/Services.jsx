@@ -1,55 +1,59 @@
 import { motion } from 'framer-motion';
-import { useLayoutEffect, useRef } from 'react';
-import gsap from 'gsap';
-import { ScrollTrigger } from 'gsap/ScrollTrigger';
-import videoSrc from '../assets/video.mp4';
+import { useLayoutEffect } from 'react';
 import { usePageContent } from '../hooks/usePageContent';
 import { getContent } from '../lib/content';
 import { defaults } from '../lib/contentDefaults';
 
-gsap.registerPlugin(ScrollTrigger);
+import StackContainer from '../components/layout/StackContainer';
+import ServiceBlock, { StrategyVideo, VisualImage, WebsiteImage, ProductImage } from '../components/sections/Services';
+
 import styles from './Services.module.css';
 
+const PANEL_VISUALS = [
+  <StrategyVideo key="0" />,
+  <VisualImage key="1" />,
+  <WebsiteImage key="2" />,
+  <ProductImage key="3" />,
+  <WebsiteImage key="4" />,
+  <StrategyVideo key="5" />,
+  <VisualImage key="6" />,
+  <ProductImage key="7" />,
+];
+
 export default function Services() {
-  const videoRef = useRef(null);
   const { sections } = usePageContent("services");
   const heroHeading = getContent(sections, "hero.heading", defaults.services.hero.heading);
-  const sidebarLabel = getContent(sections, "sidebar.label", defaults.services.sidebar.label);
-  const sidebarText = getContent(sections, "sidebar.text", defaults.services.sidebar.text);
-  const serviceCards = getContent(sections, "serviceCards", defaults.services.serviceCards);
-  const programsHeading = getContent(sections, "programs.heading", defaults.services.programs.heading);
-  const brandingServices = getContent(sections, "programs.services", defaults.services.programs.services);
+  const cmsServicePanels = getContent(sections, "servicePanels", defaults.services.servicePanels);
 
   useLayoutEffect(() => {
     document.body.style.backgroundColor = '#fbf0f2';
     document.body.style.color = '#111111';
 
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        videoRef.current,
-        { scale: 0.82, y: 80, borderRadius: '32px' },
-        {
-          scale: 1,
-          y: 0,
-          borderRadius: '16px',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: videoRef.current,
-            start: 'top 95%',
-            end: 'top 20%',
-            scrub: 1,
-            invalidateOnRefresh: true,
-          },
-        }
-      );
-    });
-
     return () => {
-      ctx.revert();
       document.body.style.backgroundColor = '';
       document.body.style.color = '';
     };
   }, []);
+
+  const servicePanels = cmsServicePanels.map((panel, i) => {
+    const items = Array.isArray(panel.items)
+      ? panel.items
+      : typeof panel.items === "string"
+        ? panel.items.split(",").map((s) => s.trim()).filter(Boolean)
+        : [];
+    return {
+      bg: panel.bg,
+      children: (
+        <ServiceBlock
+          title={panel.title}
+          description={panel.description}
+          list={items}
+          imageContent={PANEL_VISUALS[i % PANEL_VISUALS.length]}
+          textColor={panel.textColor || "text-[#fbf0f2]"}
+        />
+      ),
+    };
+  });
 
   return (
     <motion.div
@@ -72,70 +76,7 @@ export default function Services() {
 
       <div className={styles.divider} />
 
-      {/* ── Body: sidebar + cards ── */}
-      <section className={styles.body}>
-        <motion.div
-          className={styles.sidebar}
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.7, delay: 0.15 }}
-        >
-          <span className={styles.sidebarLabel}>{sidebarLabel}</span>
-          <p className={styles.sidebarText}>{sidebarText}</p>
-        </motion.div>
-
-        <div className={styles.grid}>
-          {serviceCards.map((card, i) => (
-            <motion.div
-              key={card.id}
-              className={`${styles.card} ${card.featured ? styles.cardFeatured : ''} ${card.bg ? styles.cardColored : ''
-                }`}
-              style={card.bg ? { backgroundColor: card.bg } : {}}
-              initial={{ opacity: 0, y: 24 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.1 + i * 0.08, ease: [0.16, 1, 0.3, 1] }}
-            >
-              <div className={styles.cardInner}>
-                <h3 className={styles.cardTitle}>{card.title}</h3>
-                <p className={styles.cardText}>{card.text}</p>
-              </div>
-              <span className={styles.cardArrow} aria-hidden="true">
-                <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
-                  <path d="M3 13L13 3M13 3H6M13 3V10" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" />
-                </svg>
-              </span>
-            </motion.div>
-          ))}
-        </div>
-      </section>
-
-      {/* ── Scroll-scale video ── */}
-      <div className={styles.videoWrap}>
-        <div ref={videoRef} className={styles.videoBox}>
-          <video
-            autoPlay
-            loop
-            muted
-            playsInline
-            className={styles.video}
-            src={videoSrc}
-          />
-        </div>
-      </div>
-
-      {/* ── Branding services list ── */}
-      <section className={styles.programs}>
-        <h2 className={styles.programsHeading}>{programsHeading}</h2>
-        <div className={styles.programsList}>
-          {brandingServices.map((s) => (
-            <div key={s.name} className={styles.programRow} role="link" tabIndex={0}>
-              <span className={styles.programName}>{s.name}</span>
-              <span className={styles.programTagline}>{s.tagline}</span>
-              <span className={styles.programArrow} aria-hidden>→</span>
-            </div>
-          ))}
-        </div>
-      </section>
+      <StackContainer panels={servicePanels} />
 
     </motion.div>
   );

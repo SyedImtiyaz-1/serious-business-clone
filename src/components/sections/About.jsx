@@ -44,9 +44,12 @@ export default function About() {
                 className="text-[2rem] sm:text-[2.5rem] md:text-[72px] font-semibold tracking-tighter mb-12"
                 style={{ fontFamily: "'PP Mori', sans-serif", lineHeight: 1 }}
               >
-                Crafting premium <br />
-                brands for scaleups <br />
-                that make people smile.
+                {heading.split("\n").map((line, i, arr) => (
+                  <span key={i}>
+                    {line}
+                    {i < arr.length - 1 && <br />}
+                  </span>
+                ))}
               </h2>
             </Reveal>
 

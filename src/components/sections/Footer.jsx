@@ -41,7 +41,7 @@ export default function Footer() {
             <ul className="space-y-1">
               {(f.stalkUsLinks || []).map((link) => (
                 <li key={link.label}>
-                  <a href={link.href} className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">
+                  <a href={link.href} target="_blank" rel="noopener noreferrer" className="text-[1.8rem] sm:text-[2.5rem] md:text-[2rem] font-bold tracking-tight hover:opacity-60 transition-opacity leading-tight">
                     {link.label}
                   </a>
                 </li>
