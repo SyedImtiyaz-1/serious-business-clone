@@ -12,6 +12,7 @@ import { defaults } from '../lib/contentDefaults';
 export default function WorkDetail() {
   const { slug } = useParams();
   const [isContactModalOpen, setIsContactModalOpen] = useState(false);
+  const [lightboxIdx, setLightboxIdx] = useState(null);
 
   const { sections } = usePageContent("workDetail");
   const { sections: workSections, loading: workLoading } = usePageContent("work");
@@ -36,6 +37,7 @@ export default function WorkDetail() {
         description2: p.description2 || '',
         image2: p.image2Url || '',
         video2: p.video2Url || '',
+        gallery: p.gallery || [],
         fromCms: true,
       }));
 
@@ -57,6 +59,7 @@ export default function WorkDetail() {
           description2: override.description2 || hp.description2,
           image2: override.image2 || hp.image2,
           video2: override.video2 || hp.video2,
+          gallery: override.gallery && override.gallery.length > 0 ? override.gallery : (hp.gallery || []),
           fromCms: true,
         };
       }
@@ -222,6 +225,26 @@ export default function WorkDetail() {
           >
             <video src={project.video2} autoPlay muted loop playsInline className={styles.mainImage} />
           </motion.section>
+        )}
+
+        {/* Gallery Images Stacked Vertically One by One */}
+        {project.gallery && project.gallery.length > 0 && (
+          <div className={styles.galleryVerticalStack}>
+            {project.gallery
+              .filter((url) => url !== project.image && url !== project.image2)
+              .map((url, idx) => (
+                <motion.section
+                  key={idx}
+                  className={styles.mainImageWrapper}
+                  initial={{ opacity: 0, y: 30 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  viewport={{ once: true, amount: 0.15 }}
+                  transition={{ duration: 0.8 }}
+                >
+                  <img src={url} alt={`${project.title} gallery ${idx + 1}`} className={styles.mainImage} />
+                </motion.section>
+              ))}
+          </div>
         )}
       </div>
 

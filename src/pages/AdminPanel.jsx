@@ -146,6 +146,7 @@ const PAGE_CONFIG = {
           { name: "description2", label: "Secondary Description", type: "textarea" },
           { name: "image2Url", label: "Secondary Image", type: "image" },
           { name: "video2Url", label: "Secondary Video", type: "video" },
+          { name: "gallery", label: "Project Gallery (Multiple Images)", type: "gallery" },
         ],
       },
     ],
@@ -628,6 +629,99 @@ function FieldInput({ field, value, onChange }) {
           onClick={() => onChange((Math.min(max, numVal + step)).toString())}
         >
           +
+        </button>
+      </div>
+    );
+  }
+  if (field.type === "gallery") {
+    const images = Array.isArray(value) ? value : (value ? [value] : []);
+    const fileInputRef = useRef(null);
+    const [uploading, setUploading] = useState(false);
+
+    const handleFile = async (file) => {
+      if (!file) return;
+      setUploading(true);
+      try {
+        const formData = new FormData();
+        formData.append("image", file);
+        
+        const res = await fetch("/api/admin/upload-image", {
+          method: "POST",
+          headers: { "x-admin-key": KEY },
+          body: formData,
+        });
+        
+        if (!res.ok) throw new Error("Upload failed");
+        const data = await res.json();
+        if (data.url) {
+          onChange([...images, data.url]);
+        }
+      } catch (err) {
+        console.error("Upload error:", err);
+        alert("Failed to upload image. Please try again.");
+      } finally {
+        setUploading(false);
+      }
+    };
+
+    const handleRemoveImage = (indexToRemove) => {
+      onChange(images.filter((_, idx) => idx !== indexToRemove));
+    };
+
+    return (
+      <div className={styles.galleryFieldContainer}>
+        {images.length > 0 && (
+          <div className={styles.galleryPreviewGrid}>
+            {images.map((url, idx) => (
+              <div key={idx} className={styles.galleryPreviewItem}>
+                <img src={url} alt={`Gallery ${idx + 1}`} className={styles.galleryPreviewImg} />
+                <button
+                  type="button"
+                  className={styles.galleryPreviewRemove}
+                  onClick={() => handleRemoveImage(idx)}
+                  title="Remove Image"
+                >
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+                    <path d="M18 6L6 18M6 6l12 12" />
+                  </svg>
+                </button>
+              </div>
+            ))}
+          </div>
+        )}
+        
+        <input
+          type="file"
+          ref={fileInputRef}
+          accept="image/*"
+          style={{ display: "none" }}
+          onChange={(e) => {
+            if (e.target.files && e.target.files[0]) {
+              handleFile(e.target.files[0]);
+            }
+          }}
+        />
+        
+        <button
+          type="button"
+          className={styles.addGalleryImageBtn}
+          disabled={uploading}
+          onClick={() => fileInputRef.current?.click()}
+        >
+          {uploading ? (
+            <>
+              <div className={styles.gallerySpinner} />
+              Uploading...
+            </>
+          ) : (
+            <>
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" style={{ marginRight: "6px" }}>
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+              Add Image
+            </>
+          )}
         </button>
       </div>
     );
