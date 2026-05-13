@@ -268,6 +268,12 @@ const PAGE_CONFIG = {
             step: 5,
             description: "Click + or - to scale this logo dynamically on the website (Default is 100%)."
           },
+          {
+            name: "showOnHome",
+            label: "Show on Homepage",
+            type: "boolean",
+            description: "Feature this client logo in the home page clients section."
+          },
         ],
       },
       {
@@ -623,6 +629,19 @@ function FieldInput({ field, value, onChange }) {
         >
           +
         </button>
+      </div>
+    );
+  }
+  if (field.type === "boolean") {
+    return (
+      <div className={styles.checkboxContainer}>
+        <input
+          type="checkbox"
+          checked={value === true || value === "true"}
+          onChange={(e) => onChange(e.target.checked)}
+          className={styles.checkbox}
+        />
+        <span className={styles.checkboxLabel}>{field.description || "Enable"}</span>
       </div>
     );
   }

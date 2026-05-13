@@ -24,7 +24,10 @@ function FadeIn({ children, delay = 0, className }) {
 
 export default function ClientSection() {
   const { sections } = usePageContent("clients");
-  const clients = getContent(sections, "list", defaults.clients.list);
+  const allClients = getContent(sections, "list", defaults.clients.list);
+
+  const homeClients = allClients.filter(c => c.showOnHome === true || c.showOnHome === "true");
+  const clients = homeClients.length > 0 ? homeClients : allClients.slice(0, 16);
 
   return (
     <section className={styles.section}>
