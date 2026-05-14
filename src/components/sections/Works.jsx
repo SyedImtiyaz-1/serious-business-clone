@@ -1,5 +1,5 @@
 import { motion } from "framer-motion";
-import { useRef } from "react";
+import { useRef, useMemo } from "react";
 import Reveal from "../ui/Reveal";
 import TransitionLink from "../ui/TransitionLink";
 import projects from "../../data/projects";
@@ -7,14 +7,61 @@ import { usePageContent } from "../../hooks/usePageContent";
 import { getContent } from "../../lib/content";
 import { defaults } from "../../lib/contentDefaults";
 
-const featured = projects.slice(0, 6);
-
 export default function Works() {
   const containerRef = useRef(null);
   const { sections } = usePageContent("home");
+  const { sections: workSections } = usePageContent("work");
+
   const headingBold = getContent(sections, "works.headingBold", defaults.home.works.headingBold);
   const headingItalic = getContent(sections, "works.headingItalic", defaults.home.works.headingItalic);
   const ctaText = getContent(sections, "works.ctaText", defaults.home.works.ctaText);
+
+  const cmsRawProjects = getContent(workSections, "projects", []);
+  const featured = useMemo(() => {
+    const cmsProjects = cmsRawProjects
+      .filter(p => p.title)
+      .map(p => ({
+        slug: p.slug || p.title.toLowerCase().replace(/\s+/g, '-'),
+        title: p.title,
+        subtitle: p.subtitle || '',
+        category: p.category || 'Uncategorized',
+        client: p.client || p.title,
+        services: p.services || '',
+        description: p.description || '',
+        image: p.imageUrl || '',
+        video: p.videoUrl || '',
+        featured: p.featured === true || p.featured === "true",
+      }));
+
+    const cmsMap = new Map(cmsProjects.map((p) => [p.slug, p]));
+    const mergedHardcoded = projects.map((hp) => {
+      const override = cmsMap.get(hp.slug);
+      if (override) {
+        return {
+          ...hp,
+          ...override,
+          title: override.title || hp.title,
+          subtitle: override.subtitle || hp.subtitle,
+          category: override.category || hp.category,
+          client: override.client || hp.client,
+          image: override.image || hp.image,
+          video: override.video || hp.video,
+          featured: override.featured !== undefined ? override.featured : hp.featured,
+        };
+      }
+      return hp;
+    });
+
+    const hardcodedSlugs = new Set(projects.map(p => p.slug));
+    const newCms = cmsProjects.filter(p => !hardcodedSlugs.has(p.slug));
+    const allProjects = [...mergedHardcoded, ...newCms];
+
+    const explicitlyFeatured = allProjects.filter(p => p.featured);
+    if (explicitlyFeatured.length > 0) {
+      return explicitlyFeatured;
+    }
+    return allProjects.slice(0, 6);
+  }, [cmsRawProjects]);
 
   return (
     <div ref={containerRef} className="w-full px-6 pt-12 pb-10 bg-[#fbf0f2] text-[#020817]">

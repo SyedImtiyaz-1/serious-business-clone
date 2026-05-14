@@ -39,6 +39,7 @@ export default function Work() {
           description: p.description || '',
           image: p.imageUrl || '',
           video: p.videoUrl || '',
+          featured: p.featured === true || p.featured === "true",
           fromCms: true,
         })),
     [cmsRawProjects]
@@ -60,6 +61,7 @@ export default function Work() {
           description: override.description || hp.description,
           image: override.image || hp.image,
           video: override.video || hp.video,
+          featured: override.featured !== undefined ? override.featured : hp.featured,
           fromCms: true,
         };
       }
@@ -85,7 +87,13 @@ export default function Work() {
     return [...map.entries()];
   }, [allProjects]);
 
-  const featuredProjects = useMemo(() => allProjects.slice(0, 6), [allProjects]);
+  const featuredProjects = useMemo(() => {
+    const explicitlyFeatured = allProjects.filter(p => p.featured);
+    if (explicitlyFeatured.length > 0) {
+      return explicitlyFeatured;
+    }
+    return allProjects.slice(0, 6);
+  }, [allProjects]);
 
   const hoveredProject = hoveredSlug
     ? allProjects.find(p => p.slug === hoveredSlug)

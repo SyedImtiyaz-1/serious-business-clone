@@ -136,6 +136,7 @@ const PAGE_CONFIG = {
         fields: [
           { name: "title", label: "Title", type: "text" },
           { name: "slug", label: "URL Slug", type: "text" },
+          { name: "featured", label: "Feature this work (Show on Home & Featured Tab)", type: "boolean" },
           { name: "subtitle", label: "Subtitle", type: "text" },
           { name: "client", label: "Client", type: "text" },
           { name: "category", label: "Category", type: "text" },
