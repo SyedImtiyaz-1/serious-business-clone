@@ -36,14 +36,23 @@ function renderTitleWithSmiley(text) {
 export default function Insights() {
   const sectionRef = useRef(null);
   const { sections } = usePageContent("home");
+  const { sections: insightSections } = usePageContent("insights");
   const heading = getContent(sections, "insights.heading", defaults.home.insights.heading);
   const trendingButton = getContent(sections, "insights.trendingButton", defaults.home.insights.trendingButton);
   const rawCards = getContent(sections, "insights.cards", defaults.home.insights.cards);
+  const cmsArticles = getContent(insightSections, "articles", []);
+
   // Merge CMS cards with defaults so slugs and other fields are never empty
   const defaultCards = defaults.home.insights.cards;
   const cards = rawCards.map((card, i) => {
     const def = defaultCards[i] || {};
-    return { ...def, ...card, slug: card.slug || def.slug || `article-${i}` };
+    const cmsArt = cmsArticles[i];
+    return {
+      ...def,
+      ...card,
+      title: cmsArt?.title || card.title || def.title,
+      slug: cmsArt?.slug || card.slug || def.slug || `article-${i}`,
+    };
   });
 
   // Section has a static cream bg; all text/borders stay dark for readability.
