@@ -13,12 +13,12 @@ export default function CTA() {
   return (
     <section className="w-full px-6 pt-20 pb-20 bg-[#020817] text-[#fbf0f2]">
       {/* Top CTA Cards */}
-      <div className="max-w-[1400px] mx-auto grid md:grid-cols-2 gap-4">
+      <div className="max-w-[1400px] mx-auto flex flex-col md:flex-row items-stretch justify-between gap-6 md:gap-12">
         {/* Left Card */}
         <button
           type="button"
           onClick={() => setIsContactOpen(true)}
-          className="bg-[#E8E6DF] text-[#0b1121] p-8 md:p-10 h-[300px] md:h-[350px] flex flex-col justify-between cursor-pointer group hover:opacity-95 transition-opacity border border-white/10 rounded-xl text-left"
+          className="w-full md:w-1/2 bg-[#E8E6DF] text-[#0b1121] p-8 md:p-10 h-[300px] md:h-[350px] flex flex-col justify-between cursor-pointer group hover:opacity-95 transition-opacity border border-white/10 rounded-[24px] text-left"
           style={{ fontFamily: "inherit" }}
         >
           <div className="text-lg md:text-xl leading-tight">
@@ -34,7 +34,7 @@ export default function CTA() {
         <button
           type="button"
           onClick={() => setIsContactOpen(true)}
-          className="bg-[#2B59C3] text-white p-8 md:p-10 h-[300px] md:h-[350px] flex flex-col justify-between cursor-pointer group hover:opacity-95 transition-opacity rounded-xl text-left"
+          className="w-full md:w-1/2 bg-[#2B59C3] text-white p-8 md:p-10 h-[300px] md:h-[350px] flex flex-col justify-between cursor-pointer group hover:opacity-95 transition-opacity rounded-[24px] text-left"
           style={{ fontFamily: "inherit" }}
         >
           <div className="text-base md:text-lg leading-snug max-w-sm">

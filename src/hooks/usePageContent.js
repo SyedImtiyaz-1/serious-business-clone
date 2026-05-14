@@ -3,21 +3,37 @@ import { useEffect, useState } from "react";
 const cache = new Map();
 const inFlight = new Map();
 
+function getCachedData(page) {
+  if (cache.has(page)) {
+    return cache.get(page);
+  }
+  try {
+    const saved = localStorage.getItem(`cms_page_${page}`);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      cache.set(page, parsed);
+      return parsed;
+    }
+  } catch (e) {
+    // Ignore localStorage restrictions
+  }
+  return null;
+}
+
 export function usePageContent(page) {
-  const [sections, setSections] = useState(() => cache.get(page) || null);
-  const [loading, setLoading] = useState(!cache.has(page));
+  const [sections, setSections] = useState(() => getCachedData(page));
+  const [loading, setLoading] = useState(() => !cache.has(page));
   const [error, setError] = useState(null);
 
   useEffect(() => {
     let cancelled = false;
 
-    if (cache.has(page)) {
-      setSections(cache.get(page));
+    // Even if cached, we do a silent background re-fetch to keep data fresh
+    const cached = getCachedData(page);
+    if (cached && !sections) {
+      setSections(cached);
       setLoading(false);
-      return;
     }
-
-    setLoading(true);
 
     const promise =
       inFlight.get(page) ||
@@ -26,6 +42,11 @@ export function usePageContent(page) {
         .then((doc) => {
           const next = doc?.sections || {};
           cache.set(page, next);
+          try {
+            localStorage.setItem(`cms_page_${page}`, JSON.stringify(next));
+          } catch (e) {
+            // Ignore storage errors
+          }
           inFlight.delete(page);
           return next;
         })
@@ -57,6 +78,17 @@ export function usePageContent(page) {
 }
 
 export function invalidatePageContent(page) {
-  if (page) cache.delete(page);
-  else cache.clear();
+  if (page) {
+    cache.delete(page);
+    try {
+      localStorage.removeItem(`cms_page_${page}`);
+    } catch (e) {}
+  } else {
+    cache.clear();
+    try {
+      Object.keys(localStorage).forEach((key) => {
+        if (key.startsWith("cms_page_")) localStorage.removeItem(key);
+      });
+    } catch (e) {}
+  }
 }

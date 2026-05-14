@@ -125,7 +125,7 @@ export default function About() {
         <button
           onClick={() => setIsContactModalOpen(true)}
           className={styles.ctaBlockDark}
-          style={{ border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit' }}
+          style={{ border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', flex: 1, width: '100%' }}
         >
           <div className={styles.ctaTextTop}>
             <strong>{ctaSendRequest.topBold}</strong>
@@ -137,7 +137,7 @@ export default function About() {
         <button
           onClick={() => setIsContactModalOpen(true)}
           className={styles.ctaBlockPink}
-          style={{ border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', width: '100%' }}
+          style={{ border: 'none', cursor: 'pointer', textAlign: 'left', fontFamily: 'inherit', flex: 1, width: '100%' }}
         >
           <div className={styles.ctaTextTop}>
             <strong>{ctaMasterplan.topBold}</strong>

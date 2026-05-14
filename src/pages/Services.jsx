@@ -84,7 +84,7 @@ export default function Services() {
 
       {/* ── Scroll-scale video section removed per request ── */}
 
-
+      <StackContainer panels={servicePanels} />
 
     </motion.div>
   );
