@@ -44,7 +44,8 @@ export default function Clients() {
     const ctaHeading = getContent(sections, "cta.heading", defaults.clients.cta.heading);
     const ctaButtonText = getContent(sections, "cta.buttonText", defaults.clients.cta.buttonText);
 
-    const categories = ['All', ...Array.from(new Set(clients.map(c => c.category)))];
+    const allowedCategories = new Set(['All', 'Finance', 'Nonprofit', 'Real Estate', 'Education', 'Healthcare', 'Entertainment', 'Government', 'Legal']);
+    const categories = ['All', ...Array.from(new Set(clients.map(c => c.category)))].filter(cat => allowedCategories.has(cat));
 
     const [activeFilter, setActiveFilter] = useState('All');
 
@@ -105,8 +106,6 @@ export default function Clients() {
 
             {/* Logo grid */}
             <section className={styles.gridSection}>
-                <p className={styles.gridHeading}>{gridHeading}</p>
-                <p className={styles.gridSubtext}>{gridSubtext}</p>
                 <motion.div className={styles.logoGrid} layout>
                     {filtered.map((client, i) => {
                         const sizePercent = parseInt(client.logoSize, 10) || 100;

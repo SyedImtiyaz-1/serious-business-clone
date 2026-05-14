@@ -33,34 +33,11 @@ export default function Works() {
         featured: p.featured === true || p.featured === "true",
       }));
 
-    const cmsMap = new Map(cmsProjects.map((p) => [p.slug, p]));
-    const mergedHardcoded = projects.map((hp) => {
-      const override = cmsMap.get(hp.slug);
-      if (override) {
-        return {
-          ...hp,
-          ...override,
-          title: override.title || hp.title,
-          subtitle: override.subtitle || hp.subtitle,
-          category: override.category || hp.category,
-          client: override.client || hp.client,
-          image: override.image || hp.image,
-          video: override.video || hp.video,
-          featured: override.featured !== undefined ? override.featured : hp.featured,
-        };
-      }
-      return hp;
-    });
-
-    const hardcodedSlugs = new Set(projects.map(p => p.slug));
-    const newCms = cmsProjects.filter(p => !hardcodedSlugs.has(p.slug));
-    const allProjects = [...mergedHardcoded, ...newCms];
-
-    const explicitlyFeatured = allProjects.filter(p => p.featured);
+    const explicitlyFeatured = cmsProjects.filter(p => p.featured);
     if (explicitlyFeatured.length > 0) {
       return explicitlyFeatured;
     }
-    return allProjects.slice(0, 6);
+    return cmsProjects.slice(0, 6);
   }, [cmsRawProjects]);
 
   return (
