@@ -41,34 +41,7 @@ export default function WorkDetail() {
         fromCms: true,
       }));
 
-    const cmsMap = new Map(cms.map((p) => [p.slug, p]));
-
-    const mergedHardcoded = hardcodedProjects.map((hp) => {
-      const override = cmsMap.get(hp.slug);
-      if (override) {
-        return {
-          ...hp,
-          title: override.title || hp.title,
-          subtitle: override.subtitle || hp.subtitle,
-          category: override.category || hp.category,
-          client: override.client || hp.client,
-          services: override.services || hp.services,
-          description: override.description || hp.description,
-          image: override.image || hp.image,
-          video: override.video || hp.video,
-          description2: override.description2 || hp.description2,
-          image2: override.image2 || hp.image2,
-          video2: override.video2 || hp.video2,
-          gallery: override.gallery && override.gallery.length > 0 ? override.gallery : (hp.gallery || []),
-          fromCms: true,
-        };
-      }
-      return hp;
-    });
-
-    const hardcodedSlugs = new Set(hardcodedProjects.map((p) => p.slug));
-    const newCms = cms.filter((p) => !hardcodedSlugs.has(p.slug));
-    return [...mergedHardcoded, ...newCms];
+    return cms;
   }, [workSections]);
 
   const project = projects.find((p) => p.slug === slug);
@@ -266,7 +239,9 @@ export default function WorkDetail() {
                 </motion.div>
                 <div>
                   <h3 className={styles.projectCardTitle}>{p.title}</h3>
-                  <p className={styles.projectCardCategory}>{p.category} &middot; Brand Identity &middot; Website</p>
+                  <p className={styles.projectCardCategory}>
+                    {p.category} {p.services ? `\u00B7 ${p.services}` : '\u00B7 Brand Identity \u00B7 Website'}
+                  </p>
                 </div>
               </TransitionLink>
             ))}
