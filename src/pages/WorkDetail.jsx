@@ -236,7 +236,19 @@ export default function WorkDetail() {
                   viewport={{ once: true }}
                   transition={{ duration: 0.5, delay: i * 0.1 }}
                 >
-                  <img src={p.image} alt={p.title} className={styles.projectImage} />
+                  {p.video ? (
+                    <video
+                      src={p.video}
+                      autoPlay
+                      loop
+                      muted
+                      playsInline
+                      className={styles.projectImage}
+                      style={{ objectFit: 'cover' }}
+                    />
+                  ) : (
+                    <img src={p.image} alt={p.title} className={styles.projectImage} />
+                  )}
                 </motion.div>
                 <div>
                   <h3 className={styles.projectCardTitle}>{p.title}</h3>

@@ -24,7 +24,6 @@ const PANEL_VISUALS = [
 
 export default function Home() {
   const { sections } = usePageContent("home");
-  const cmsServicePanels = getContent(sections, "servicePanels", defaults.home.servicePanels);
   const servicesLabel = getContent(sections, "servicesLabel", defaults.home.servicesLabel);
 
   useLayoutEffect(() => {
@@ -85,7 +84,14 @@ export default function Home() {
     };
   }, []);
 
-  const servicePanels = cmsServicePanels.map((panel, i) => {
+  const { sections: servicesSections } = usePageContent("services");
+  const rawServicePanels = getContent(servicesSections, "servicePanels", defaults.services.servicePanels);
+  const featuredPanels = rawServicePanels.filter(p => p.featureOnHome);
+  
+  // If no panels are explicitly featured, fall back to defaults or a subset
+  const displayPanels = featuredPanels.length > 0 ? featuredPanels : rawServicePanels.slice(0, 4);
+
+  const servicePanels = displayPanels.map((panel, i) => {
     const items = Array.isArray(panel.items)
       ? panel.items
       : typeof panel.items === "string"
@@ -100,6 +106,10 @@ export default function Home() {
           list={items}
           imageContent={PANEL_VISUALS[i % PANEL_VISUALS.length]}
           textColor={panel.textColor || "text-[#fbf0f2]"}
+          videoUrl={panel.videoUrl}
+          imageUrl={panel.imageUrl}
+          mediaTitle={panel.mediaTitle}
+          mediaLabel={panel.mediaLabel}
         />
       ),
     };

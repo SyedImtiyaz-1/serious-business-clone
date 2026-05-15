@@ -8,12 +8,53 @@ export default function ServiceBlock({
   list,
   textColor = "text-[#1a1a1a]",
   imageContent,
+  videoUrl,
+  imageUrl,
+  mediaTitle,
+  mediaLabel,
 }) {
   const items = Array.isArray(list)
     ? list
     : typeof list === "string"
       ? list.split(",").map((s) => s.trim()).filter(Boolean)
       : [];
+
+  const dynamicContent = (videoUrl || imageUrl) ? (
+    <div className="w-full h-full bg-[#0b0215] text-white relative overflow-hidden flex items-center justify-center">
+      {videoUrl ? (
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          key={videoUrl}
+          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          src={videoUrl}
+        />
+      ) : (
+        <img
+          className="absolute inset-0 w-full h-full object-cover opacity-60"
+          src={imageUrl}
+          alt=""
+        />
+      )}
+      <div className="relative z-10 p-6 md:p-8 flex flex-col items-start justify-center w-full h-full">
+        {mediaLabel && (
+          <div className="absolute top-6 right-6 text-sm font-bold tracking-tighter flex items-center gap-2">
+            <div className="w-4 h-4 bg-white/20 rotate-45" /> {mediaLabel}
+          </div>
+        )}
+        {mediaTitle && (
+          <h3 className="text-[28px] md:text-[32px] font-bold leading-[1.1] tracking-tighter" style={{ fontFamily: "'PP Mori', sans-serif" }}>
+            {mediaTitle.split('\n').map((line, i) => (
+              <span key={i}>{line}<br /></span>
+            ))}
+          </h3>
+        )}
+      </div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
+    </div>
+  ) : imageContent;
   return (
     <div
       className={`w-full flex flex-col md:flex-row items-stretch ${textColor} relative`}
@@ -72,7 +113,7 @@ export default function ServiceBlock({
         className="w-full md:w-[40%] flex items-start justify-end p-6 md:p-10"
       >
         <div className="w-full max-w-[420px] aspect-square rounded-2xl overflow-hidden">
-          {imageContent}
+          {dynamicContent}
         </div>
       </motion.div>
 

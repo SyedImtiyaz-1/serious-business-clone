@@ -1,5 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 import styles from "./AdminPanel.module.css";
+import { invalidatePageContent } from "../hooks/usePageContent";
+import { defaults } from "../lib/contentDefaults";
 
 const API = "/api/admin";
 const KEY = "234583419264838";
@@ -264,40 +266,6 @@ const PAGE_CONFIG = {
         ],
       },
       {
-        key: "sidebar",
-        title: "Sidebar Info",
-        fields: [
-          { name: "label", label: "Label (e.g. When?)", type: "text" },
-          { name: "text", label: "Body Text", type: "textarea" },
-        ],
-      },
-      {
-        key: "serviceCards",
-        title: "Offering Cards",
-        type: "list",
-        fields: [
-          { name: "id", label: "ID", type: "text" },
-          { name: "title", label: "Title", type: "text" },
-          { name: "text", label: "Description", type: "textarea" },
-        ],
-      },
-      {
-        key: "programs",
-        title: "Programs Heading",
-        fields: [
-          { name: "heading", label: "Heading", type: "text" },
-        ],
-      },
-      {
-        key: "programs.services",
-        title: "Branding Services List",
-        type: "list",
-        fields: [
-          { name: "name", label: "Name", type: "text" },
-          { name: "tagline", label: "Tagline", type: "text" },
-        ],
-      },
-      {
         key: "servicePanels",
         title: "Service Stack Panels",
         type: "list",
@@ -307,6 +275,11 @@ const PAGE_CONFIG = {
           { name: "items", label: "Items (comma-separated)", type: "text" },
           { name: "bg", label: "Background Color", type: "color" },
           { name: "textColor", label: "Text Color (Tailwind class)", type: "text" },
+          { name: "videoUrl", label: "Overlay Video (mp4)", type: "video" },
+          { name: "imageUrl", label: "Overlay Image (fallback)", type: "image" },
+          { name: "mediaTitle", label: "Card Title (e.g. Imagination beyond limits)", type: "textarea" },
+          { name: "mediaLabel", label: "Card Label (e.g. strategy.mp4)", type: "text" },
+          { name: "featureOnHome", label: "Feature on Homepage", type: "boolean" },
         ],
       },
     ],
@@ -850,112 +823,7 @@ function ListSectionEditor({ section, data, onChange }) {
 }
 
 // ─── Fallback data when API is unavailable ───
-const FALLBACK_DATA = {
-  home: {
-    hero: { heading: "Premium Branding Agency\nfor B2B Tech Scaleups", subheading: "", videoUrl: "", logoImageUrl: "", bgColor: "#020817" },
-    about: { heading: "Strategic branding,\ndigital & production\nbuilt for companies in motion.", description: "", buttonText: "About us", imageUrl: "" },
-    aboutFacts: [
-      { value: "20+", label: "years building brands, platforms, and experiences that actually ship" },
-      { value: "$100M+", label: "in projects, developments, and ventures supported through our work" },
-      { value: "3 markets", label: "New York • Toronto • Florida — operating across borders and industries" },
-      { value: "0 layers", label: "you work directly with senior leadership — always" },
-      { value: "Weeks, not months", label: "from strategy to execution" },
-    ],
-    servicePanels: [
-      { title: "Brand Strategy", description: "It's the core of your company's identity. It guides all business decisions, ensuring a consistent and impactful presence in the market.", items: "Research & Insights, Brand Model, Positioning, Value proposition, Messaging, Verbal Identity, Naming", bgColor: "#2B59C3", imageUrl: "", videoUrl: "" },
-      { title: "Identity", description: "Distinctive visual systems designed to be immediate, enduring, and unmistakable.", items: "Logo & Wordmark, Typography & Color, Art Direction, Brand Systems, Guidelines", bgColor: "#0B0215", imageUrl: "", videoUrl: "" },
-      { title: "Digital", description: "High-performance digital experiences—designed with precision and built to scale.", items: "UX & UI Design, Website Design, Web Development, Interaction & Motion", bgColor: "#fbf0f2", imageUrl: "", videoUrl: "" },
-      { title: "Product", description: "Thoughtfully designed products that are intuitive, refined, and built for real use.", items: "UX Design, Prototyping, UI Systems, App Design", bgColor: "#020817", imageUrl: "", videoUrl: "" },
-    ],
-    works: { heading: "We partner with ambitious\nscaleups in New York\nand the Americas", ctaText: "See more projects" },
-    insightCards: [
-      { brand: "Marshall Haber", label: "The Heart of the Shift:", title: "Brand Messaging is the Soul of Rebranding", description: "Brand Messaging is the Soul of Rebranding", bgColor: "#f7c4d5", slug: "brand-messaging" },
-      { brand: "Marshall Haber", label: "Research Is Our Love Language:", title: "The Art of Gathering Insights", description: "The Art of Gathering Insights", bgColor: "#2B59C3", slug: "art-of-gathering-insights" },
-      { brand: "Marshall Haber", label: "The Founders' Guide to Rebranding", titleLarge: "...is it time?", description: "...is it time?", bgColor: "#0B0215", slug: "the-founders-guide-to-rebranding" },
-    ],
-    cta: [
-      { topText: "You feel it too?\nLet's talk, no strings attached", heading: "Send Request", bgColor: "#E8E6DF" },
-      { topText: "Our free offer for B2B tech scaleups!\nWe identify high-impact messaging and brand fixes you can implement within 24 hours.", heading: "Brand Masterplan", bgColor: "#2B59C3" },
-    ],
-  },
-  work: {
-    projects: [
-      { slug: "memri", title: "MEMRI", subtitle: "TRUTH IS COMPLEX. SPEAK ITS LANGUAGE.", client: "MEMRI", category: "Civic + Public + Political", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "optifino", title: "Optifino", subtitle: "Technology", client: "Optifino", category: "Technology", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "toronto", title: "The One Toronto", subtitle: "Real Estate", client: "The One Toronto", category: "Real Estate", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "jpmorgan", title: "JPMorgan", subtitle: "INTERNATIONAL COUNCIL", client: "JPMorgan", category: "Financial Services", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "aaron_matthew", title: "Aaron Matthew SIDS Research Guild", subtitle: "Not-For-Profit", client: "Aaron Matthew", category: "Not-For-Profit", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "centerbridge", title: "Centerbridge Partners", subtitle: "Banking + Finance", client: "Centerbridge", category: "Banking + Finance", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "coinbase", title: "Coinbase", subtitle: "Banking + Finance", client: "Coinbase", category: "Banking + Finance", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "hotel-rivington", title: "Hotel on Rivington", subtitle: "Hospitality", client: "Hotel on Rivington", category: "Hospitality", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "special-olympics", title: "Special Olympics", subtitle: "Not-For-Profit", client: "Special Olympics", category: "Not-For-Profit", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "south-africa-tourism", title: "South Africa Tourism", subtitle: "Civic + Public + Political", client: "South Africa Tourism", category: "Civic + Public + Political", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "boracho", title: "Boracho Hard Seltzer", subtitle: "Consumer", client: "Boracho", category: "Consumer", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "eurotech", title: "Eurotech", subtitle: "B2B", client: "Eurotech", category: "B2B", description: "", imageUrl: "", videoUrl: "" },
-      { slug: "humankind", title: "Humankind Investments", subtitle: "Banking + Finance", client: "Humankind Investments", category: "Banking + Finance", description: "", imageUrl: "", videoUrl: "" },
-    ],
-  },
-  services: {
-    hero: { heading: "We equip, empower, and inspire tomorrow's leaders through premium branding", videoUrl: "" },
-    sidebar: { label: "When?", text: "Our work focusses on B2B tech scaleups at Series A & B stage. On top of that we work with one early stage startup at a time. Honoring both our passion and how we started." },
-    serviceCards: [
-      { title: "Premium Branding", text: "Our bestseller for scaleups: a premium branding approach that connects strategy and creativity to turn complex value into a clear and credible story for enterprise buyers." },
-      { title: "Sprint", text: "Sprints are 1-month projects designed to create a brand or website quickly and efficiently for early-stage startups." },
-      { title: "Subscription", text: "Design subscriptions are our way of collaborating long-term with clients, acting as their extended team to speed up growth and ensure consistency." },
-      { title: "Venture", text: "Venture relationships involve high commitment projects where we invest our expertise and resources in exchange for shares." },
-    ],
-    brandingPanels: [
-      { title: "Brand Strategy", description: "It's the core of your company's identity. It guides all business decisions, ensuring a consistent and impactful presence in the market.", items: "Research & Insights, Brand Model, Positioning, Value proposition, Messaging, Verbal Identity, Naming", bgColor: "#cba6f7", imageUrl: "", videoUrl: "" },
-      { title: "Identity", description: "Distinctive visual systems designed to be immediate, enduring, and unmistakable.", items: "Logo & Wordmark, Typography & Color, Art Direction, Brand Systems, Guidelines", bgColor: "#ffffff", imageUrl: "", videoUrl: "" },
-      { title: "Digital", description: "High-performance digital experiences—designed with precision and built to scale.", items: "UX & UI Design, Website Design, Web Development, Interaction & Motion", bgColor: "#fac541", imageUrl: "", videoUrl: "" },
-      { title: "Product", description: "Thoughtfully designed products that are intuitive, refined, and built for real use.", items: "UX Design, Prototyping, UI Systems, App Design", bgColor: "#1a1a1a", imageUrl: "", videoUrl: "" },
-      { title: "Sprints", description: "We work in rapid, focused cycles—prototyping, testing, and refining to move ideas forward quickly.", items: "Rapid Prototyping, Design Sprints, MVP Development, Iteration & Optimization, Concept Testing", bgColor: "#f5f0e8", imageUrl: "", videoUrl: "" },
-      { title: "Experiential", description: "Immersive brand experiences that create real-world impact.", items: "Brand Activations, Events & Installations, Spatial Design, Interactive Experiences", bgColor: "#e8f5e9", imageUrl: "", videoUrl: "" },
-      { title: "Film & Content", description: "Cinematic storytelling that elevates brands and drives engagement.", items: "Brand Films, Campaign Content, Motion & Animation, Post-Production", bgColor: "#1c1c2e", imageUrl: "", videoUrl: "" },
-      { title: "Objects", description: "Physical expressions of your brand—designed with the same level of care and intention.", items: "Corporate Gifting, Merchandise & Swag, Packaging, Custom Products", bgColor: "#2B59C3", imageUrl: "", videoUrl: "" },
-    ],
-  },
-  about: {
-    intro: { paragraph: "SERIOUS.BUSINESS started in 2015 as a passion project at Hyper Island, Stockholm by a diverse group of creatives with the goal of re-defining what a serious business is really about: kindness and creativity." },
-    ctaBlocks: [
-      { topText: "You feel it too?\nLet's talk, no strings attached", heading: "Send Request", bgColor: "#E8E6DF" },
-      { topText: "Our free offer for B2B tech scaleups!\nWe identify high-impact messaging and brand fixes you can implement within 24 hours.", heading: "Brand Masterplan", bgColor: "#2B59C3" },
-    ],
-  },
-  clients: {
-    hero: { label: "Our Partners", heading: "Credibility has an impact\nin numbers", subheading: "Bookings in Europe and the Americas partner with us for our expertise in Brand Strategy, Identity, Marketing & Product." },
-    stats: [
-      { value: "95%", label: "Of the clients we work with are built on long-term partnerships" },
-      { value: "40+", label: "Top startups across global markets, EU/USA Markets" },
-      { value: "180+", label: "Strategies we have designed for our clients" },
-      { value: "320M€", label: "Of funding was raised by our partner clients and us" },
-    ],
-    clientList: [],
-    ctaSection: { heading: "Want to join our client roster?", buttonText: "Get in Touch" },
-  },
-  insights: {
-    articles: [
-      {
-        title: "Brand Messaging is the Soul of Rebranding",
-        slug: "brand-messaging",
-        heroImage: "",
-        body: "## 1. The Foundation of Rebranding\n\nBrand messaging is the soul of your rebrand. Without a clear message, visual identity falls flat. It's the compass that guides every touchpoint—from tagline to website copy to sales deck.\n\n## 2. Customer Interviews\n\nPro Tip: Conduct in-depth customer interviews and ask, \"What problem does this brand solve for you?\" and \"How does this brand make you feel?\" Often, the most impactful insights come from responses that reveal underlying motivations and desires.\n\n## 3. The Outcome of Deep Research: Differentiation & Positioning\n\nTrue differentiation isn't just about what you offer—it's about why you exist and how you communicate that story. Brands that succeed in standing out do so because they have a clear, compelling position that resonates deeply with their audience.\n\nTo craft an authentic positioning strategy:\n\n- Identify the unique aspects of your brand DNA that competitors can't replicate.\n- Align messaging with customer needs and emotional triggers.\n- Use research insights to craft a positioning statement that feels both bold and authentic.",
-      },
-      {
-        title: "The Art of Gathering Insights",
-        slug: "art-of-gathering-insights",
-        heroImage: "",
-        body: "## 1. Why Research Is Our Love Language\n\nGreat brands aren't born from guesswork. They're built on deep, empathetic research that uncovers what makes people tick.\n\n## 2. Internal Stakeholders\n\nThrough internal interviews and workshops, we uncover the unspoken truths about a brand—the stories that drive passion, the frustrations that need to be addressed, and the vision that fuels its long-term success.\n\n## 3. The Brand's Heartbeat\n\nA brand isn't just an external entity—it's deeply embedded in the people who bring it to life every day. Employees, leadership, and key stakeholders are invaluable sources of insight, offering perspectives that no external research can replicate.",
-      },
-      {
-        title: "The Founders' Guide to Rebranding",
-        slug: "the-founders-guide-to-rebranding",
-        heroImage: "",
-        body: "## ...is it time?\n\nKnowing when to rebrand is half the battle. If your brand no longer reflects who you are, where you're headed, or how you want to be perceived—it's time.\n\n## Signs You Need a Rebrand\n\n- Your brand looks dated compared to competitors\n- You've outgrown your original positioning\n- Mergers, acquisitions, or leadership changes have shifted your identity\n- Customer perception doesn't match your actual value\n\n## The Founder's Role\n\nAs a founder, your vision is the DNA of the brand. A successful rebrand doesn't abandon that—it amplifies it for the next chapter.",
-      }
-    ],
-  },
-};
+const FALLBACK_DATA = defaults;
 
 // Utilities for reading/writing nested keys like "cta.left" inside the
 // section dictionary, so a single PAGE_CONFIG section can address a deep
@@ -998,12 +866,22 @@ export default function AdminPanel() {
       const res = await fetch(`${API}/pages/${page}`);
       const data = await res.json();
       const sections = data.sections || {};
-      // If DB has data, use it; otherwise use fallback so user sees current content
-      const hasData = Object.keys(sections).some(k => {
-        const v = sections[k];
-        return Array.isArray(v) ? v.length > 0 : v && Object.keys(v).length > 0;
+      
+      // Deep merge with fallback data so existing content is visible where DB is empty
+      const merged = JSON.parse(JSON.stringify(FALLBACK_DATA[page] || {}));
+      
+      Object.keys(sections).forEach(key => {
+        const value = sections[key];
+        if (value && typeof value === 'object' && !Array.isArray(value)) {
+          merged[key] = { ...(merged[key] || {}), ...value };
+        } else if (Array.isArray(value) && value.length > 0) {
+          merged[key] = value;
+        } else if (value !== undefined && value !== null) {
+          merged[key] = value;
+        }
       });
-      setPageData(hasData ? sections : (FALLBACK_DATA[page] || {}));
+
+      setPageData(merged);
     } catch {
       // API down — show fallback data so user can still see/edit
       setPageData(FALLBACK_DATA[page] || {});
@@ -1029,6 +907,7 @@ export default function AdminPanel() {
       });
       const data = await res.json();
       if (data.page) {
+        invalidatePageContent(activePage);
         showToast(`${config.label} page saved!`);
       } else {
         showToast(data.error || "Save failed", "error");

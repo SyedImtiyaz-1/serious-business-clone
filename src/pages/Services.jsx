@@ -43,6 +43,10 @@ export default function Services() {
           list={items}
           imageContent={PANEL_VISUALS[i % PANEL_VISUALS.length]}
           textColor={panel.textColor || "text-[#020817]"}
+          videoUrl={panel.videoUrl}
+          imageUrl={panel.imageUrl}
+          mediaTitle={panel.mediaTitle}
+          mediaLabel={panel.mediaLabel}
         />
       ),
     };
