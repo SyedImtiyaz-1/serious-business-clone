@@ -96,7 +96,7 @@ export default function Work() {
             aria-selected={activeTab === 'Featured'}
             onClick={() => { setActiveTab('Featured'); setHoveredSlug(null); }}
           >
-            {tabs.featured}<span className={styles.tabCount}>{String(Math.min(6, allProjects.length)).padStart(2, '0')}</span>
+            {tabs.featured}<span className={styles.tabCount}>{String(featuredProjects.length).padStart(2, '0')}</span>
             {activeTab === 'Featured' && <span className={styles.tabDot} />}
           </button>
           <button
