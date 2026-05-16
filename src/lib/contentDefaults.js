@@ -47,7 +47,7 @@ export const defaults = {
           slug: "cost-of-renderings",
         },
         {
-          bg: "#f4f0ea",
+          bg: "#2B59C3",
           brand: "SERIOUS.BUSINESS",
           label: "Why Parent Brands Matter More Than Ever",
           labelColor: "#ffb5cc",
@@ -56,7 +56,7 @@ export const defaults = {
           slug: "rise-of-mothership",
         },
         {
-          bg: "#f4f0ea",
+          bg: "#0B0215",
           brand: "SERIOUS.BUSINESS",
           label: "How Modern Creative Production Actually Works",
           labelColor: "#ffb5cc",
@@ -434,6 +434,27 @@ export const defaults = {
         slug: "the-founders-guide-to-rebranding",
         heroImage: "",
         body: "## ...is it time?\n\nKnowing when to rebrand is half the battle. If your brand no longer reflects who you are, where you're headed, or how you want to be perceived—it's time.\n\n## Signs You Need a Rebrand\n\n- Your brand looks dated compared to competitors\n- You've outgrown your original positioning\n- Mergers, acquisitions, or leadership changes have shifted your identity\n- Customer perception doesn't match your actual value\n\n## The Founder's Role\n\nAs a founder, your vision is the DNA of the brand. A successful rebrand doesn't abandon that—it amplifies it for the next chapter.",
+        images: [],
+      },
+      {
+        title: "The Cost of Renderings Is Down.",
+        slug: "cost-of-renderings",
+        heroImage: "",
+        body: "The Importance of Real Estate Marketing Is Up.\n\nHow AI, visualization tools, and speed are reshaping development marketing — and why stronger positioning matters more than ever.",
+        images: [],
+      },
+      {
+        title: "The Rise of the Mothership",
+        slug: "rise-of-mothership",
+        heroImage: "",
+        body: "Why Parent Brands Matter More Than Ever\n\nHow holding companies, platforms, and portfolio ecosystems are redefining the relationship between master brands and sub-brands.",
+        images: [],
+      },
+      {
+        title: "AI, Rasterization & Velocity",
+        slug: "ai-rasterization-velocity",
+        heroImage: "",
+        body: "How Modern Creative Production Actually Works\n\nA practical look at AI-assisted workflows, rasterization, rendering pipelines, and how creative teams are compressing timelines dramatically.",
         images: [],
       }
     ],

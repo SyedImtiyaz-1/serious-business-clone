@@ -37,9 +37,30 @@ const defaultData = [
         heading: "Latest insights for scaleup teams",
         trendingButton: "What's trending.",
         cards: [
-          { bg: "#f7c4d5", brand: "Marshall Haber", label: "The Heart of the Shift:", title: "Brand Messaging is the\nSoul of Rebranding", desc: "The Heart of the Shift: Brand Messaging Is the Soul of Rebranding" },
-          { bg: "#2B59C3", brand: "Marshall Haber", label: "Research Is Our Love Language:", labelColor: "#fbf0f2", title: "The Art of\nGathering Insights", desc: "Research Is Our Love Language: The Art of Gathering Insights" },
-          { bg: "#0B0215", brand: "Marshall Haber", label: "The Founders' Guide to Rebranding", titleLarge: "...is it time?", desc: "The Founders' Guide to Rebranding" },
+          {
+            bg: "#ffb5cc",
+            brand: "SERIOUS.BUSINESS",
+            label: "The Importance of Real Estate Marketing Is Up.",
+            title: "The Cost of\nRenderings Is Down.",
+            desc: "How AI, visualization tools, and speed are reshaping development marketing — and why stronger positioning matters more than ever.",
+            slug: "cost-of-renderings",
+          },
+          {
+            bg: "#f4f0ea",
+            brand: "SERIOUS.BUSINESS",
+            label: "Why Parent Brands Matter More Than Ever",
+            title: "The Rise of the\nMothership",
+            desc: "How holding companies, platforms, and portfolio ecosystems are redefining the relationship between master brands and sub-brands.",
+            slug: "rise-of-mothership",
+          },
+          {
+            bg: "#f4f0ea",
+            brand: "SERIOUS.BUSINESS",
+            label: "How Modern Creative Production Actually Works",
+            title: "AI, Rasterization\n& Velocity",
+            desc: "A practical look at AI-assisted workflows, rasterization, rendering pipelines, and how creative teams are compressing timelines dramatically.",
+            slug: "ai-rasterization-velocity",
+          },
         ],
       },
       servicePanels: [

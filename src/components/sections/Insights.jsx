@@ -44,16 +44,7 @@ export default function Insights() {
 
   // Merge CMS cards with defaults so slugs and other fields are never empty
   const defaultCards = defaults.home.insights.cards;
-  const cards = rawCards.map((card, i) => {
-    const def = defaultCards[i] || {};
-    const cmsArt = cmsArticles[i];
-    return {
-      ...def,
-      ...card,
-      title: cmsArt?.title || card.title || def.title,
-      slug: cmsArt?.slug || card.slug || def.slug || `article-${i}`,
-    };
-  });
+  const cards = defaultCards;
 
   // Section has a static cream bg; all text/borders stay dark for readability.
   const textColor = "#020817";
