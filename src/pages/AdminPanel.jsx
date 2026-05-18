@@ -3,7 +3,7 @@ import styles from "./AdminPanel.module.css";
 import { invalidatePageContent } from "../hooks/usePageContent";
 import { defaults } from "../lib/contentDefaults";
 
-const API = "http://localhost:5000/api/admin";
+const API = "/api/admin";
 const KEY = "234583419264838";
 const headers = { "x-admin-key": KEY };
 const jsonHeaders = { "x-admin-key": KEY, "Content-Type": "application/json" };
