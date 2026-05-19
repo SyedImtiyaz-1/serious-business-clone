@@ -44,18 +44,11 @@ export default function Works() {
     <div ref={containerRef} className="w-full px-6 pt-12 pb-10 bg-[#fbf0f2] text-[#020817]">
       <Reveal>
         <h2
-          className="text-[clamp(1.8rem,4.5vw,3.2rem)] md:text-[3.5vw] lg:text-[2.8vw] font-bold leading-[1.1] mb-16 text-inherit text-center max-w-[1000px] mx-auto"
-          style={{ fontFamily: "'PP Mori', sans-serif" }}
+          className="text-[clamp(1.8rem,4.5vw,3.2rem)] md:text-[3.5vw] lg:text-[2.8vw] leading-[1.1] mb-16 text-inherit text-center max-w-[1000px] mx-auto"
         >
-          <span>{headingBold}</span>{" "}
-          {headingItalic && (
-            <>
-              <br className="hidden sm:block" />
-              <span className="whitespace-nowrap" style={{ fontFamily: "'Nib Pro', serif", fontWeight: 400, fontStyle: "italic" }}>
-                {headingItalic}
-              </span>
-            </>
-          )}
+          <span style={{ fontFamily: "'Nib Pro', serif", fontWeight: 700, fontStyle: "italic" }}>
+            {headingItalic || "Creating vision and transformation."}
+          </span>
         </h2>
       </Reveal>
 
