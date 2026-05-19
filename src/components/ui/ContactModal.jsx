@@ -222,15 +222,6 @@ export default function ContactModal({ isOpen, onClose }) {
                                                     aria-label="Your email"
                                                 />
                                             </div>
-                                            <input
-                                                type="tel"
-                                                className={styles.inputPill}
-                                                placeholder="Phone: +1 212.494.9052"
-                                                value={phone}
-                                                onChange={(e) => setPhone(e.target.value)}
-                                                aria-label="Phone number"
-                                                style={{ marginBottom: '12px' }}
-                                            />
                                             <textarea
                                                 className={styles.textareaBox}
                                                 placeholder=""
@@ -241,6 +232,9 @@ export default function ContactModal({ isOpen, onClose }) {
                                         </div>
 
                                         <div className={styles.footerRow}>
+                                            <div className={styles.modalPhoneText}>
+                                                Phone: +1 212.494.9052
+                                            </div>
                                             <button type="submit" className={styles.submitBtn}>
                                                 Submit
                                                 <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
