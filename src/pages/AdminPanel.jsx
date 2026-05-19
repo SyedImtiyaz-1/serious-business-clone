@@ -138,6 +138,7 @@ const PAGE_CONFIG = {
         fields: [
           { name: "title", label: "Title", type: "text" },
           { name: "slug", label: "URL Slug", type: "text" },
+          { name: "sortOrder", label: "Sort Order (lower = first)", type: "text" },
           { name: "featuredOnWork", label: "Feature on Work Page (Featured Tab)", type: "boolean" },
           { name: "featuredOnHome", label: "Feature on Home Page", type: "boolean" },
           { name: "subtitle", label: "Subtitle", type: "text" },
@@ -399,6 +400,10 @@ const PAGE_CONFIG = {
         fields: [
           { name: "title", label: "Title", type: "text" },
           { name: "slug", label: "URL Slug", type: "text" },
+          { name: "tag", label: "Card Tag (e.g. SERIOUS.BUSINESS)", type: "text" },
+          { name: "desc", label: "Card Description/Subtitle", type: "textarea" },
+          { name: "bgColor", label: "Card Background Color", type: "color" },
+          { name: "textColor", label: "Card Text Color", type: "color" },
           { name: "heroImage", label: "Hero Image", type: "image" },
           { name: "body", label: "Article Body (use ## for headings, - for bullet points, blank lines for paragraphs)", type: "textarea" },
           { name: "image1", label: "Image 1 (placed after first section)", type: "image" },

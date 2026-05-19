@@ -44,10 +44,18 @@ export default function Works() {
     <div ref={containerRef} className="w-full px-6 pt-12 pb-10 bg-[#fbf0f2] text-[#020817]">
       <Reveal>
         <h2
-          className="text-[clamp(1.6rem,5vw,3.2rem)] md:text-[4vw] lg:text-[3.2vw] font-bold leading-[1.1] mb-16 text-inherit text-center max-w-none mx-auto"
+          className="text-[clamp(1.8rem,4.5vw,3.2rem)] md:text-[3.5vw] lg:text-[2.8vw] font-bold leading-[1.1] mb-16 text-inherit text-center max-w-[1000px] mx-auto"
           style={{ fontFamily: "'PP Mori', sans-serif" }}
         >
-          {headingBold} <br className="hidden md:block" /> <span className="italic font-normal" style={{ fontFamily: "'Nib Pro', serif" }}>{headingItalic}</span>
+          <span>{headingBold}</span>{" "}
+          {headingItalic && (
+            <>
+              <br className="hidden sm:block" />
+              <span className="whitespace-nowrap" style={{ fontFamily: "'Nib Pro', serif", fontWeight: 400, fontStyle: "italic" }}>
+                {headingItalic}
+              </span>
+            </>
+          )}
         </h2>
       </Reveal>
 
@@ -85,12 +93,12 @@ export default function Works() {
                 </div>
 
                 <Reveal>
-                  <h3 className="text-xl md:text-2xl font-bold mb-2 text-left leading-snug">
-                    <span className="group-hover-underline">{p.title} | {p.subtitle}</span>
+                  <h3 className="text-base md:text-lg font-bold mb-1 text-left leading-snug" style={{ fontFamily: "'PP Mori', sans-serif" }}>
+                    <span>{p.title}</span> <span className="font-normal opacity-60">| {p.subtitle}</span>
                   </h3>
                 </Reveal>
                 <Reveal delay={0.4}>
-                  <p className="text-xs md:text-sm font-medium opacity-60 uppercase tracking-wide text-left">{p.category}</p>
+                  <p className="text-xs font-medium opacity-40 uppercase tracking-wide text-left">{p.category}</p>
                 </Reveal>
               </motion.div>
             </TransitionLink>

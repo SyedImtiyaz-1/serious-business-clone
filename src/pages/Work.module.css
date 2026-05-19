@@ -15,24 +15,41 @@
 
 /* Tabs Header Section */
 .tabsSection {
-  padding: 17rem clamp(16px, 2vw, 28px) 10rem;
+  padding: 17rem clamp(16px, 2vw, 28px) 4rem;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
 .tabsContainer {
-  display: flex;
+  display: none;
   align-items: flex-start;
   gap: 3.5rem;
   position: relative;
+}
+
+@media (min-width: 768px) {
+  .tabsContainer {
+    display: flex;
+  }
+}
+
+.mobileDropdown {
+  display: flex;
+  position: relative;
+}
+
+@media (min-width: 768px) {
+  .mobileDropdown {
+    display: none;
+  }
 }
 
 .tabButton {
   background: none;
   border: none;
   font-family: 'PP Mori', sans-serif;
-  font-size: clamp(2.2rem, 4.8vw, 4.4rem);
+  font-size: clamp(1.6rem, 4.8vw, 4.4rem);
   font-weight: 700;
   letter-spacing: -0.03em;
   line-height: 1.08;
@@ -87,17 +104,24 @@
 }
 
 .row {
-  display: grid;
-  grid-template-columns: 2fr 1fr 1fr;
-  gap: 2rem;
+  display: flex;
+  flex-direction: column;
   padding: 1.5rem 0.25rem;
   border-bottom: 1px solid rgba(2, 8, 23, 0.15);
   color: #020817;
   text-decoration: none;
-  font-size: clamp(0.95rem, 1.2vw, 1.1rem);
-  letter-spacing: -0.005em;
   transition: opacity 0.2s ease;
-  font-family: 'Nib Pro', serif;
+}
+
+@media (min-width: 768px) {
+  .row {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    gap: 2rem;
+    font-size: clamp(0.95rem, 1.2vw, 1.1rem);
+    letter-spacing: -0.005em;
+    font-family: 'Nib Pro', serif;
+  }
 }
 
 .row:first-child {
@@ -313,4 +337,52 @@
     grid-template-columns: 1fr;
     gap: 2.5rem;
   }
+
+  .searchBar {
+    margin: 0 20px;
+  }
+}
+
+/* Search Bar */
+.searchBar {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid rgba(2, 8, 23, 0.3);
+  margin: 0 clamp(16px, 4vw, 48px) 4rem;
+  padding: 12px 0;
+}
+
+.searchInput {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-family: 'PP Mori', sans-serif;
+  font-size: clamp(1rem, 3.5vw, 1.5rem);
+  color: #020817;
+  letter-spacing: 0.01em;
+  min-width: 0;
+}
+
+.searchInput::placeholder {
+  color: rgba(2, 8, 23, 0.5);
+  font-style: normal;
+  text-overflow: ellipsis;
+}
+
+.searchAction {
+  background: none;
+  border: none;
+  font-family: 'PP Mori', sans-serif;
+  font-size: clamp(0.85rem, 3vw, 1.2rem);
+  color: #020817;
+  cursor: pointer;
+  padding: 4px 0 4px 8px;
+  opacity: 0.7;
+  transition: opacity 0.2s;
+  white-space: nowrap;
+}
+
+.searchAction:hover {
+  opacity: 1;
 }

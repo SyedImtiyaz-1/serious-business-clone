@@ -29,12 +29,22 @@ export default function Hero() {
   // the DOM nodes, so GSAP can properly un-pin and remove the pin spacer.
   useLayoutEffect(() => {
     const ctx = gsap.context(() => {
-      // Explicit start state so GSAP can interpolate (clamp/calc values can't be tweened)
+      const isMobile = window.innerWidth <= 768;
+      const startWidth = isMobile ? window.innerWidth - 48 : 320;
+      const startHeight = isMobile ? Math.min((startWidth * 9) / 16, 200) : 180;
+      // On mobile, if we want it centered, left should be (innerWidth - startWidth) / 2
+      // But actually if startWidth is innerWidth - 48, then left is 24 anyway.
+      // If we want it smaller and centered on mobile:
+      const mobileStartWidth = 240;
+      const actualStartWidth = isMobile ? mobileStartWidth : 320;
+      const actualStartHeight = isMobile ? (mobileStartWidth * 9) / 16 : 180;
+      const actualStartLeft = isMobile ? (window.innerWidth - mobileStartWidth) / 2 : 24;
+
       gsap.set(videoWrapperRef.current, {
         bottom: 24,
-        left: 24,
-        width: 320,
-        height: 180,
+        left: actualStartLeft,
+        width: actualStartWidth,
+        height: actualStartHeight,
         borderRadius: 12,
       });
 
@@ -89,14 +99,13 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* TEXT — Center */}
+      {/* TEXT — Centered */}
       <div
         ref={textRef}
-        className="absolute top-[45vh] md:top-[35vh] w-full flex justify-center z-20 pointer-events-none px-6"
+        className="absolute top-[48vh] md:top-[40vh] w-full flex justify-center z-20 pointer-events-none px-6"
       >
-        <h2 className="text-[24px] sm:text-[32px] md:text-[40px] lg:text-[50px] leading-[1.1] text-[#fbf0f2] text-center tracking-tight max-w-[900px]">
-          <span className="font-bold" style={{ fontFamily: "'PP Mori', sans-serif" }}>{headingBold}</span> <br className="hidden sm:block" />
-          <span style={{ fontFamily: "'Nib Pro', serif", fontWeight: 400 }}>{headingItalic}</span>
+        <h2 className="text-center tracking-tight sm:whitespace-nowrap text-[#fbf0f2] leading-[1.1]" style={{ fontSize: "clamp(1.2rem, 3.8vw, 3.1rem)", fontFamily: "'Nib Pro', serif", fontWeight: 300 }}>
+          {headingBold} {headingItalic}
         </h2>
       </div>
 
@@ -105,10 +114,6 @@ export default function Hero() {
         ref={videoWrapperRef}
         style={{
           position: "absolute",
-          bottom: "1.5rem",
-          left: "1.5rem",
-          width: "clamp(160px, 25vw, 380px)",
-          height: "clamp(100px, 15vw, 220px)",
           borderRadius: "12px",
           boxShadow: "0 20px 40px rgba(0,0,0,0.3)",
           backgroundColor: "#0B0215",

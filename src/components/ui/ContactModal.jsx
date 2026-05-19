@@ -8,6 +8,7 @@ const INITIAL = {
     services: new Set(),
     name: '',
     email: '',
+    phone: '',
     message: '',
     stage: 'form',
 };
@@ -16,12 +17,13 @@ export default function ContactModal({ isOpen, onClose }) {
     const [services, setServices] = useState(INITIAL.services);
     const [name, setName] = useState(INITIAL.name);
     const [email, setEmail] = useState(INITIAL.email);
+    const [phone, setPhone] = useState(INITIAL.phone);
     const [message, setMessage] = useState(INITIAL.message);
     const [stage, setStage] = useState(INITIAL.stage);
     const prevOverflow = useRef('');
 
     const isPristine =
-        services.size === 0 && !name && !email && !message;
+        services.size === 0 && !name && !email && !phone && !message;
 
     const finalClose = () => {
         onClose();
@@ -41,6 +43,7 @@ export default function ContactModal({ isOpen, onClose }) {
             setServices(new Set());
             setName('');
             setEmail('');
+            setPhone('');
             setMessage('');
             setStage('form');
         }
@@ -83,6 +86,7 @@ export default function ContactModal({ isOpen, onClose }) {
             services: Array.from(services),
             name,
             email,
+            phone,
             message,
         };
         console.log('Project request submitted:', payload);
@@ -208,6 +212,15 @@ export default function ContactModal({ isOpen, onClose }) {
                                                     aria-label="Your email"
                                                 />
                                             </div>
+                                            <input
+                                                type="tel"
+                                                className={styles.inputPill}
+                                                placeholder="Phone: +1 212.494.9052"
+                                                value={phone}
+                                                onChange={(e) => setPhone(e.target.value)}
+                                                aria-label="Phone number"
+                                                style={{ marginBottom: '12px' }}
+                                            />
                                             <textarea
                                                 className={styles.textareaBox}
                                                 placeholder=""

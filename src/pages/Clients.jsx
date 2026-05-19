@@ -1,6 +1,7 @@
 import { useRef, useState, useLayoutEffect } from 'react';
 import { motion, useInView } from 'framer-motion';
 import TransitionLink from '../components/ui/TransitionLink';
+import ContactModal from '../components/ui/ContactModal';
 import styles from './Clients.module.css';
 import { usePageContent } from '../hooks/usePageContent';
 import { getContent, getLogoUrl } from '../lib/content';
@@ -48,6 +49,7 @@ export default function Clients() {
     const categories = ['All', ...Array.from(new Set(clients.map(c => c.category)))].filter(cat => allowedCategories.has(cat));
 
     const [activeFilter, setActiveFilter] = useState('All');
+    const [isContactModalOpen, setIsContactModalOpen] = useState(false);
 
     const filtered = activeFilter === 'All'
         ? clients
@@ -63,14 +65,6 @@ export default function Clients() {
         >
             {/* Hero */}
             <section className={styles.hero}>
-                <motion.p
-                    className={styles.heroLabel}
-                    initial={{ opacity: 0, y: 15 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ delay: 0.2, duration: 0.6 }}
-                >
-                    {heroLabel}
-                </motion.p>
                 <motion.h1
                     className={styles.heroHeading}
                     initial={{ opacity: 0, y: 40 }}
@@ -87,7 +81,16 @@ export default function Clients() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.3, duration: 0.7 }}
                 >
-                    {heroSubtitle}
+                    For over 20 years, companies across finance, real estate, technology, family office, entertainment, and nonprofit sectors have trusted MHCG to help bring complex ideas to market.
+                </motion.p>
+                <motion.p
+                    className={styles.heroSub}
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.5, duration: 0.7 }}
+                    style={{ marginTop: '1rem' }}
+                >
+                    From brand strategy to production, we help companies move from vision to execution.
                 </motion.p>
             </section>
 
@@ -135,11 +138,13 @@ export default function Clients() {
             <section className={styles.cta}>
                 <FadeIn>
                     <h2 className={styles.ctaHeading}>{ctaHeading}</h2>
-                    <TransitionLink to="/contact" className={styles.ctaButton}>
+                    <button className={styles.ctaButton} onClick={() => setIsContactModalOpen(true)}>
                         {ctaButtonText}
-                    </TransitionLink>
+                    </button>
                 </FadeIn>
             </section>
+
+            <ContactModal isOpen={isContactModalOpen} onClose={() => setIsContactModalOpen(false)} />
         </motion.div>
     );
 }

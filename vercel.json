@@ -6,6 +6,14 @@
     "api/admin/upload-image.js": { "maxDuration": 30 },
     "api/admin/upload-video.js": { "maxDuration": 60 }
   },
+  "redirects": [
+    { "source": "/index.php", "destination": "/", "permanent": true },
+    { "source": "/home", "destination": "/", "permanent": true },
+    { "source": "/about-us", "destination": "/about", "permanent": true },
+    { "source": "/our-work", "destination": "/work", "permanent": true },
+    { "source": "/contact-us", "destination": "/contact", "permanent": true },
+    { "source": "/services-list", "destination": "/services", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/((?!api/).*)", "destination": "/index.html" }
   ]

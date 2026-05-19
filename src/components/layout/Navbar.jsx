@@ -412,13 +412,25 @@ export default function Navbar() {
       className="w-full flex items-center justify-between px-4 md:px-8 py-4 md:py-8 pointer-events-none"
       style={{ position: "relative", zIndex: 9999 }}
     >
-      <div className="md:hidden block pointer-events-auto leading-none mt-4">
+      <div className="md:hidden block pointer-events-auto leading-none mt-4 relative h-6 w-40">
         <TransitionLink to="/">
           <img
             src="/logonewlong.png"
             alt="Marshall Haber Creative Group"
-            className="h-6 w-auto cursor-pointer transition-[filter] duration-500"
-            style={{ filter: isLightBg ? "invert(1)" : "none" }}
+            className="absolute left-0 top-0 h-6 w-auto cursor-pointer transition-all duration-700 ease-in-out"
+            style={{
+              opacity: showCenterLogo ? 0 : 1,
+              filter: isLightBg ? "invert(1)" : "none",
+            }}
+          />
+          <img
+            src="/logo.png"
+            alt="MHCG"
+            className="absolute left-0 top-0 h-6 w-auto cursor-pointer transition-all duration-700 ease-in-out"
+            style={{
+              opacity: showCenterLogo ? 1 : 0,
+              filter: isLightBg ? "invert(0)" : "invert(1)",
+            }}
           />
         </TransitionLink>
       </div>
@@ -500,7 +512,7 @@ export default function Navbar() {
               </button>
             </div>
 
-            <div className="flex flex-col gap-6 text-3xl font-semibold">
+            <div className="flex flex-col items-center justify-center h-full gap-8 text-4xl font-semibold">
               {(nav.menu || []).map((item) => (
                 <TransitionLink key={item.href} to={item.href} onClick={() => setIsOpen(false)}>
                   {item.label}
@@ -508,19 +520,13 @@ export default function Navbar() {
               ))}
               <button
                 type="button"
-                className="text-left"
                 onClick={() => { setIsOpen(false); setIsContactOpen(true); }}
               >
                 {nav.contactButton}
               </button>
             </div>
 
-            <div className="text-sm">
-              <p className="uppercase text-xs opacity-50">{nav.sayHelloLabel}</p>
-              <p className="underline mb-4">{nav.sayHelloEmail}</p>
-              <p className="uppercase text-xs opacity-50">{nav.talentLabel}</p>
-              <p className="underline">{nav.talentEmail}</p>
-            </div>
+            {/* Mobile Footer removed per user request */}
           </motion.div>
         )}
       </AnimatePresence>

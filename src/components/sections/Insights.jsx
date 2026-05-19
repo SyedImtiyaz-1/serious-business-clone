@@ -44,7 +44,19 @@ export default function Insights() {
 
   // Merge CMS cards with defaults so slugs and other fields are never empty
   const defaultCards = defaults.home.insights.cards;
-  const cards = defaultCards;
+  const cards = defaultCards.map((def, i) => {
+    const cms = cmsArticles[i] || {};
+    return {
+      ...def,
+      ...cms,
+      bg: cms.bgColor || def.bg,
+      textColor: cms.textColor || def.textColor,
+      brand: cms.tag || def.brand,
+      label: cms.desc || def.label,
+      title: cms.title || def.title,
+      slug: cms.slug || def.slug,
+    };
+  });
 
   // Section has a static cream bg; all text/borders stay dark for readability.
   const textColor = "#020817";
@@ -160,11 +172,11 @@ export default function Insights() {
                         className="font-bold leading-tight tracking-tight"
                         style={{
                           fontFamily: "'PP Mori', sans-serif",
-                          fontSize: "clamp(1.6rem, 3.2vw, 2.4rem)",
+                          fontSize: "clamp(1.5rem, 2.5vw, 2.4rem)",
                         }}
                       >
                         {(card.titleLarge || card.title).split("\n").map((line, j, arr) => (
-                          <span key={j} className="whitespace-nowrap">
+                          <span key={j}>
                             {renderTitleWithSmiley(line)}
                             {j < arr.length - 1 && <br />}
                           </span>

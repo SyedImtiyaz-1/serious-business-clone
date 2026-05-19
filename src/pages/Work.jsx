@@ -11,14 +11,29 @@ export default function Work() {
   const [activeTab, setActiveTab] = useState('Featured');
   const [hoveredSlug, setHoveredSlug] = useState(null);
   const [cursor, setCursor] = useState({ x: 0, y: 0 });
+  const [searchQuery, setSearchQuery] = useState('');
   const listRef = useRef(null);
+
+  const [searchPlaceholder, setSearchPlaceholder] = useState("Find work by client, type, location, year");
 
   useLayoutEffect(() => {
     document.body.style.backgroundColor = "#fbf0f2";
     document.body.style.color = "#020817";
+
+    const handleResize = () => {
+      if (window.innerWidth < 768) {
+        setSearchPlaceholder("Search work...");
+      } else {
+        setSearchPlaceholder("Find work by client, type, location, year");
+      }
+    };
+    handleResize();
+    window.addEventListener("resize", handleResize);
+
     return () => {
       document.body.style.backgroundColor = "";
       document.body.style.color = "";
+      window.removeEventListener("resize", handleResize);
     };
   }, []);
 
@@ -40,12 +55,24 @@ export default function Work() {
           image: p.imageUrl || '',
           video: p.videoUrl || '',
           featuredOnWork: p.featuredOnWork === true || p.featuredOnWork === "true",
+          sortOrder: parseInt(p.sortOrder, 10) || 999,
           fromCms: true,
-        })),
+        }))
+        .sort((a, b) => a.sortOrder - b.sortOrder),
     [cmsRawProjects]
   );
 
-  const allProjects = cmsProjects;
+  const allProjects = useMemo(() => {
+    if (!searchQuery.trim()) return cmsProjects;
+    const q = searchQuery.toLowerCase();
+    return cmsProjects.filter(p =>
+      p.title.toLowerCase().includes(q) ||
+      p.client.toLowerCase().includes(q) ||
+      p.category.toLowerCase().includes(q) ||
+      p.services.toLowerCase().includes(q) ||
+      p.subtitle.toLowerCase().includes(q)
+    );
+  }, [cmsProjects, searchQuery]);
 
   const industriesCount = useMemo(
     () => new Set(allProjects.map(p => p.category)).size,
@@ -116,11 +143,58 @@ export default function Work() {
             {activeTab === 'Industries' && <span className={styles.tabDot} />}
           </button>
         </div>
+
+        {/* Mobile Dropdown */}
+        <div className={styles.mobileDropdown}>
+          <div className={`${styles.tabButton} !opacity-100 flex items-start pointer-events-none`}>
+            {tabs[activeTab === 'Featured' ? 'featured' : activeTab === 'All projects' ? 'allProjects' : 'industries']}
+            <span className={styles.tabCount}>
+              {activeTab === 'Featured' ? String(featuredProjects.length).padStart(2, '0') :
+               activeTab === 'All projects' ? String(allProjects.length).padStart(2, '0') :
+               String(industriesCount).padStart(2, '0')}
+            </span>
+            <div className="flex flex-col ml-4 mt-3 gap-[2px]">
+              <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-b-[5px] border-b-[#020817]" />
+              <div className="w-0 h-0 border-l-[4px] border-l-transparent border-r-[4px] border-r-transparent border-t-[5px] border-t-[#020817]" />
+            </div>
+          </div>
+          <select 
+            value={activeTab}
+            onChange={(e) => { setActiveTab(e.target.value); setHoveredSlug(null); }}
+            className="absolute inset-0 w-full h-full opacity-0 z-10 cursor-pointer appearance-none"
+          >
+            <option value="Featured">Featured</option>
+            <option value="All projects">All projects</option>
+            <option value="Industries">Industries</option>
+          </select>
+        </div>
       </section>
+
+      {/* Search Bar */}
+      <div className={styles.searchBar}>
+        <input
+          type="text"
+          className={styles.searchInput}
+          placeholder={searchPlaceholder}
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          aria-label="Search projects"
+        />
+        {searchQuery ? (
+          <button className={styles.searchAction} onClick={() => setSearchQuery('')}>✕</button>
+        ) : (
+          <span className={styles.searchAction}>Search</span>
+        )}
+      </div>
 
       {/* Content */}
       {(activeTab === 'Featured' || activeTab === 'All projects') && (
         <section className={styles.workGrid}>
+          {(activeTab === 'Featured' ? featuredProjects : allProjects).length === 0 ? (
+            <div className="w-full text-center py-20 text-xl font-medium" style={{ fontFamily: "'PP Mori', sans-serif", color: "#020817" }}>
+              Work Not Found By This Name
+            </div>
+          ) : (
           <motion.div className={styles.grid}>
             {(activeTab === 'Featured' ? featuredProjects : allProjects).map((project, i) => (
               <motion.div
@@ -160,6 +234,7 @@ export default function Work() {
               </motion.div>
             ))}
           </motion.div>
+          )}
         </section>
       )}
 
@@ -234,9 +309,27 @@ function WorkRow({ project, rightCol, onEnter, onLeave }) {
       onMouseEnter={onEnter}
       onMouseLeave={onLeave}
     >
-      <span className={styles.rowTitle}>{project.subtitle || project.title}</span>
-      <span className={styles.rowClient}>{project.client}</span>
-      <span className={styles.rowMeta}>{rightCol}</span>
+      {/* Desktop view */}
+      <div className="hidden md:contents">
+        <span className={styles.rowTitle}>{project.subtitle || project.title}</span>
+        <span className={styles.rowClient}>{project.client}</span>
+        <span className={styles.rowMeta}>{rightCol}</span>
+      </div>
+
+      {/* Mobile view */}
+      <div className="flex md:hidden w-full justify-between items-center">
+        <div className="flex flex-col gap-1 items-start text-left">
+          <span className="text-[14px] font-medium opacity-65 font-sans leading-none">{project.client}</span>
+          <span className="text-[20px] font-bold tracking-tight text-[#020817] leading-tight" style={{ fontFamily: "'Nib Pro', serif", fontStyle: "italic" }}>
+            {project.subtitle || project.title}
+          </span>
+        </div>
+        {project.image && (
+          <div className="w-[120px] aspect-[4/3] rounded-2xl overflow-hidden shrink-0 ml-4 bg-black/5">
+            <img src={project.image} alt={project.title} className="w-full h-full object-cover" />
+          </div>
+        )}
+      </div>
     </TransitionLink>
   );
 }

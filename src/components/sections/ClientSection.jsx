@@ -32,9 +32,6 @@ export default function ClientSection() {
   return (
     <section className={styles.section}>
       <div className={styles.container}>
-        <div className={styles.headerRow}>
-          <h3 className={styles.label}>Clients:</h3>
-
           <div className={styles.logoGrid}>
             {clients.map((client, i) => {
               const sizePercent = parseInt(client.logoSize, 10) || 100;
@@ -56,7 +53,6 @@ export default function ClientSection() {
               );
             })}
           </div>
-        </div>
 
         <div className={styles.showAllWrap}>
           <TransitionLink to="/clients" className={styles.showAllBtn}>

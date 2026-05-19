@@ -97,7 +97,9 @@ export default function ServiceBlock({
             style={{ fontFamily: "'PP Mori', sans-serif" }}
           >
             {items.map((item, i) => (
-              <li key={i}>{item}</li>
+              <li key={i} className="hover:opacity-60 cursor-pointer transition-opacity duration-200">
+                {item}
+              </li>
             ))}
           </ul>
         </motion.div>
@@ -122,84 +124,41 @@ export default function ServiceBlock({
 }
 
 export const StrategyVideo = () => (
-  <div className="w-full h-full bg-[#0b0215] text-white relative overflow-hidden flex items-center justify-center">
-    <video
-      autoPlay
-      loop
-      muted
-      playsInline
-      className="absolute inset-0 w-full h-full object-cover opacity-60"
-      src={strategyVid}
+  <div className="w-full h-full relative overflow-hidden bg-black/5">
+    <img
+      src="/src/assets/myWork/TopImages/toronto.png"
+      alt="Brand Strategy"
+      className="absolute inset-0 w-full h-full object-cover"
     />
-    <div className="relative z-10 p-6 md:p-8 flex flex-col items-start justify-center w-full h-full">
-      <div className="absolute top-6 right-6 text-sm font-bold tracking-tighter flex items-center gap-2">
-        <div className="w-4 h-4 bg-white/20 rotate-45" /> strategy.mp4
-      </div>
-      <h3 className="text-[28px] md:text-[32px] font-bold leading-[1.1] tracking-tighter" style={{ fontFamily: "'PP Mori', sans-serif" }}>
-        Imagination <br /> beyond limits
-      </h3>
-    </div>
-    <div className="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent pointer-events-none" />
   </div>
 );
 
 export const VisualImage = () => (
-  <div className="w-full h-full bg-[#d2fb82] flex items-center justify-center relative">
-    <div className="w-24 h-24 rounded-full border-[6px] border-black flex items-center justify-center relative">
-      <div className="w-12 flex justify-between">
-        <div className="w-3 h-1.5 bg-black rounded-full" />
-        <div className="w-3 h-1.5 bg-black rounded-full" />
-      </div>
-      <div className="absolute bottom-4 w-12 h-1 bg-black rounded-full" />
-    </div>
-    <div className="absolute bottom-[35%] right-[38%] text-3xl font-black">⇧</div>
+  <div className="w-full h-full relative overflow-hidden bg-black/5">
+    <img
+      src="/src/assets/myWork/TopImages/optifino.png"
+      alt="Identity"
+      className="absolute inset-0 w-full h-full object-cover"
+    />
   </div>
 );
 
 export const WebsiteImage = () => (
-  <div className="w-full h-full bg-[#1a1a1a] flex flex-col border-[12px] border-[#1a1a1a] rounded-xl overflow-hidden">
-    <div className="h-6 w-full bg-[#ffffff] flex items-center px-4 gap-2">
-      <div className="flex gap-1.5">
-        <div className="w-2 h-2 rounded-full bg-red-400" />
-        <div className="w-2 h-2 rounded-full bg-yellow-400" />
-        <div className="w-2 h-2 rounded-full bg-green-400" />
-      </div>
-    </div>
-    <div className="flex-1 bg-gradient-to-t from-[#ff4500] to-[#ff8c00] w-full p-6 flex flex-col text-white">
-      <div className="text-xs font-bold mb-4 flex items-center gap-2"> <span className="w-2 h-2 rounded-full bg-white" /> quivo </div>
-      <div className="flex-1 border-t border-white/20 mt-4 relative">
-        <div className="absolute bottom-0 left-0 text-6xl font-black opacity-20">
-          <AnimatedCounter value={78} />
-        </div>
-      </div>
-    </div>
+  <div className="w-full h-full relative overflow-hidden bg-black/5">
+    <img
+      src="/src/assets/myWork/TopImages/memri.png"
+      alt="Digital"
+      className="absolute inset-0 w-full h-full object-cover"
+    />
   </div>
 );
 
 export const ProductImage = () => (
-  <div className="w-full h-full bg-[#0b1121] flex items-center justify-center p-4">
-    <div className="grid grid-cols-3 gap-3 w-full h-full opacity-90 p-4">
-      <div className="bg-white rounded-xl border-2 border-dashed border-gray-200 shadow-sm h-full flex flex-col p-2 gap-2">
-        <div className="w-full h-4 bg-gray-100 rounded-full" />
-        <div className="w-full flex-1 bg-gray-50 rounded-md" />
-        <div className="w-full h-6 bg-[#b5a6ff] rounded-md opacity-20" />
-      </div>
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm h-full flex flex-col relative overflow-hidden py-4 px-2">
-        <div className="w-12 h-12 mx-auto rounded-full border-4 border-[#fac541] mb-2" />
-        <div className="text-center font-black text-xl tracking-tighter">
-          <AnimatedCounter value={33} />.0<AnimatedCounter value={30} /> €
-        </div>
-        <div className="w-full h-full border-dashed border-2 border-gray-200 rounded-md mt-4" />
-      </div>
-      <div className="bg-[#ccfbf1] rounded-xl border border-teal-100 shadow-sm h-full flex flex-col p-3 gap-2">
-        <div className="w-full h-10 bg-white/50 rounded-md" />
-        <div className="w-full h-10 bg-white/50 rounded-md mt-auto" />
-      </div>
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm h-full" />
-      <div className="bg-[#fac541] rounded-xl border border-yellow-300 shadow-sm h-full flex items-center justify-center">
-        <span className="font-bold text-[12px] tracking-widest text-[#1a1a1a]">SWIPE</span>
-      </div>
-      <div className="bg-white rounded-xl border border-gray-100 shadow-sm h-full" />
-    </div>
+  <div className="w-full h-full relative overflow-hidden bg-black/5">
+    <img
+      src="/src/assets/myWork/TopImages/jpMorgan.png"
+      alt="Product"
+      className="absolute inset-0 w-full h-full object-cover"
+    />
   </div>
 );

@@ -38,12 +38,13 @@
   row-gap: 4.5rem;
   column-gap: 4rem;
   align-items: center;
+  justify-items: center;
 }
 
 .logoCell {
   display: flex;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: center;
   height: 90px;
 }
 

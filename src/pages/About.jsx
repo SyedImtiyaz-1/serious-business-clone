@@ -111,13 +111,17 @@ export default function About() {
 
         <div className={styles.textContent}>
           {paragraphs.map((p, i) => (
-            <p
+            <motion.p
               key={i}
               className={styles.mainParagraph}
               style={i > 0 ? { marginTop: '2rem' } : undefined}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: "-100px" }}
+              transition={{ duration: 0.8, delay: i * 0.1 }}
             >
               {typeof p === 'string' ? p : p.text}
-            </p>
+            </motion.p>
           ))}
         </div>
       </section>
