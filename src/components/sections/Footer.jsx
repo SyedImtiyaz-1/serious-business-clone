@@ -67,15 +67,15 @@ export default function Footer() {
       </div>
 
       {/* Bottom Legal Links */}
-      <div className={`w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-6 md:gap-4 text-[10px] font-bold uppercase tracking-widest px-4 border-t ${borderClass} pt-8 mt-12`}>
-        <div className="w-full md:w-auto flex justify-between items-start md:items-center gap-4">
-          <p className="flex-1 max-w-[200px] md:max-w-none">{f.copyright}</p>
-          <div className="flex items-center gap-4 shrink-0 mt-0.5 md:mt-0">
-            <span aria-hidden="true" className="opacity-40">|</span>
+      <div className={`w-full flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-[10px] font-bold uppercase tracking-widest px-4 border-t ${borderClass} pt-8 mt-12`}>
+        <div className="w-full md:w-auto flex flex-col md:flex-row md:items-center gap-3 md:gap-4">
+          <p className="leading-relaxed">{f.copyright}</p>
+          <div className="flex items-center gap-3 mt-1 md:mt-0">
+            <span aria-hidden="true" className="hidden md:inline opacity-40">|</span>
             <TransitionLink to="/legal" className="hover:opacity-60 transition-opacity">{f.legalLink}</TransitionLink>
           </div>
         </div>
-        <p className="w-full md:w-auto text-left md:text-right max-w-[280px] md:max-w-none leading-[1.6]">{f.address}</p>
+        <p className="w-full md:w-auto text-left md:text-right leading-[1.6] mt-2 md:mt-0 opacity-80">{f.address}</p>
       </div>
     </footer>
   );

@@ -138,7 +138,7 @@ const PAGE_CONFIG = {
         fields: [
           { name: "title", label: "Title", type: "text" },
           { name: "slug", label: "URL Slug", type: "text" },
-          { name: "sortOrder", label: "Sort Order (lower = first)", type: "text" },
+          { name: "sortOrder", label: "Sort Order (Number, lower = first)", type: "numbering" },
           { name: "featuredOnWork", label: "Feature on Work Page (Featured Tab)", type: "boolean" },
           { name: "featuredOnHome", label: "Feature on Home Page", type: "boolean" },
           { name: "subtitle", label: "Subtitle", type: "text" },
@@ -548,6 +548,17 @@ function FieldInput({ field, value, onChange }) {
         <input type="color" value={value || "#000000"} onChange={(e) => onChange(e.target.value)} className={styles.colorPicker} />
         <input type="text" value={value || ""} onChange={(e) => onChange(e.target.value)} className={styles.input} placeholder="#000000" />
       </div>
+    );
+  }
+  if (field.type === "numbering") {
+    return (
+      <input
+        className={styles.input}
+        type="number"
+        value={value !== undefined && value !== null ? value : ""}
+        onChange={(e) => onChange(e.target.value)}
+        placeholder={field.label}
+      />
     );
   }
   if (field.type === "number") {
